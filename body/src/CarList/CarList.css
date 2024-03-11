@@ -1,0 +1,9 @@
+.car-list {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+	padding: 5px;
+
+	border: 1px solid red;
+}

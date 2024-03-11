@@ -1,0 +1,48 @@
+:root {
+	--car-view-width: 300px;
+}
+
+.car-view {
+	width: var(--car-view-width);
+	/* border: 1px solid red; */
+}
+
+.car-view .image {
+	height: 350px;
+	border: 1px solid red;
+}
+
+.car-view .details {
+	width: var(--car-view-width);
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.row {
+	display: flex;
+	width: var(--car-view-width);
+	height: 40px;
+	justify-content: space-between;
+	margin: 6px 0;
+
+	border: 1px solid red;
+}
+
+.row > div {
+	width: calc(var(--car-view-width) / 2);
+	border: 1px solid red;
+}
+
+.row .label {
+	display: block;
+	font-size: 11px;
+	color: gray;
+}
+.row .value {
+	font-size: 14px;
+}
+
+.row .single-item {
+	width: var(--car-view-width);
+}

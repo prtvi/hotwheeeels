@@ -1,0 +1,23 @@
+.btn {
+	padding: 5px;
+	cursor: pointer;
+	background-color: rgb(27, 75, 127);
+	border: 2px solid rgb(8, 31, 77);
+	border-radius: 6px;
+	color: white;
+	font-family: 'Poppins', sans-serif;
+	font-weight: 300;
+	font-style: normal;
+}
+
+h1 {
+	text-align: center;
+	margin: 20px;
+}
+
+marquee {
+	font-size: 36px;
+}
+marquee.left {
+	transform: scale(-1, 1);
+}

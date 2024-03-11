@@ -1,0 +1,15 @@
+.car {
+	width: 100px;
+	height: 150px;
+	padding: 4px;
+	margin: 5px;
+	border-radius: 8px;
+	cursor: pointer;
+
+	border: 1px solid red;
+}
+
+.car-name {
+	color: blue;
+	font-size: 14px;
+}
