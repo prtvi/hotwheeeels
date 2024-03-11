@@ -3,14 +3,16 @@ import './CarList.css';
 import Car from './Car';
 
 export default function CarList(props) {
+	const { list, openModal, showCar } = props;
+
 	return (
 		<div className="car-list">
-			{props.list.map((car, i) => (
+			{list.map((car, i) => (
 				<Car
 					key={i}
 					car={car}
-					openModal={props.openModal}
-					showCar={props.showCar}
+					openModal={openModal}
+					showCar={showCar}
 				/>
 			))}
 		</div>

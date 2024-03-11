@@ -9,7 +9,7 @@
 	width: var(--form-width);
 }
 
-.ii-small-container {
+.form-row {
 	display: flex;
 	justify-content: space-between;
 	width: var(--form-width);
@@ -45,6 +45,7 @@
 	margin-left: 6px;
 	position: relative;
 	vertical-align: middle;
+	cursor: pointer;
 }
 
 .input-item textarea {

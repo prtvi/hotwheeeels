@@ -11,7 +11,8 @@
 }
 
 .modal-body {
-	background: white;
+	background: whitesmoke;
+	color: black;
 	margin: auto;
 	padding: 25px;
 	border: 2px solid #000;
@@ -31,6 +32,7 @@
 	cursor: pointer;
 	position: absolute;
 	right: 5px;
+	color: white;
 }
 .modal-close:hover {
 	transform: scale(1.1);

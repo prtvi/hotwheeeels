@@ -1,0 +1,6 @@
+marquee {
+	font-size: 36px;
+}
+marquee.left {
+	transform: scale(-1, 1);
+}

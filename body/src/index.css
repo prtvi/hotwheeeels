@@ -5,6 +5,13 @@
 
 :root {
 	--search-box-height: 40px;
+	--bg: #0d1116;
+	--color: #e6edf3;
+}
+
+body {
+	background-color: var(--bg);
+	color: var(--color);
 }
 
 .pf-100 {

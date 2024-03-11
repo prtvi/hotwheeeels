@@ -13,14 +13,14 @@ export default function AddCarForm() {
 		<div className="add-new-car-form">
 			<form action="" method="post">
 				<div className="form-content">
-					<div className="ii-small-container">
+					<div className="form-row">
 						<div className="input-item ii-small pf-300">
 							<label htmlFor="car-name">Car name:</label>
 							<input
 								type="text"
 								name="car-name"
 								id="car-name"
-								placeholder="(as per the card)"
+								placeholder="(as on the card)"
 								required
 							/>
 						</div>
@@ -37,7 +37,7 @@ export default function AddCarForm() {
 						</div>
 					</div>
 
-					<div className="ii-small-container">
+					<div className="form-row">
 						<div className="input-item ii-small pf-300">
 							<label htmlFor="price">Price:</label>
 							<input
@@ -61,7 +61,7 @@ export default function AddCarForm() {
 						</div>
 					</div>
 
-					<div className="ii-small-container">
+					<div className="form-row">
 						<div className="input-item ii-small pf-300">
 							<label htmlFor="purchased-from">
 								Purchased from:
@@ -85,17 +85,7 @@ export default function AddCarForm() {
 						</div>
 					</div>
 
-					<div className="ii-small-container">
-						<div className="input-item ii-small pf-300">
-							<label htmlFor="is-gift">Is a gift:</label>
-							<input
-								type="checkbox"
-								name="is-gift"
-								id="is-gift"
-								onChange={checkIfGift}
-							/>
-						</div>
-
+					<div className="form-row">
 						<div className="input-item ii-small pf-300">
 							<label htmlFor="card-available">
 								Card available:
@@ -106,50 +96,78 @@ export default function AddCarForm() {
 								id="card-available"
 							/>
 						</div>
-					</div>
 
-					{isGift ? (
 						<div className="input-item ii-small pf-300">
-							<label htmlFor="gift-from">Gift from:</label>
+							<label htmlFor="is-gift">Is a gift:</label>
 							<input
-								type="text"
-								name="gift-from"
-								id="gift-from"
-								placeholder="name"
+								type="checkbox"
+								name="is-gift"
+								id="is-gift"
+								onChange={checkIfGift}
 							/>
 						</div>
-					) : (
-						<></>
-					)}
-
-					<div className="input-item ii-large pf-300">
-						<label htmlFor="image">Upload an image:</label>
-						<input
-							type="file"
-							name="image"
-							id="image"
-							accept="image/*"
-							required
-						/>
 					</div>
 
-					<div className="input-item ii-large pf-300">
-						<label htmlFor="notes">Attach notes:</label>
-						<textarea
-							name="notes"
-							id="notes"
-							cols="20"
-							rows="3"
-						></textarea>
+					<div className="form-row">
+						<div className="input-item ii-small pf-300">
+							<label htmlFor="color">Color:</label>
+							<input
+								type="input"
+								name="color"
+								id="color"
+								placeholder="color"
+							/>
+						</div>
+
+						{isGift ? (
+							<div className="input-item ii-small pf-300">
+								<label htmlFor="gift-from">Gift from:</label>
+								<input
+									type="text"
+									name="gift-from"
+									id="gift-from"
+									placeholder="name"
+								/>
+							</div>
+						) : (
+							<></>
+						)}
 					</div>
 
-					<div className="input-item ii-large button-box">
-						<button className="btn" type="submit">
-							Save
-						</button>
-						<button className="btn" type="reset">
-							Clear all
-						</button>
+					<div className="form-row">
+						<div className="input-item ii-large pf-300">
+							<label htmlFor="image">Upload an image:</label>
+							<input
+								type="file"
+								name="image"
+								id="image"
+								accept="image/*"
+								required
+							/>
+						</div>
+					</div>
+
+					<div className="form-row">
+						<div className="input-item ii-large pf-300">
+							<label htmlFor="notes">Attach notes:</label>
+							<textarea
+								name="notes"
+								id="notes"
+								cols="20"
+								rows="3"
+							></textarea>
+						</div>
+					</div>
+
+					<div className="form-row">
+						<div className="input-item ii-large button-box">
+							<button className="btn" type="submit">
+								Save
+							</button>
+							<button className="btn" type="reset">
+								Clear all
+							</button>
+						</div>
 					</div>
 				</div>
 			</form>

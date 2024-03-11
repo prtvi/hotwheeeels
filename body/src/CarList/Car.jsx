@@ -2,16 +2,16 @@ import React from 'react';
 import './Car.css';
 
 export default function Car(props) {
-	const car = props.car;
+	const { car, openModal, showCar } = props;
 
-	const showCar = function (e) {
-		props.showCar(car);
-		props.openModal();
+	const showCarHandler = function (e) {
+		showCar(car);
+		openModal();
 	};
 
 	return (
-		<div className="car" onClick={showCar}>
-			<img src={car.imgSrc} alt="hot wheels car" />
+		<div className="car" onClick={showCarHandler}>
+			<img src={car.imgSrc} alt="car" />
 			<span className="car-name pf-200">{car.carName}</span>
 		</div>
 	);

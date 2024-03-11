@@ -9,40 +9,44 @@
 
 .car-view .image {
 	height: 350px;
-	border: 1px solid red;
 }
 
 .car-view .details {
 	width: var(--car-view-width);
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
 	flex-direction: column;
+
+	/* border: 1px solid red; */
 }
 
 .row {
 	display: flex;
-	width: var(--car-view-width);
-	height: 40px;
 	justify-content: space-between;
-	margin: 6px 0;
+	width: var(--car-view-width);
+	min-height: 40px;
+	height: fit-content;
+	margin: 4px 0;
 
-	border: 1px solid red;
+	/* border: 1px solid red; */
 }
 
-.row > div {
-	width: calc(var(--car-view-width) / 2);
-	border: 1px solid red;
-}
-
-.row .label {
+.row-item .label {
 	display: block;
 	font-size: 11px;
 	color: gray;
 }
-.row .value {
+.row-item .value {
 	font-size: 14px;
 }
 
-.row .single-item {
+.row .ri-small {
+	width: calc(var(--car-view-width) / 2);
+
+	/* border: 1px solid red; */
+}
+
+.row .ri-large {
 	width: var(--car-view-width);
 }

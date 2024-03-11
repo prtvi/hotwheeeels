@@ -2,9 +2,11 @@ import React from 'react';
 import './Toolbar.css';
 
 export default function Toolbar(props) {
+	const { onSearch, openModal, initAddCarForm } = props;
+
 	const showCar = function () {
-		props.initAddCarForm();
-		props.openModal();
+		initAddCarForm();
+		openModal();
 	};
 
 	return (
@@ -15,7 +17,7 @@ export default function Toolbar(props) {
 					type="text"
 					name="search"
 					placeholder="🔍 Search for cars"
-					onChange={props.onSearch}
+					onChange={onSearch}
 				/>
 			</div>
 

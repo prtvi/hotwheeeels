@@ -14,10 +14,3 @@ h1 {
 	text-align: center;
 	margin: 20px;
 }
-
-marquee {
-	font-size: 36px;
-}
-marquee.left {
-	transform: scale(-1, 1);
-}

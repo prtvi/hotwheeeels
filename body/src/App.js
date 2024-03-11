@@ -1,15 +1,16 @@
 import React from 'react';
 import './App.css';
 
-import CarList from './CarList/CarList.jsx';
-import Marquee from './Marquee.jsx';
-import AddCarForm from './AddCar/AddCarForm.jsx';
-import Modal from './Modal.jsx';
-import Toolbar from './Toolbar/Toolbar.jsx';
-import CarView from './CarList/CarView.jsx';
-
 import Fuse from 'fuse.js';
 import list from './data.json';
+
+import Toolbar from './Toolbar/Toolbar.jsx';
+import CarList from './CarList/CarList.jsx';
+
+import Marquee from './Tools/Marquee.jsx';
+import AddCarForm from './Tools/AddCarForm.jsx';
+import CarView from './Tools/CarView.jsx';
+import Modal from './Tools/Modal.jsx';
 
 const fuse = new Fuse(list, {
 	keys: ['carName'],
@@ -38,7 +39,7 @@ export default function App() {
 	};
 	const setModalContentForCarView = function (car) {
 		setModalContent(() => <CarView car={car} />);
-		setModalTitle(car.carName);
+		setModalTitle(`#${car.carNum} ${car.carName}`);
 	};
 
 	// searchbox
@@ -75,7 +76,7 @@ export default function App() {
 			<Modal
 				modalTitle={modalTitle}
 				isOpen={isModalOpen}
-				onClose={handleModalClose}
+				closeModal={handleModalClose}
 			>
 				{modalContent}
 			</Modal>
