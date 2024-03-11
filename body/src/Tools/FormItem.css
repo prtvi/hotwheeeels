@@ -1,0 +1,49 @@
+.input-item {
+	font-size: 14px;
+	margin: 5px 0;
+}
+
+.ii-small {
+	width: calc(var(--form-width) / 2 - 5px);
+}
+.ii-large {
+	width: var(--form-width);
+}
+
+.input-item input {
+	font-family: 'Poppins', sans-serif;
+	height: 25px;
+	padding: 0 3px;
+}
+.input-item input[type='text'],
+.input-item input[type='number'],
+.input-item input[type='date'] {
+	display: block;
+	width: calc(var(--form-width) / 2 - 15px);
+}
+
+.input-item input[type='checkbox'] {
+	height: 15px;
+	width: 15px;
+	margin-left: 6px;
+	position: relative;
+	vertical-align: middle;
+	cursor: pointer;
+}
+
+.input-item textarea {
+	font-family: 'Poppins', sans-serif;
+	display: block;
+	width: calc(var(--form-width));
+	resize: none;
+}
+
+.input-item.button-box {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.input-item.button-box > button {
+	margin: 10px;
+}

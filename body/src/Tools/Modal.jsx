@@ -11,6 +11,10 @@ export default function Modal(props) {
 		[closeModal]
 	);
 
+	const handleClick = e => {
+		if (e.target === e.currentTarget) closeModal();
+	};
+
 	React.useEffect(() => {
 		window.addEventListener('keydown', handleEsc);
 
@@ -22,7 +26,7 @@ export default function Modal(props) {
 	if (!isOpen) return null;
 
 	return (
-		<div className="modal-out">
+		<div className="modal-out" onClick={handleClick}>
 			<div className="modal-body">
 				<div className="modal-header">
 					<div className="modal-title">

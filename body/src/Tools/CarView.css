@@ -4,11 +4,10 @@
 
 .car-view {
 	width: var(--car-view-width);
-	/* border: 1px solid red; */
 }
 
 .car-view .image {
-	height: 350px;
+	height: 300px;
 }
 
 .car-view .details {
@@ -17,8 +16,6 @@
 	flex-direction: column;
 	justify-content: center;
 	flex-direction: column;
-
-	/* border: 1px solid red; */
 }
 
 .row {
@@ -28,25 +25,4 @@
 	min-height: 40px;
 	height: fit-content;
 	margin: 4px 0;
-
-	/* border: 1px solid red; */
-}
-
-.row-item .label {
-	display: block;
-	font-size: 11px;
-	color: gray;
-}
-.row-item .value {
-	font-size: 14px;
-}
-
-.row .ri-small {
-	width: calc(var(--car-view-width) / 2);
-
-	/* border: 1px solid red; */
-}
-
-.row .ri-large {
-	width: var(--car-view-width);
 }

@@ -2,43 +2,41 @@ import React from 'react';
 import './CarView.css';
 import { validSpec } from './CarViewSpec.jsx';
 import CarViewSpec from './CarViewSpec.jsx';
-
-const CarViewSpecs = [
-	['Name', 'carName'],
-	['Brand', 'brand'],
-	['Price ₹', 'price'],
-	['Color', 'color'],
-	['Purchase date', 'purchaseDate'],
-	['Purchased from', 'purchasedFrom'],
-	['Order number', 'orderNumber'],
-	['Card available', 'cardAvailable'],
-	['Gift', 'isGift'],
-	['Gifted by', 'giftedBy'],
-	['Notes', 'notes'],
-];
+import formItems from '../formItems.json';
 
 const getRowsToShow = function (specs, car) {
 	const rows = [];
-	let row = [];
+	const allRowItems = [];
+	const largeItemIdxs = [];
 
-	specs.forEach((spec, i) => {
-		if (validSpec(car[spec[1]])) row.push(spec);
+	for (let i = 0; i < specs.length; i++) {
+		const spec = specs[i];
 
-		if (row.length === 2) {
-			rows.push(row);
-			row = [];
-		} else if (row.length > 0 && i === specs.length - 1) {
-			rows.push(row);
+		if (spec.forFormOnly) continue;
+
+		const valid = validSpec(car[spec.key]);
+		console.log(valid ? 'true ------' : 'false', car[spec.key], spec.key);
+
+		if (spec.viewSize === 'large' && valid) {
+			largeItemIdxs.push(i);
+			continue;
 		}
-	});
+
+		if (valid) allRowItems.push(spec);
+	}
+
+	for (let i = 0; i < allRowItems.length; i += 2)
+		rows.push(allRowItems.slice(i, i + 2));
+
+	for (let i = 0; i < largeItemIdxs.length; i++)
+		rows.push([specs[largeItemIdxs[i]]]);
 
 	return rows;
 };
 
 export default function CarView(props) {
 	const { car } = props;
-
-	const rowsForView = getRowsToShow(CarViewSpecs, car);
+	const rowsForView = getRowsToShow(formItems, car);
 
 	return (
 		<div className="car-view">
@@ -53,12 +51,12 @@ export default function CarView(props) {
 
 					return (
 						<div className="row" key={rowIdx}>
-							{row.map(rowItem => {
+							{row.map(ri => {
 								return (
 									<CarViewSpec
-										key={rowItem[0] + rowItem[1]}
-										label={rowItem[0]}
-										value={car[rowItem[1]]}
+										key={ri.key}
+										label={ri.label}
+										value={car[ri.key]}
 										itemSizeClass={itemSizeClass}
 									/>
 								);
