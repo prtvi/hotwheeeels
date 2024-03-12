@@ -38,7 +38,7 @@ function addCar(req, res) {
 		newCar
 			.save()
 			.then(() => {
-				console.log('saved car!!');
+				console.log('saved car!');
 				res.send('saved new car');
 				return;
 			})
@@ -72,7 +72,7 @@ function uploadImage(req, res) {
 		})
 		.catch(err => {
 			console.log(err);
-			return res.status(500).send('unsuces');
+			return res.status(500).send('image upload failed');
 		});
 }
 

@@ -7,6 +7,7 @@ import config from './config.json';
 import Fuse from 'fuse.js';
 import Marquee from './Utils/Marquee.jsx';
 import Modal from './Utils/Modal.jsx';
+import Message from './Utils/Message.jsx';
 
 import AddCarForm from './AddCar/AddCarForm.jsx';
 import CarList from './CarList/CarList.jsx';
@@ -34,8 +35,14 @@ export default function App() {
 	// results to show on UI
 	const [resultsForView, setResultsForView] = React.useState([]);
 
+	const setModalContentForMessage = function (msg) {
+		setModalContent(() => <Message closeModal={handleModalClose} />);
+		setModalTitle(msg);
+	};
 	const setModalContentForAddCarForm = function () {
-		setModalContent(() => <AddCarForm />);
+		setModalContent(() => (
+			<AddCarForm showMsg={setModalContentForMessage} />
+		));
 		setModalTitle('Add a new car');
 	};
 	const setModalContentForCarView = function (car) {

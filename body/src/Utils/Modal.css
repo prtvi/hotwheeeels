@@ -19,6 +19,7 @@
 	border: 2px solid #000;
 	border-radius: 10px;
 	box-shadow: 2px solid black;
+	min-width: 230px;
 }
 
 .modal-header {
@@ -26,15 +27,16 @@
 	justify-content: center;
 	align-items: center;
 	position: relative;
-	margin-bottom: 20px;
+	margin: 25px 0;
 }
 
 .modal-close {
 	cursor: pointer;
 	position: absolute;
-	right: 5px;
+	right: 0;
+	top: -30px;
 	color: white;
 }
 .modal-close:hover {
-	transform: scale(1.1);
+	transform: scale(1.2);
 }

@@ -36,16 +36,12 @@ function getRowsToShow2(specs) {
 
 const engineURL = config.engineURL;
 
-export default function AddCarForm() {
+export default function AddCarForm(props) {
+	const { showMsg } = props;
 	const rowsToShow = getRowsToShow2(config.formItems);
 
 	async function handleFormSubmit(e) {
 		e.preventDefault();
-
-		const button = document.getElementById('loading-button');
-		button.disabled = true;
-		button.classList.add('button-loader');
-
 		const ts = Date.now();
 
 		// post form text data
@@ -56,7 +52,6 @@ export default function AddCarForm() {
 			`${engineURL}/add_car?req_id=${ts}`,
 			formDataJson
 		);
-		// console.log(result.status);
 
 		// post form image data
 		const imgFormData = new FormData();
@@ -66,12 +61,12 @@ export default function AddCarForm() {
 			`${engineURL}/image_upload?req_id=${ts}`,
 			imgFormData
 		);
-		// console.log(result1.status);
 
-		if (result.status === 200 && result1.status === 200) {
-			button.disabled = false;
-			button.classList.remove('button-loader');
-		}
+		if (result.status === 200 && result1.status === 200)
+			showMsg(
+				`${formDataJson.carName} has been added to your collection!`
+			);
+		else showMsg('Some error occurred! Try again in some time');
 	}
 
 	return (
