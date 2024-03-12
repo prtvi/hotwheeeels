@@ -2,7 +2,7 @@ import React from 'react';
 import './CarView.css';
 import { validSpec } from './CarViewSpec.jsx';
 import CarViewSpec from './CarViewSpec.jsx';
-import formItems from '../formItems.json';
+import config from '../config.json';
 
 const getRowsToShow = function (specs, car) {
 	const rows = [];
@@ -15,7 +15,7 @@ const getRowsToShow = function (specs, car) {
 		if (spec.forFormOnly) continue;
 
 		const valid = validSpec(car[spec.key]);
-		console.log(valid ? 'true ------' : 'false', car[spec.key], spec.key);
+		// console.log(valid ? 'true ------' : 'false', car[spec.key], spec.key);
 
 		if (spec.viewSize === 'large' && valid) {
 			largeItemIdxs.push(i);
@@ -36,7 +36,7 @@ const getRowsToShow = function (specs, car) {
 
 export default function CarView(props) {
 	const { car } = props;
-	const rowsForView = getRowsToShow(formItems, car);
+	const rowsForView = getRowsToShow(config.formItems, car);
 
 	return (
 		<div className="car-view">

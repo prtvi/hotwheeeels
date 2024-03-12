@@ -1,15 +1,32 @@
 import React from 'react';
 import './FormItem.css';
+import config from '../config.json';
 
 export default function FormItem(props) {
 	const { spec } = props;
-
 	const className = `input-item ${props.itemSizeClass}`;
+
+	const value = config.ENV === 'debug' ? spec.defaultValue : '';
 
 	switch (spec.inputType) {
 		case 'text':
 		case 'number':
 		case 'date':
+			return (
+				<div className={className}>
+					<label className="pf-300" htmlFor={spec.key}>
+						{spec.label}
+					</label>
+					<input
+						type={spec.inputType}
+						name={spec.key}
+						placeholder={spec.placeholder}
+						required={spec.required}
+						defaultValue={value}
+					/>
+				</div>
+			);
+
 		case 'checkbox':
 			return (
 				<div className={className}>
@@ -21,6 +38,7 @@ export default function FormItem(props) {
 						name={spec.key}
 						placeholder={spec.placeholder}
 						required={spec.required}
+						defaultChecked={value}
 					/>
 				</div>
 			);
@@ -46,7 +64,12 @@ export default function FormItem(props) {
 					<label className="pf-300" htmlFor={spec.key}>
 						{spec.label}
 					</label>
-					<textarea name={spec.key} cols="20" rows="3"></textarea>
+					<textarea
+						name={spec.key}
+						cols="20"
+						rows="3"
+						defaultValue={value}
+					></textarea>
 				</div>
 			);
 

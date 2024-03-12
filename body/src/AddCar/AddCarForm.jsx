@@ -1,7 +1,8 @@
 import React from 'react';
+import axios from 'axios';
 import './AddCarForm.css';
 import FormItem from './FormItem.jsx';
-import formItems from '../formItems.json';
+import config from '../config.json';
 
 function getRowsToShow2(specs) {
 	const rows = [];
@@ -33,12 +34,45 @@ function getRowsToShow2(specs) {
 	return rows;
 }
 
+const engineURL = config.engineURL;
+
 export default function AddCarForm() {
-	const rowsToShow = getRowsToShow2(formItems);
+	const rowsToShow = getRowsToShow2(config.formItems);
+
+	async function handleFormSubmit(e) {
+		e.preventDefault();
+
+		const ts = Date.now();
+
+		// post form text data
+		const formData = new FormData(e.currentTarget);
+		const formDataJson = {};
+		formData.forEach((value, key) => (formDataJson[key] = value));
+		const result = await axios.post(
+			`${engineURL}/add_car?req_id=${ts}`,
+			formDataJson
+		);
+		console.log(result.status);
+
+		// post form image data
+		const imgFormData = new FormData();
+		const file = document.getElementsByName('image')[0];
+		imgFormData.append('image', file.files[0]);
+		const result1 = await axios.post(
+			`${engineURL}/image_upload?req_id=${ts}`,
+			imgFormData
+		);
+
+		console.log(result1.status);
+
+		if (result.status === 200 && result1.status === 200) {
+			console.log('yay!');
+		}
+	}
 
 	return (
 		<div className="add-new-car-form">
-			<form action="" method="post">
+			<form onSubmit={handleFormSubmit}>
 				<div className="form-content">
 					{rowsToShow.map((row, rowIdx) => {
 						let itemSizeClass = 'ii-small'; // small class will allow two items to occupy the row

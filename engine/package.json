@@ -1,0 +1,19 @@
+{
+	"name": "engine",
+	"version": "1.0.0",
+	"description": "backend service for my hot wheels collection UI",
+	"main": "app.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "npx nodemon app.js"
+	},
+	"author": "prtvi",
+	"license": "ISC",
+	"dependencies": {
+		"body-parser": "^1.20.2",
+		"cors": "^2.8.5",
+		"express": "^4.18.3",
+		"express-fileupload": "^1.4.3",
+		"nodemon": "^3.1.0"
+	}
+}
