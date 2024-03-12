@@ -15,7 +15,6 @@ const getRowsToShow = function (specs, car) {
 		if (spec.forFormOnly) continue;
 
 		const valid = validSpec(car[spec.key]);
-		// console.log(valid ? 'true ------' : 'false', car[spec.key], spec.key);
 
 		if (spec.viewSize === 'large' && valid) {
 			largeItemIdxs.push(i);

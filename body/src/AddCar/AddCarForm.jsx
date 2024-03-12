@@ -42,6 +42,10 @@ export default function AddCarForm() {
 	async function handleFormSubmit(e) {
 		e.preventDefault();
 
+		const button = document.getElementById('loading-button');
+		button.disabled = true;
+		button.classList.add('button-loader');
+
 		const ts = Date.now();
 
 		// post form text data
@@ -52,21 +56,21 @@ export default function AddCarForm() {
 			`${engineURL}/add_car?req_id=${ts}`,
 			formDataJson
 		);
-		console.log(result.status);
+		// console.log(result.status);
 
 		// post form image data
 		const imgFormData = new FormData();
-		const file = document.getElementsByName('image')[0];
-		imgFormData.append('image', file.files[0]);
+		const file = document.getElementsByName('imgSrc')[0];
+		imgFormData.append('imgSrc', file.files[0]);
 		const result1 = await axios.post(
 			`${engineURL}/image_upload?req_id=${ts}`,
 			imgFormData
 		);
-
-		console.log(result1.status);
+		// console.log(result1.status);
 
 		if (result.status === 200 && result1.status === 200) {
-			console.log('yay!');
+			button.disabled = false;
+			button.classList.remove('button-loader');
 		}
 	}
 

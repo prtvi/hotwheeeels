@@ -76,7 +76,7 @@ export default function FormItem(props) {
 		case 'btn':
 			return (
 				<div className={className + ' button-box'}>
-					<button className="btn" type="submit">
+					<button className="btn" id="loading-button" type="submit">
 						Save
 					</button>
 					<button className="btn" type="reset">

@@ -1,6 +1,7 @@
 {
 	"ENV": "debug",
 	"engineURL": "http://localhost:3001/api",
+	"dbEndpoint": "mongodb://127.0.0.1:27017/hw",
 	"formItems": [
 		{
 			"label": "Name",
@@ -8,7 +9,7 @@
 			"forFormOnly": false,
 			"viewSize": "small",
 			"inputType": "text",
-			"defaultValue": "lambo",
+			"defaultValue": "lamborghini",
 			"placeholder": "(as on the car)",
 			"required": true
 		},
@@ -106,12 +107,12 @@
 			"viewSize": "small",
 			"inputType": "text",
 			"defaultValue": "Joy",
-			"placeholder": "name",
+			"placeholder": "optional",
 			"required": false
 		},
 		{
 			"label": "Collection #",
-			"key": "collection",
+			"key": "coll",
 			"forFormOnly": false,
 			"viewSize": "small",
 			"inputType": "text",
@@ -181,7 +182,7 @@
 		},
 		{
 			"label": "Upload an image",
-			"key": "image",
+			"key": "imgSrc",
 			"forFormOnly": true,
 			"viewSize": "large",
 			"inputType": "file",
@@ -194,7 +195,7 @@
 			"forFormOnly": false,
 			"viewSize": "large",
 			"inputType": "textarea",
-			"defaultValue": "My first lambo",
+			"defaultValue": "My first lamborghini",
 			"required": false
 		},
 		{

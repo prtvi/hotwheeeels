@@ -1,9 +1,10 @@
 import React from 'react';
+import axios from 'axios';
 import './App.css';
 
-import Fuse from 'fuse.js';
-import list from './data.json';
+import config from './config.json';
 
+import Fuse from 'fuse.js';
 import Marquee from './Utils/Marquee.jsx';
 import Modal from './Utils/Modal.jsx';
 
@@ -11,11 +12,6 @@ import AddCarForm from './AddCar/AddCarForm.jsx';
 import CarList from './CarList/CarList.jsx';
 import CarView from './CarView/CarView.jsx';
 import Toolbar from './Toolbar/Toolbar.jsx';
-
-const fuse = new Fuse(list, {
-	keys: ['carName'],
-	includeScore: true,
-});
 
 const sortDescending = (a, b) => {
 	if (a.score > b.score) return 1;
@@ -33,6 +29,11 @@ export default function App() {
 	const [modalContent, setModalContent] = React.useState(<AddCarForm />);
 	const [modalTitle, setModalTitle] = React.useState('Add a new car');
 
+	// all results from api call
+	const [allResults, setAllResults] = React.useState([]);
+	// results to show on UI
+	const [resultsForView, setResultsForView] = React.useState([]);
+
 	const setModalContentForAddCarForm = function () {
 		setModalContent(() => <AddCarForm />);
 		setModalTitle('Add a new car');
@@ -42,16 +43,38 @@ export default function App() {
 		setModalTitle(`#${car.carNum} ${car.carName}`);
 	};
 
+	React.useEffect(() => {
+		async function fetchData() {
+			const res = await axios.get(`${config.engineURL}/get_all`);
+			// console.log(res);
+
+			if (res.status === 200) {
+				setAllResults(() => res.data);
+				setResultsForView(() => res.data);
+			}
+		}
+
+		fetchData();
+	}, []);
+
+	const fuse = new Fuse(allResults, {
+		keys: ['carName'],
+		includeScore: true,
+	});
+
 	// searchbox
-	const [searchText, setSearchText] = React.useState('');
-	const handleSearchInput = e => setSearchText(e.target.value);
+	const handleSearchInput = e => {
+		setResultsForView(() => {
+			let res = fuse
+				.search(e.target.value)
+				.sort(sortDescending)
+				.map(i => i.item);
 
-	let results = fuse
-		.search(searchText)
-		.sort(sortDescending)
-		.map(i => i.item);
+			if (res.length === 0) res = allResults;
 
-	if (results.length === 0) results = list;
+			return res;
+		});
+	};
 
 	return (
 		<div className="App">
@@ -66,7 +89,7 @@ export default function App() {
 			/>
 
 			<CarList
-				list={results}
+				list={resultsForView}
 				openModal={handleModalOpen}
 				showCar={setModalContentForCarView}
 			/>
