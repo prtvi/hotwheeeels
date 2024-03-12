@@ -4,13 +4,13 @@ import './App.css';
 import Fuse from 'fuse.js';
 import list from './data.json';
 
-import Toolbar from './Toolbar/Toolbar.jsx';
-import CarList from './CarList/CarList.jsx';
+import Marquee from './Utils/Marquee.jsx';
+import Modal from './Utils/Modal.jsx';
 
-import Marquee from './Tools/Marquee.jsx';
-import AddCarForm from './Tools/AddCarForm.jsx';
-import CarView from './Tools/CarView.jsx';
-import Modal from './Tools/Modal.jsx';
+import AddCarForm from './AddCar/AddCarForm.jsx';
+import CarList from './CarList/CarList.jsx';
+import CarView from './CarView/CarView.jsx';
+import Toolbar from './Toolbar/Toolbar.jsx';
 
 const fuse = new Fuse(list, {
 	keys: ['carName'],
