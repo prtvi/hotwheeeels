@@ -5,8 +5,10 @@ const bodyParser = require('body-parser');
 
 const { r } = require('./controller/controller.js');
 
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 const app = express();
+
+app.use(express.static('./'));
 
 app.use(cors());
 app.use(fileUpload());

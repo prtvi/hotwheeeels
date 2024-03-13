@@ -26,4 +26,4 @@ yarn-error.log*
 
 data.json
 assets/
-
+*.txt

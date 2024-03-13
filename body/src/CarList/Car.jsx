@@ -10,9 +10,13 @@ export default function Car(props) {
 	};
 
 	return (
-		<div className="car" onClick={showCarHandler}>
-			<img src={car.imgSrc} alt="car" />
-			<span className="car-name pf-200">{car.carName}</span>
+		<div className="car-card" onClick={showCarHandler}>
+			<div className="car-image-div">
+				<img src={car.imgs[0]} alt="car" />
+			</div>
+			<div className="car-name-div">
+				<span className="pif-200">{car.carName}</span>
+			</div>
 		</div>
 	);
 }

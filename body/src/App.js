@@ -47,12 +47,12 @@ export default function App() {
 	};
 	const setModalContentForCarView = function (car) {
 		setModalContent(() => <CarView car={car} />);
-		setModalTitle(`#${car.carNum} ${car.carName}`);
+		setModalTitle(`Car #${car.carNum} ${car.carName}`);
 	};
 
 	React.useEffect(() => {
 		async function fetchData() {
-			const res = await axios.get(`${config.engineURL}/get_all`);
+			const res = await axios.get(`${config.engineURL}/api/get_all`);
 			// console.log(res);
 
 			if (res.status === 200) {

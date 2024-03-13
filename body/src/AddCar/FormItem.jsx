@@ -53,6 +53,7 @@ export default function FormItem(props) {
 						type={spec.inputType}
 						name={spec.key}
 						accept="image/*"
+						multiple={true}
 						required={spec.required}
 					/>
 				</div>

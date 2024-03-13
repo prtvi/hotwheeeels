@@ -49,16 +49,19 @@ export default function AddCarForm(props) {
 		const formDataJson = {};
 		formData.forEach((value, key) => (formDataJson[key] = value));
 		const result = await axios.post(
-			`${engineURL}/add_car?req_id=${ts}`,
+			`${engineURL}/api/add_car?req_id=${ts}`,
 			formDataJson
 		);
 
 		// post form image data
 		const imgFormData = new FormData();
-		const file = document.getElementsByName('imgSrc')[0];
-		imgFormData.append('imgSrc', file.files[0]);
+		const fileInput = document.getElementsByName('imgs')[0];
+		Array.from(fileInput.files).forEach((file, i) =>
+			imgFormData.append(`img_${ts}_${i}`, file)
+		);
+
 		const result1 = await axios.post(
-			`${engineURL}/image_upload?req_id=${ts}`,
+			`${engineURL}/api/image_upload?req_id=${ts}`,
 			imgFormData
 		);
 

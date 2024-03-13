@@ -1,14 +1,54 @@
-.car {
-	width: 100px;
-	height: 150px;
-	padding: 4px;
-	margin: 5px;
-	border-radius: 8px;
-	cursor: pointer;
-	border: 1px solid #6f6e6c;
+:root {
+	--card-width: 150px;
+	--card-height: 200px;
+	--img-height: 170px;
+	--border-radius: 10px;
 }
 
-.car-name {
-	color: blue;
-	font-size: 14px;
+.car-card {
+	width: var(--card-width);
+	height: var(--card-height);
+	margin: 5px;
+	border-radius: var(--border-radius);
+	cursor: pointer;
+	border: 2px solid #6f6e6c;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-direction: column;
+}
+
+.car-card > div {
+	width: inherit;
+	margin: 0 auto;
+}
+
+.car-image-div {
+	overflow: hidden;
+	height: var(--img-height);
+}
+
+.car-card img {
+	border-top-left-radius: var(--border-radius);
+	border-top-right-radius: var(--border-radius);
+	object-fit: cover;
+	width: inherit;
+	height: inherit;
+	min-height: var(--img-height);
+	transition: all 0.5s ease;
+}
+
+.car-card:hover img {
+	transform: scale(1.2);
+	border-top-left-radius: var(--border-radius);
+	border-top-right-radius: var(--border-radius);
+}
+
+.car-name-div {
+	height: calc(var(--card-height) - var(--img-height));
+	color: snow;
+	font-size: 13px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }

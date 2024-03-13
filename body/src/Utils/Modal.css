@@ -1,3 +1,8 @@
+:root {
+	--modal-height: 700px;
+	--modal-content-height: 600px;
+}
+
 .modal-out {
 	position: fixed;
 	top: 0;
@@ -8,7 +13,6 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	overflow-y: scroll;
 }
 
 .modal-body {
@@ -16,10 +20,12 @@
 	color: black;
 	margin: auto;
 	padding: 25px;
+	padding-bottom: 0;
 	border: 2px solid #000;
 	border-radius: 10px;
 	box-shadow: 2px solid black;
 	min-width: 230px;
+	height: var(--modal-height);
 }
 
 .modal-header {
@@ -27,16 +33,16 @@
 	justify-content: center;
 	align-items: center;
 	position: relative;
-	margin: 25px 0;
+	margin: 20px 0;
 }
 
 .modal-close {
 	cursor: pointer;
 	position: absolute;
 	right: 0;
-	top: -30px;
+	top: -25px;
 	color: white;
 }
 .modal-close:hover {
-	transform: scale(1.2);
+	transform: scale(1.1);
 }

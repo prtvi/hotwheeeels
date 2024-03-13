@@ -1,6 +1,6 @@
 {
 	"ENV": "debug",
-	"engineURL": "http://localhost:3001/api",
+	"engineURL": "http://localhost:3001",
 	"dbEndpoint": "mongodb://127.0.0.1:27017/hw",
 	"formItems": [
 		{
@@ -182,7 +182,7 @@
 		},
 		{
 			"label": "Upload an image",
-			"key": "imgSrc",
+			"key": "imgs",
 			"forFormOnly": true,
 			"viewSize": "large",
 			"inputType": "file",

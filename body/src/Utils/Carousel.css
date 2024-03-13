@@ -1,0 +1,74 @@
+:root {
+	--car-view-width: 300px;
+	--slideshow-container-height: 350px;
+	--dots-height: 20px;
+	--image-height: calc(
+		var(--slideshow-container-height) - var(--dots-height)
+	);
+}
+
+.slideshow-container {
+	width: var(--car-view-width);
+	height: var(--slideshow-container-height);
+	position: relative;
+	margin: auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.slides {
+	display: none;
+	height: inherit;
+	margin: 0 auto;
+	width: var(--car-view-width);
+	height: var(--image-height);
+}
+.slides img {
+	vertical-align: middle;
+	height: var(--image-height);
+	width: 100%;
+	object-fit: cover;
+	border-radius: 2px;
+}
+
+.trigger {
+	position: absolute;
+	top: 50%;
+	font-size: 30px;
+	cursor: pointer;
+	background-color: rgb(174, 255, 0);
+}
+.trigger.prev {
+	left: 0;
+}
+.trigger.next {
+	right: 0;
+}
+
+.dot {
+	height: 10px;
+	width: 10px;
+	margin: 0 2px;
+	background-color: #7b7b7b;
+	border-radius: 50%;
+	display: inline-block;
+	transition: background-color 0.6s ease;
+}
+.dot.active {
+	background-color: #de6565;
+}
+
+.fade {
+	animation-name: fade;
+	animation-duration: 1s;
+}
+@keyframes fade {
+	from {
+		opacity: 0.4;
+	}
+	to {
+		opacity: 1;
+	}
+}

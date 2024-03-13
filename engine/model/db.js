@@ -21,7 +21,6 @@ function getSchemaForFormItem(formItems) {
 			case 'text':
 			case 'textarea':
 			case 'date':
-			case 'file':
 				fieldType = String;
 				break;
 
@@ -31,6 +30,10 @@ function getSchemaForFormItem(formItems) {
 
 			case 'checkbox':
 				fieldType = Boolean;
+				break;
+
+			case 'file':
+				fieldType = Array;
 				break;
 
 			default:

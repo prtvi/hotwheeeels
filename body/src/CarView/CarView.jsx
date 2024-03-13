@@ -2,6 +2,7 @@ import React from 'react';
 import './CarView.css';
 import { validSpec } from './CarViewSpec.jsx';
 import CarViewSpec from './CarViewSpec.jsx';
+import Carousel from '../Utils/Carousel.jsx';
 import config from '../config.json';
 
 const getRowsToShow = function (specs, car) {
@@ -39,9 +40,7 @@ export default function CarView(props) {
 
 	return (
 		<div className="car-view">
-			<div className="image">
-				<img src={car.imgSrc} alt="car" />
-			</div>
+			<Carousel images={car.imgs} />
 
 			<div className="details">
 				{rowsForView.map((row, rowIdx) => {
