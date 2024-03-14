@@ -1,10 +1,10 @@
 import React from 'react';
 import axios from 'axios';
+import Fuse from 'fuse.js';
 import './App.css';
 
 import config from './config.json';
 
-import Fuse from 'fuse.js';
 import Marquee from './Utils/Marquee.jsx';
 import Modal from './Utils/Modal.jsx';
 import Message from './Utils/Message.jsx';
@@ -52,7 +52,9 @@ export default function App() {
 		setModalHeight(maxModalHeight);
 	};
 	const setModalContentForCarView = function (car) {
-		setModalContent(() => <CarView car={car} />);
+		setModalContent(() => (
+			<CarView car={car} showMsg={setModalContentForMessage} />
+		));
 		setModalTitle(car.carName);
 		setModalHeight(maxModalHeight);
 	};
@@ -60,7 +62,6 @@ export default function App() {
 	React.useEffect(() => {
 		async function fetchData() {
 			const res = await axios.get(`${config.engineURL}/api/get_all`);
-			// console.log(res);
 
 			if (res.status === 200) {
 				setAllResults(() => res.data);

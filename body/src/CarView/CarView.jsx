@@ -3,6 +3,7 @@ import './CarView.css';
 import { validSpec } from './CarViewSpec.jsx';
 import CarViewSpec from './CarViewSpec.jsx';
 import Carousel from '../Utils/Carousel.jsx';
+import EditCarDetails from './EditCarDetails.jsx';
 import config from '../config.json';
 
 const getRowsToShow = function (specs, car) {
@@ -35,12 +36,14 @@ const getRowsToShow = function (specs, car) {
 };
 
 export default function CarView(props) {
-	const { car } = props;
+	const { car, showMsg } = props;
 	const rowsForView = getRowsToShow(config.formItems, car);
 
 	return (
 		<div className="car-view">
 			<Carousel images={car.imgs} />
+
+			<EditCarDetails carId={car._id} showMsg={showMsg} />
 
 			<div className="details">
 				{rowsForView.map((row, rowIdx) => {

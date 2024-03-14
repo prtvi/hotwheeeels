@@ -4,29 +4,29 @@ import './Modal.css';
 export default function Modal(props) {
 	const { modalTitle, height, isOpen, closeModal, children } = props;
 
-	const handleEsc = React.useCallback(
+	const handleEscForClosingModal = React.useCallback(
 		e => {
 			if (e.key === 'Escape') closeModal();
 		},
 		[closeModal]
 	);
 
-	const handleClick = e => {
+	const handleClickOutsideModalBody = e => {
 		if (e.target === e.currentTarget) closeModal();
 	};
 
 	React.useEffect(() => {
-		window.addEventListener('keydown', handleEsc);
+		window.addEventListener('keydown', handleEscForClosingModal);
 
 		return () => {
-			window.addEventListener('keydown', handleEsc);
+			window.addEventListener('keydown', handleEscForClosingModal);
 		};
-	}, [handleEsc]);
+	}, [handleEscForClosingModal]);
 
 	if (!isOpen) return null;
 
 	return (
-		<div className="modal-out" onClick={handleClick}>
+		<div className="modal-out" onClick={handleClickOutsideModalBody}>
 			<div className="modal-body" style={{ height: `${height}px` }}>
 				<div className="modal-header">
 					<div className="modal-title">

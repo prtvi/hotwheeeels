@@ -94,8 +94,24 @@ function getAll(req, res) {
 		});
 }
 
+function deleteCar(req, res) {
+	const carId = req.query.carId;
+	console.log(carId);
+
+	Car.deleteOne({ _id: carId })
+		.then(() => {
+			console.log('car deleted');
+			res.send('car deleted!');
+		})
+		.catch(err => {
+			console.log(err);
+			res.status(400).send(err);
+		});
+}
+
 exports.r = {
 	addCar,
 	uploadImage,
 	getAll,
+	deleteCar,
 };

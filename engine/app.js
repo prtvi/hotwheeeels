@@ -19,5 +19,6 @@ app.get('/', (req, res) => res.send('Hello World!'));
 app.post('/api/add_car', r.addCar);
 app.post('/api/image_upload', r.uploadImage);
 app.get('/api/get_all', r.getAll);
+app.get('/api/delete_car', r.deleteCar);
 
 app.listen(PORT, () => console.log(`Engine app running on port ${PORT}`));
