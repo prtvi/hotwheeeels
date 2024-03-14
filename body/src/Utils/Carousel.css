@@ -1,15 +1,6 @@
-:root {
-	--car-view-width: 300px;
-	--slideshow-container-height: 350px;
-	--dots-height: 20px;
-	--image-height: calc(
-		var(--slideshow-container-height) - var(--dots-height)
-	);
-}
-
 .slideshow-container {
 	width: var(--car-view-width);
-	height: var(--slideshow-container-height);
+	height: var(--carousel-height);
 	position: relative;
 	margin: auto;
 	display: flex;
@@ -23,11 +14,11 @@
 	height: inherit;
 	margin: 0 auto;
 	width: var(--car-view-width);
-	height: var(--image-height);
+	height: var(--carousel-img-height);
 }
 .slides img {
 	vertical-align: middle;
-	height: var(--image-height);
+	height: var(--carousel-img-height);
 	width: 100%;
 	object-fit: cover;
 	border-radius: 2px;

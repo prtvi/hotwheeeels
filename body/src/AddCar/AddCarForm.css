@@ -1,10 +1,6 @@
-:root {
-	--form-width: 360px;
-}
-
 .add-new-car-form {
 	padding: 1px;
-	height: var(--modal-content-height);
+	height: var(--modal-child-height);
 	overflow-y: scroll;
 }
 

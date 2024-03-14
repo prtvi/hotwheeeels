@@ -1,15 +1,8 @@
-:root {
-	--card-width: 150px;
-	--card-height: 200px;
-	--img-height: 170px;
-	--border-radius: 10px;
-}
-
-.car-card {
+.card {
 	width: var(--card-width);
 	height: var(--card-height);
 	margin: 5px;
-	border-radius: var(--border-radius);
+	border-radius: var(--card-border-radius);
 	cursor: pointer;
 	border: 2px solid #6f6e6c;
 	display: flex;
@@ -18,34 +11,34 @@
 	flex-direction: column;
 }
 
-.car-card > div {
+.card > div {
 	width: inherit;
 	margin: 0 auto;
 }
 
-.car-image-div {
+.card-img-container {
 	overflow: hidden;
-	height: var(--img-height);
+	height: var(--card-img-height);
 }
 
-.car-card img {
-	border-top-left-radius: var(--border-radius);
-	border-top-right-radius: var(--border-radius);
+.card img {
+	border-top-left-radius: var(--card-border-radius);
+	border-top-right-radius: var(--card-border-radius);
 	object-fit: cover;
 	width: inherit;
 	height: inherit;
-	min-height: var(--img-height);
+	min-height: var(--card-img-height);
 	transition: all 0.5s ease;
 }
 
-.car-card:hover img {
+.card:hover img {
 	transform: scale(1.2);
-	border-top-left-radius: var(--border-radius);
-	border-top-right-radius: var(--border-radius);
+	border-top-left-radius: var(--card-border-radius);
+	border-top-right-radius: var(--card-border-radius);
 }
 
-.car-name-div {
-	height: calc(var(--card-height) - var(--img-height));
+.card-name-container {
+	height: calc(var(--card-height) - var(--card-img-height));
 	color: snow;
 	font-size: 13px;
 	display: flex;

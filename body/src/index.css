@@ -1,12 +1,31 @@
-* {
-	margin: 0;
-	padding: 0;
-}
-
 :root {
 	--search-box-height: 40px;
 	--bg: #0d1116;
 	--color: #e6edf3;
+
+	--modal-height: 700px;
+	--modal-child-height: 600px;
+
+	--car-view-width: 300px;
+	--carousel-height: 350px;
+	--dots-height: 20px;
+	--carousel-img-height: calc(var(--carousel-height) - var(--dots-height));
+
+	--details-height: calc(
+		var(--modal-child-height) - var(--carousel-height) - 10px
+	);
+
+	--card-width: 150px;
+	--card-height: 200px;
+	--card-img-height: 170px;
+	--card-border-radius: 10px;
+
+	--form-width: 360px;
+}
+
+* {
+	margin: 0;
+	padding: 0;
 }
 
 body {

@@ -1,8 +1,3 @@
-:root {
-	--modal-height: 700px;
-	--modal-content-height: 600px;
-}
-
 .modal-out {
 	position: fixed;
 	top: 0;

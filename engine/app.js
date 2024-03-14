@@ -3,7 +3,7 @@ const fileUpload = require('express-fileupload');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
-const { r } = require('./controller/controller.js');
+const { r } = require('./utils/controller.js');
 
 const PORT = process.env.PORT || 3001;
 const app = express();

@@ -1,12 +1,5 @@
-:root {
-	--car-view-width: 300px;
-	--details-height: calc(
-		var(--modal-content-height) - var(--slideshow-container-height) - 10px
-	);
-}
-
 .car-view {
-	height: var(--modal-content-height);
+	height: var(--modal-child-height);
 }
 
 .car-view .details {

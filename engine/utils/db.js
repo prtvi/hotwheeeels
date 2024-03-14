@@ -1,10 +1,8 @@
 const mongoose = require('mongoose');
-const fs = require('fs');
-
-const config = JSON.parse(fs.readFileSync('../body/src/config.json', 'utf8'));
+const { config } = require('./config.js');
 
 mongoose
-	.connect(config.dbEndpoint)
+	.connect(config.config.dbEndpoint)
 	.then(() => console.log('db connected'))
 	.catch(err => console.log(err));
 
@@ -52,14 +50,9 @@ function getSchemaForFormItem(formItems) {
 	return schema;
 }
 
-const schema = getSchemaForFormItem(config.formItems);
+const schema = getSchemaForFormItem(config.config.formItems);
 schema['reqId'] = {
 	type: String,
-	required: true,
-	unique: true,
-};
-schema['carNum'] = {
-	type: Number,
 	required: true,
 	unique: true,
 };

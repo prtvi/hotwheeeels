@@ -47,7 +47,7 @@ export default function App() {
 	};
 	const setModalContentForCarView = function (car) {
 		setModalContent(() => <CarView car={car} />);
-		setModalTitle(`Car #${car.carNum} ${car.carName}`);
+		setModalTitle(car.carName);
 	};
 
 	React.useEffect(() => {
