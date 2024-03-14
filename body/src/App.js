@@ -21,6 +21,9 @@ const sortDescending = (a, b) => {
 };
 
 export default function App() {
+	const maxModalHeight = 700;
+	const minModalHeight = 200;
+
 	// modal
 	const [isModalOpen, setModalOpen] = React.useState(false);
 	const handleModalClose = () => setModalOpen(false);
@@ -29,6 +32,7 @@ export default function App() {
 	// modal content
 	const [modalContent, setModalContent] = React.useState(<AddCarForm />);
 	const [modalTitle, setModalTitle] = React.useState('Add a new car');
+	const [modalHeight, setModalHeight] = React.useState(maxModalHeight);
 
 	// all results from api call
 	const [allResults, setAllResults] = React.useState([]);
@@ -38,16 +42,19 @@ export default function App() {
 	const setModalContentForMessage = function (msg) {
 		setModalContent(() => <Message closeModal={handleModalClose} />);
 		setModalTitle(msg);
+		setModalHeight(minModalHeight);
 	};
 	const setModalContentForAddCarForm = function () {
 		setModalContent(() => (
 			<AddCarForm showMsg={setModalContentForMessage} />
 		));
 		setModalTitle('Add a new car');
+		setModalHeight(maxModalHeight);
 	};
 	const setModalContentForCarView = function (car) {
 		setModalContent(() => <CarView car={car} />);
 		setModalTitle(car.carName);
+		setModalHeight(maxModalHeight);
 	};
 
 	React.useEffect(() => {
@@ -105,6 +112,7 @@ export default function App() {
 
 			<Modal
 				modalTitle={modalTitle}
+				height={modalHeight}
 				isOpen={isModalOpen}
 				closeModal={handleModalClose}
 			>

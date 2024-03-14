@@ -1,5 +1,5 @@
 .add-new-car-form {
-	padding: 1px;
+	padding: 2px;
 	height: var(--modal-child-height);
 	overflow-y: scroll;
 }

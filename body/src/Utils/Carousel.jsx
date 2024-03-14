@@ -13,7 +13,7 @@ export default function Carousel(props) {
 		else idx = slideIndex - 1;
 
 		setSlideIndex(idx);
-		showCurrSlide();
+		showCurrSlide(idx);
 	}
 
 	function goRight() {
@@ -23,12 +23,10 @@ export default function Carousel(props) {
 		else idx = slideIndex + 1;
 
 		setSlideIndex(idx);
-		showCurrSlide();
+		showCurrSlide(idx);
 	}
 
-	function showCurrSlide() {
-		console.log(slideIndex);
-
+	function showCurrSlide(idx) {
 		const slides = document.getElementsByClassName('slides');
 		const dots = document.getElementsByClassName('dot');
 
@@ -37,8 +35,13 @@ export default function Carousel(props) {
 			slides[i].style.display = 'none';
 		}
 
-		slides[slideIndex].style.display = 'block';
-		dots[slideIndex].classList.add('active');
+		if (typeof idx === 'number') {
+			slides[idx].style.display = 'block';
+			dots[idx].classList.add('active');
+		} else {
+			slides[slideIndex].style.display = 'block';
+			dots[slideIndex].classList.add('active');
+		}
 	}
 
 	return (

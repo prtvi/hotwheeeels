@@ -19,7 +19,7 @@ export default function Marquee(props) {
 	}, [shuffle]);
 
 	return (
-		<div>
+		<div className="marquee-container">
 			<marquee className={'pf-400 ' + direction} direction="left">
 				{text}
 			</marquee>

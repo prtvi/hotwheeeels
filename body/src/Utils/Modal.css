@@ -20,7 +20,6 @@
 	border-radius: 10px;
 	box-shadow: 2px solid black;
 	min-width: 230px;
-	height: var(--modal-height);
 }
 
 .modal-header {

@@ -1,3 +1,7 @@
+.marquee-container {
+	width: 100%;
+}
+
 marquee {
 	font-size: 36px;
 }
