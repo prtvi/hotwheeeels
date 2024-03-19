@@ -1,15 +1,13 @@
 import React from 'react';
 import axios from 'axios';
 import Fuse from 'fuse.js';
-import './App.css';
-
 import config from './config.json';
 
-import Marquee from './Utils/Marquee.jsx';
+// import Marquee from './Utils/Marquee.jsx';
 import Modal from './Utils/Modal.jsx';
 import Message from './Utils/Message.jsx';
 
-import AddCarForm from './AddCar/AddCarForm.jsx';
+import AddCarForm from './Forms/AddCarForm.jsx';
 import CarList from './CarList/CarList.jsx';
 import CarShowcase from './CarShowcase/CarShowcase.jsx';
 import Toolbar from './Toolbar/Toolbar.jsx';
@@ -26,7 +24,10 @@ export default function App() {
 
 	// modal
 	const [isModalOpen, setModalOpen] = React.useState(false);
-	const handleModalClose = () => setModalOpen(false);
+	const handleModalClose = () => {
+		setModalOpen(false);
+		window.location.href = window.location.href;
+	};
 	const handleModalOpen = () => setModalOpen(true);
 
 	// modal content
@@ -95,7 +96,7 @@ export default function App() {
 		<div className="App">
 			<h1 className="pf-600">🛞 Hot Wheeeeeeeels 🚗</h1>
 
-			<Marquee direction="left" />
+			{/* <Marquee direction="left" /> */}
 
 			<Toolbar
 				onSearch={handleSearchInput}
@@ -109,7 +110,7 @@ export default function App() {
 				showCar={setModalContentForCarShowcase}
 			/>
 
-			<Marquee direction="right" />
+			{/* <Marquee direction="right" /> */}
 
 			<Modal
 				modalTitle={modalTitle}

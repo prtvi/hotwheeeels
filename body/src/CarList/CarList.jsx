@@ -1,6 +1,6 @@
 import React from 'react';
 import './CarList.css';
-import Car from './Car';
+import Car from './Car.jsx';
 
 export default function CarList(props) {
 	const { list, openModal, showCar } = props;

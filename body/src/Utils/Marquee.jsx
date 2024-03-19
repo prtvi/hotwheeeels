@@ -1,5 +1,5 @@
 import React from 'react';
-import './Marquee.css';
+import './Utils.css';
 
 export default function Marquee(props) {
 	const { direction } = props;

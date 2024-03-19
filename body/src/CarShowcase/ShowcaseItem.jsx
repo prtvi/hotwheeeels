@@ -1,5 +1,5 @@
 import React from 'react';
-import './ShowcaseItem.css';
+import './CarShowcase.css';
 
 const validSpec = function (value) {
 	let valueField = value || '-';

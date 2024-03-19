@@ -1,5 +1,5 @@
 import React from 'react';
-import './Modal.css';
+import './Utils.css';
 
 export default function Modal(props) {
 	const { modalTitle, height, isOpen, closeModal, children } = props;

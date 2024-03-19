@@ -3,8 +3,8 @@ import './CarShowcase.css';
 import { validSpec } from './ShowcaseItem.jsx';
 import ShowcaseItem from './ShowcaseItem.jsx';
 import Carousel from '../Utils/Carousel.jsx';
-import EditCarDetails from './EditCarDetails.jsx';
-import UpdateCarForm from './UpdateCarForm.jsx';
+import EditCarDetails from '../Forms/EditCarDetails.jsx';
+import UpdateCarForm from '../Forms/UpdateCarForm.jsx';
 import config from '../config.json';
 
 const getRowsForShowcase = function (specs, car) {
@@ -62,7 +62,7 @@ export default function CarShowcase(props) {
 	const [mode, setMode] = React.useState('');
 
 	return (
-		<div className="car-view">
+		<div className="car-showcase">
 			<Carousel images={car.imgs} />
 
 			<EditCarDetails

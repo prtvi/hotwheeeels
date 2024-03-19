@@ -1,8 +1,10 @@
-.car-view {
+/* CarShowcase.jsx */
+
+.car-showcase {
 	height: var(--modal-child-height);
 }
 
-.car-view .details {
+.car-showcase .details {
 	margin-top: 10px;
 	width: var(--car-showcase-width);
 	height: var(--details-height);
@@ -20,4 +22,22 @@
 	min-height: 40px;
 	height: fit-content;
 	margin: 4px 0;
+}
+
+/* ShowcaseItem.jsx */
+
+.row-item .label {
+	display: block;
+	font-size: 11px;
+	color: gray;
+}
+.row-item .value {
+	font-size: 14px;
+}
+
+.ri-small {
+	width: calc(var(--car-showcase-width) / 2);
+}
+.ri-large {
+	width: var(--car-showcase-width);
 }

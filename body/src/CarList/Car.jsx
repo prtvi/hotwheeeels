@@ -1,5 +1,5 @@
 import React from 'react';
-import './Car.css';
+import './CarList.css';
 
 // card on the home page
 export default function Car(props) {

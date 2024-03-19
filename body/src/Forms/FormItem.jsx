@@ -1,5 +1,5 @@
 import React from 'react';
-import './FormItem.css';
+import './Forms.css';
 import config from '../config.json';
 
 export default function FormItem(props) {

@@ -1,5 +1,5 @@
 import React from 'react';
-import './Carousel.css';
+import './Utils.css';
 
 export default function Carousel(props) {
 	const { images } = props;

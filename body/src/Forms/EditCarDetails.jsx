@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import './EditCarDetails.css';
-
+import './Forms.css';
 import config from '../config.json';
 
 function showEditComponents(show) {

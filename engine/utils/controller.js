@@ -59,7 +59,6 @@ function uploadImage(req, res) {
 		const extension = '.' + fileNameParts[fileNameParts.length - 1];
 
 		const newFilePath = './assets/' + fileRefKey + extension;
-		// console.log(newFilePath);
 
 		file.mv(newFilePath, err => {
 			if (err) {
@@ -69,7 +68,6 @@ function uploadImage(req, res) {
 		});
 
 		const absUrl = config.config.engineURL + '/' + newFilePath.slice(2);
-		// console.log(absUrl);
 
 		images.push(absUrl);
 	}
@@ -83,6 +81,8 @@ function uploadImage(req, res) {
 			console.log(err);
 			return res.status(400).send('images upload failed');
 		});
+
+	// TODO: need to delete files if updated
 }
 
 function getAll(req, res) {

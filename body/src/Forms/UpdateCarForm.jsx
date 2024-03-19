@@ -1,6 +1,6 @@
 import React from 'react';
-// import './UpdateCarForm.css';
-import FormItem from '../AddCar/FormItem';
+import './Forms.css';
+import FormItem from './FormItem.jsx';
 import config from '../config.json';
 
 function getFormRowItems(specs, car) {

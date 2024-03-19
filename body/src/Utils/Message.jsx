@@ -1,13 +1,13 @@
 import React from 'react';
-import './Message.css';
-import Marquee from './Marquee';
+import './Utils.css';
+// import Marquee from './Marquee';
 
 export default function Message(props) {
 	const { closeModal } = props;
 
 	return (
 		<div className="message">
-			<Marquee direction="left" />
+			{/* <Marquee direction="left" /> */}
 
 			<div>
 				<button className="btn" onClick={closeModal}>
