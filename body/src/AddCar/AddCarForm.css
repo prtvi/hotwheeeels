@@ -11,7 +11,7 @@
 	width: var(--form-width);
 }
 
-.form-row {
+.row {
 	display: flex;
 	justify-content: space-between;
 	width: var(--form-width);

@@ -4,7 +4,7 @@
 
 .car-view .details {
 	margin-top: 10px;
-	width: var(--car-view-width);
+	width: var(--car-showcase-width);
 	height: var(--details-height);
 	overflow-y: scroll;
 	display: flex;
@@ -16,7 +16,7 @@
 .row {
 	display: flex;
 	justify-content: space-between;
-	width: var(--car-view-width);
+	width: var(--car-showcase-width);
 	min-height: 40px;
 	height: fit-content;
 	margin: 4px 0;

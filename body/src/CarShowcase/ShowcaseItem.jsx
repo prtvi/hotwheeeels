@@ -13,7 +13,6 @@ export { validSpec };
 
 export default function ShowcaseItem(props) {
 	const { label, value, itemSizeClass } = props;
-
 	const className = `row-item ${itemSizeClass}`;
 
 	if (!validSpec(value)) return null;

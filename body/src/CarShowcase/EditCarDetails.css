@@ -1,5 +1,5 @@
 .edit-car-details {
-	width: var(--car-view-width);
+	width: var(--car-showcase-width);
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;

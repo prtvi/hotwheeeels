@@ -30,7 +30,7 @@ function showCurrentMode(e) {
 }
 
 export default function EditCarDetails(props) {
-	const { carId, showMsg } = props;
+	const { carId, showMsg, mode, setMode } = props;
 
 	async function deleteCar(carId) {
 		const res = await axios.get(
@@ -41,8 +41,43 @@ export default function EditCarDetails(props) {
 		else showMsg('Something went wrong, try again later');
 	}
 
+	async function updateCar(carId) {
+		const form = document.getElementById('update-car-form');
+		// post form text data
+		const formData = new FormData(form);
+		const formDataJson = {};
+		formData.forEach((value, key) => (formDataJson[key] = value));
+		const result = await axios.post(
+			`${config.engineURL}/api/update_car?car_id=${carId}`,
+			formDataJson
+		);
+
+		// post form image data
+		const imgFormData = new FormData();
+		const fileInput = document.getElementsByName('imgs')[0];
+
+		if (fileInput.files.length > 0) {
+			Array.from(fileInput.files).forEach((file, i) =>
+				imgFormData.append(`img_${carId}_${i}`, file)
+			);
+
+			const result1 = await axios.post(
+				`${config.engineURL}/api/image_upload?car_id=${carId}`,
+				imgFormData
+			);
+
+			if (result.status === 200 && result1.status === 200)
+				showMsg(`${formDataJson.carName} has been updated!`);
+			else showMsg('Some error occurred! Try again in some time');
+			return;
+		}
+
+		if (result.status === 200)
+			showMsg(`${formDataJson.carName} has been updated!`);
+		else showMsg('Some error occurred! Try again in some time');
+	}
+
 	const [editMessage, setEditMessage] = React.useState('');
-	const [mode, setMode] = React.useState('edit');
 
 	const handleEditClick = function (e) {
 		showCurrentMode(e);
@@ -65,11 +100,8 @@ export default function EditCarDetails(props) {
 	};
 
 	const confirmAction = function () {
-		console.log(mode);
-
-		if (mode === 'edit') return;
+		if (mode === 'edit') updateCar(carId);
 		else if (mode === 'delete') deleteCar(carId);
-		else return;
 	};
 
 	return (

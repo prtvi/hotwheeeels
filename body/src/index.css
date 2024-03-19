@@ -5,7 +5,7 @@
 
 	--modal-child-height: 600px;
 
-	--car-view-width: 300px;
+	--car-showcase-width: 300px;
 	--carousel-height: 350px;
 	--dots-height: 20px;
 	--carousel-img-height: calc(var(--carousel-height) - var(--dots-height));
@@ -19,7 +19,7 @@
 	--card-img-height: 170px;
 	--card-border-radius: 10px;
 
-	--form-width: 360px;
+	--form-width: 300px;
 }
 
 * {

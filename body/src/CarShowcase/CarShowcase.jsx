@@ -4,9 +4,10 @@ import { validSpec } from './ShowcaseItem.jsx';
 import ShowcaseItem from './ShowcaseItem.jsx';
 import Carousel from '../Utils/Carousel.jsx';
 import EditCarDetails from './EditCarDetails.jsx';
+import UpdateCarForm from './UpdateCarForm.jsx';
 import config from '../config.json';
 
-const getRowsToShow = function (specs, car) {
+const getRowsForShowcase = function (specs, car) {
 	const rows = [];
 	const allRowItems = [];
 	const largeItemIdxs = [];
@@ -35,36 +36,48 @@ const getRowsToShow = function (specs, car) {
 	return rows;
 };
 
+const getShowcaseDom = function (rowsForView, car) {
+	return rowsForView.map((row, rowIdx) => {
+		return (
+			<div className="row" key={rowIdx}>
+				{row.map(ri => {
+					return (
+						<ShowcaseItem
+							key={ri.key}
+							label={ri.label}
+							value={car[ri.key]}
+							itemSizeClass={`ri-${ri.viewSize}`}
+						/>
+					);
+				})}
+			</div>
+		);
+	});
+};
+
 export default function CarShowcase(props) {
 	const { car, showMsg } = props;
-	const rowsForView = getRowsToShow(config.formItems, car);
+	const rowsForView = getRowsForShowcase(config.formItems, car);
+
+	const [mode, setMode] = React.useState('');
 
 	return (
 		<div className="car-view">
 			<Carousel images={car.imgs} />
 
-			<EditCarDetails carId={car.carId} showMsg={showMsg} />
+			<EditCarDetails
+				carId={car.carId}
+				showMsg={showMsg}
+				mode={mode}
+				setMode={setMode}
+			/>
 
 			<div className="details">
-				{rowsForView.map((row, rowIdx) => {
-					let itemSizeClass = 'ri-small';
-					if (row.length === 1) itemSizeClass = 'ri-large';
-
-					return (
-						<div className="row" key={rowIdx}>
-							{row.map(ri => {
-								return (
-									<ShowcaseItem
-										key={ri.key}
-										label={ri.label}
-										value={car[ri.key]}
-										itemSizeClass={itemSizeClass}
-									/>
-								);
-							})}
-						</div>
-					);
-				})}
+				{mode === 'edit' ? (
+					<UpdateCarForm car={car} />
+				) : (
+					getShowcaseDom(rowsForView, car)
+				)}
 			</div>
 		</div>
 	);

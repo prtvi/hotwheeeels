@@ -4,9 +4,15 @@ import config from '../config.json';
 
 export default function FormItem(props) {
 	const { spec, itemSizeClass } = props;
-	const className = `input-item ${itemSizeClass}`;
+	const className = `row-item ${itemSizeClass}`;
 
-	const value = config.ENV === 'debug' ? spec.defaultValue : '';
+	let value;
+
+	if (config.ENV === 'debug') value = spec.defaultValue;
+	else value = '';
+
+	// set the current value for update car form
+	if (spec.currValue) value = spec.currValue;
 
 	switch (spec.inputType) {
 		case 'text':

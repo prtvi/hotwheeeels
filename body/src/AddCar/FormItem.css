@@ -1,28 +1,31 @@
-.input-item {
+.row-item {
 	font-size: 14px;
 	margin: 5px 0;
 }
 
-.ii-small {
+/* small class will allow two items to occupy the row */
+.ri-small {
 	width: calc(var(--form-width) / 2 - 5px);
 }
-.ii-large {
+
+/* large class if the row size is 1, will occupy entire row */
+.ri-large {
 	width: var(--form-width);
 }
 
-.input-item input {
+.row-item input {
 	font-family: 'Poppins', sans-serif;
 	height: 25px;
 	padding: 0 3px;
 }
-.input-item input[type='text'],
-.input-item input[type='number'],
-.input-item input[type='date'] {
+.row-item input[type='text'],
+.row-item input[type='number'],
+.row-item input[type='date'] {
 	display: block;
 	width: calc(var(--form-width) / 2 - 15px);
 }
 
-.input-item input[type='checkbox'] {
+.row-item input[type='checkbox'] {
 	height: 15px;
 	width: 15px;
 	margin-left: 6px;
@@ -31,19 +34,19 @@
 	cursor: pointer;
 }
 
-.input-item textarea {
+.row-item textarea {
 	font-family: 'Poppins', sans-serif;
 	display: block;
 	width: calc(var(--form-width));
 	resize: none;
 }
 
-.input-item.button-box {
+.row-item.button-box {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
 
-.input-item.button-box > button {
+.row-item.button-box > button {
 	margin: 10px;
 }

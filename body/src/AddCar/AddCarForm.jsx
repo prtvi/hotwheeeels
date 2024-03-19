@@ -4,7 +4,7 @@ import './AddCarForm.css';
 import FormItem from './FormItem.jsx';
 import config from '../config.json';
 
-function getRowsToShow2(specs) {
+function getFormRowItems(specs) {
 	const rows = [];
 	const allRowItems = [];
 	const largeItemIdxs = [];
@@ -38,7 +38,7 @@ const engineURL = config.engineURL;
 
 export default function AddCarForm(props) {
 	const { showMsg } = props;
-	const rowsToShow = getRowsToShow2(config.formItems);
+	const rowsToShow = getFormRowItems(config.formItems);
 
 	async function handleFormSubmit(e) {
 		e.preventDefault();
@@ -74,19 +74,16 @@ export default function AddCarForm(props) {
 
 	return (
 		<div className="add-new-car-form">
-			<form onSubmit={handleFormSubmit}>
+			<form onSubmit={handleFormSubmit} id="add-car-form">
 				<div className="form-content">
 					{rowsToShow.map((row, rowIdx) => {
-						let itemSizeClass = 'ii-small'; // small class will allow two items to occupy the row
-						if (row.length === 1) itemSizeClass = 'ii-large'; // large class if the row size is 1, will occupy entire row
-
 						return (
-							<div className="form-row" key={rowIdx}>
+							<div className="row" key={rowIdx}>
 								{row.map(ri => (
 									<FormItem
 										key={ri.key}
 										spec={ri}
-										itemSizeClass={itemSizeClass}
+										itemSizeClass={`ri-${ri.viewSize}`}
 									/>
 								))}
 							</div>

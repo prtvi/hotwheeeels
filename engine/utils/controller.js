@@ -17,7 +17,7 @@ function addCar(req, res) {
 		carType: rBody.carType,
 		cardAvailable: rBody.cardAvailable === 'on',
 		isGift: rBody.isGift === 'on',
-		giftedby: rBody.giftedby,
+		giftedBy: rBody.giftedBy,
 		coll: rBody.coll,
 		year: rBody.year,
 		series: rBody.series,
@@ -76,12 +76,12 @@ function uploadImage(req, res) {
 
 	Car.findOneAndUpdate({ carId: carId }, { imgs: images })
 		.then(() => {
-			console.log('success');
-			return res.send('image uploaded successfully');
+			console.log('image upload success');
+			return res.send('images uploaded successfully');
 		})
 		.catch(err => {
 			console.log(err);
-			return res.status(400).send('image upload failed');
+			return res.status(400).send('images upload failed');
 		});
 }
 
@@ -111,9 +111,49 @@ function deleteCar(req, res) {
 	// TODO: delete the images: img_carId_idx
 }
 
+function updateCar(req, res) {
+	const rBody = req.body;
+	const carId = req.query.car_id;
+	console.log(rBody);
+
+	Car.findOneAndUpdate(
+		{ carId: carId },
+		{
+			carName: rBody.carName,
+			brand: rBody.brand,
+			price: +rBody.price,
+			color: rBody.color,
+			acquiredDate: rBody.acquiredDate,
+			purchasedFrom: rBody.purchasedFrom,
+			orderNumber: rBody.orderNumber,
+			carType: rBody.carType,
+			cardAvailable: rBody.cardAvailable === 'on',
+			isGift: rBody.isGift === 'on',
+			giftedBy: rBody.giftedBy,
+			coll: rBody.coll,
+			year: rBody.year,
+			series: rBody.series,
+			baseColorAndType: rBody.baseColorAndType,
+			windowColor: rBody.windowColor,
+			interiorColor: rBody.interiorColor,
+			toy: rBody.toy,
+			notes: rBody.notes,
+		}
+	)
+		.then(() => {
+			console.log('car update success');
+			return res.send('car updated successfully');
+		})
+		.catch(err => {
+			console.log(err);
+			return res.status(400).send('car update failed');
+		});
+}
+
 exports.r = {
 	addCar,
 	uploadImage,
 	getAll,
 	deleteCar,
+	updateCar,
 };

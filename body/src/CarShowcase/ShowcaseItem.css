@@ -7,10 +7,9 @@
 	font-size: 14px;
 }
 
-.row .ri-small {
-	width: calc(var(--car-view-width) / 2);
+.ri-small {
+	width: calc(var(--car-showcase-width) / 2);
 }
-
-.row .ri-large {
-	width: var(--car-view-width);
+.ri-large {
+	width: var(--car-showcase-width);
 }

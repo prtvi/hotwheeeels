@@ -1,5 +1,5 @@
 .slideshow-container {
-	width: var(--car-view-width);
+	width: var(--car-showcase-width);
 	height: var(--carousel-height);
 	position: relative;
 	margin: auto;
@@ -13,7 +13,7 @@
 	display: none;
 	height: inherit;
 	margin: 0 auto;
-	width: var(--car-view-width);
+	width: var(--car-showcase-width);
 	height: var(--carousel-img-height);
 }
 .slides img {
