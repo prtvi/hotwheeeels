@@ -11,7 +11,7 @@ import Message from './Utils/Message.jsx';
 
 import AddCarForm from './AddCar/AddCarForm.jsx';
 import CarList from './CarList/CarList.jsx';
-import CarView from './CarView/CarView.jsx';
+import CarShowcase from './CarShowcase/CarShowcase.jsx';
 import Toolbar from './Toolbar/Toolbar.jsx';
 
 const sortDescending = (a, b) => {
@@ -51,9 +51,9 @@ export default function App() {
 		setModalTitle('Add a new car');
 		setModalHeight(maxModalHeight);
 	};
-	const setModalContentForCarView = function (car) {
+	const setModalContentForCarShowcase = function (car) {
 		setModalContent(() => (
-			<CarView car={car} showMsg={setModalContentForMessage} />
+			<CarShowcase car={car} showMsg={setModalContentForMessage} />
 		));
 		setModalTitle(car.carName);
 		setModalHeight(maxModalHeight);
@@ -106,7 +106,7 @@ export default function App() {
 			<CarList
 				list={resultsForView}
 				openModal={handleModalOpen}
-				showCar={setModalContentForCarView}
+				showCar={setModalContentForCarShowcase}
 			/>
 
 			<Marquee direction="right" />

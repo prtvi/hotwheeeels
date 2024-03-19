@@ -3,9 +3,10 @@ const { config } = require('./config.js');
 
 function addCar(req, res) {
 	const rBody = req.body;
-	const reqId = req.query.req_id;
+	const carId = req.query.car_id;
 
 	const newCar = new Car({
+		carId: carId,
 		carName: rBody.carName,
 		brand: rBody.brand,
 		price: +rBody.price,
@@ -26,7 +27,6 @@ function addCar(req, res) {
 		toy: rBody.toy,
 		notes: rBody.notes,
 		imgs: [],
-		reqId: reqId,
 	});
 
 	newCar
@@ -43,7 +43,7 @@ function addCar(req, res) {
 
 function uploadImage(req, res) {
 	const fileInput = req.files;
-	const reqId = req.query.req_id;
+	const carId = req.query.car_id;
 
 	if (!fileInput || Object.keys(fileInput).length === 0)
 		return res.status(400).send('No files were uploaded.');
@@ -74,7 +74,7 @@ function uploadImage(req, res) {
 		images.push(absUrl);
 	}
 
-	Car.findOneAndUpdate({ reqId: reqId }, { imgs: images })
+	Car.findOneAndUpdate({ carId: carId }, { imgs: images })
 		.then(() => {
 			console.log('success');
 			return res.send('image uploaded successfully');
@@ -95,10 +95,10 @@ function getAll(req, res) {
 }
 
 function deleteCar(req, res) {
-	const carId = req.query.carId;
+	const carId = req.query.car_id;
 	console.log(carId);
 
-	Car.deleteOne({ _id: carId })
+	Car.deleteOne({ carId: carId })
 		.then(() => {
 			console.log('car deleted');
 			res.send('car deleted!');
@@ -107,6 +107,8 @@ function deleteCar(req, res) {
 			console.log(err);
 			res.status(400).send(err);
 		});
+
+	// TODO: delete the images: img_carId_idx
 }
 
 exports.r = {

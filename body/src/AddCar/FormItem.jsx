@@ -3,8 +3,8 @@ import './FormItem.css';
 import config from '../config.json';
 
 export default function FormItem(props) {
-	const { spec } = props;
-	const className = `input-item ${props.itemSizeClass}`;
+	const { spec, itemSizeClass } = props;
+	const className = `input-item ${itemSizeClass}`;
 
 	const value = config.ENV === 'debug' ? spec.defaultValue : '';
 

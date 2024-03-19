@@ -51,7 +51,7 @@ function getSchemaForFormItem(formItems) {
 }
 
 const schema = getSchemaForFormItem(config.config.formItems);
-schema['reqId'] = {
+schema['carId'] = {
 	type: String,
 	required: true,
 	unique: true,

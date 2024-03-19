@@ -49,7 +49,7 @@ export default function AddCarForm(props) {
 		const formDataJson = {};
 		formData.forEach((value, key) => (formDataJson[key] = value));
 		const result = await axios.post(
-			`${engineURL}/api/add_car?req_id=${ts}`,
+			`${engineURL}/api/add_car?car_id=${ts}`,
 			formDataJson
 		);
 
@@ -61,7 +61,7 @@ export default function AddCarForm(props) {
 		);
 
 		const result1 = await axios.post(
-			`${engineURL}/api/image_upload?req_id=${ts}`,
+			`${engineURL}/api/image_upload?car_id=${ts}`,
 			imgFormData
 		);
 

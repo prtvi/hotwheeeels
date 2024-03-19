@@ -24,6 +24,10 @@
 	right: 55px;
 }
 
+.edit-comp.msg {
+	font-size: 13px;
+}
+
 .edit-comp.icon {
 	cursor: pointer;
 }

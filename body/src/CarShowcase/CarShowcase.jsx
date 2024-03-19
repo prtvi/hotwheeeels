@@ -1,7 +1,7 @@
 import React from 'react';
-import './CarView.css';
-import { validSpec } from './CarViewSpec.jsx';
-import CarViewSpec from './CarViewSpec.jsx';
+import './CarShowcase.css';
+import { validSpec } from './ShowcaseItem.jsx';
+import ShowcaseItem from './ShowcaseItem.jsx';
 import Carousel from '../Utils/Carousel.jsx';
 import EditCarDetails from './EditCarDetails.jsx';
 import config from '../config.json';
@@ -35,7 +35,7 @@ const getRowsToShow = function (specs, car) {
 	return rows;
 };
 
-export default function CarView(props) {
+export default function CarShowcase(props) {
 	const { car, showMsg } = props;
 	const rowsForView = getRowsToShow(config.formItems, car);
 
@@ -43,7 +43,7 @@ export default function CarView(props) {
 		<div className="car-view">
 			<Carousel images={car.imgs} />
 
-			<EditCarDetails carId={car._id} showMsg={showMsg} />
+			<EditCarDetails carId={car.carId} showMsg={showMsg} />
 
 			<div className="details">
 				{rowsForView.map((row, rowIdx) => {
@@ -54,7 +54,7 @@ export default function CarView(props) {
 						<div className="row" key={rowIdx}>
 							{row.map(ri => {
 								return (
-									<CarViewSpec
+									<ShowcaseItem
 										key={ri.key}
 										label={ri.label}
 										value={car[ri.key]}

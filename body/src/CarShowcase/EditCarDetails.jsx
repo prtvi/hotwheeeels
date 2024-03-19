@@ -34,7 +34,7 @@ export default function EditCarDetails(props) {
 
 	async function deleteCar(carId) {
 		const res = await axios.get(
-			`${config.engineURL}/api/delete_car?carId=${carId}`
+			`${config.engineURL}/api/delete_car?car_id=${carId}`
 		);
 
 		if (res.status === 200) showMsg('Car has been deleted');
@@ -65,6 +65,8 @@ export default function EditCarDetails(props) {
 	};
 
 	const confirmAction = function () {
+		console.log(mode);
+
 		if (mode === 'edit') return;
 		else if (mode === 'delete') deleteCar(carId);
 		else return;
@@ -90,18 +92,20 @@ export default function EditCarDetails(props) {
 			</div>
 
 			<div className="edit-comp-group">
-				<span className="edit-comp msg">{editMessage}</span>
+				<span className="edit-comp pf-300 msg">{editMessage}</span>
 			</div>
 
 			<div className="edit-comp-group">
 				<span
 					className="edit-comp icon final-action confirm-btn"
+					title="Confirm action"
 					onClick={confirmAction}
 				>
 					✅
 				</span>
 				<span
 					className="edit-comp icon final-action cancel-btn"
+					title="Cancel action"
 					onClick={closeEditMode}
 				>
 					❌

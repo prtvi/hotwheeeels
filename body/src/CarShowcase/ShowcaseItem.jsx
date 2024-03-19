@@ -1,5 +1,5 @@
 import React from 'react';
-import './CarViewSpec.css';
+import './ShowcaseItem.css';
 
 const validSpec = function (value) {
 	let valueField = value || '-';
@@ -11,7 +11,7 @@ const validSpec = function (value) {
 
 export { validSpec };
 
-export default function CarViewSpec(props) {
+export default function ShowcaseItem(props) {
 	const { label, value, itemSizeClass } = props;
 
 	const className = `row-item ${itemSizeClass}`;
