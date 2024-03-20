@@ -1,5 +1,11 @@
+const fs = require('fs');
 const Car = require('./db.js');
 const { config } = require('./config.js');
+
+function logger(req, res, next) {
+	console.log(req.url);
+	next();
+}
 
 function addCar(req, res) {
 	const rBody = req.body;
@@ -48,6 +54,8 @@ function uploadImage(req, res) {
 	if (!fileInput || Object.keys(fileInput).length === 0)
 		return res.status(400).send('No files were uploaded.');
 
+	deletePicturesForCarId(carId);
+
 	const images = [];
 	const fileRefKeys = Object.keys(fileInput);
 
@@ -58,7 +66,7 @@ function uploadImage(req, res) {
 		const fileNameParts = file.name.split('.');
 		const extension = '.' + fileNameParts[fileNameParts.length - 1];
 
-		const newFilePath = './assets/' + fileRefKey + extension;
+		const newFilePath = config.assetsDir + fileRefKey + extension;
 
 		file.mv(newFilePath, err => {
 			if (err) {
@@ -81,8 +89,6 @@ function uploadImage(req, res) {
 			console.log(err);
 			return res.status(400).send('images upload failed');
 		});
-
-	// TODO: need to delete files if updated
 }
 
 function getAll(req, res) {
@@ -98,17 +104,18 @@ function deleteCar(req, res) {
 	const carId = req.query.car_id;
 	console.log(carId);
 
+	const success = deletePicturesForCarId(carId);
+	if (!success) return res.status(400).send('error deleting images');
+
 	Car.deleteOne({ carId: carId })
 		.then(() => {
-			console.log('car deleted');
-			res.send('car deleted!');
+			console.log('car deleted from db');
+			res.send('car deleted from db!');
 		})
 		.catch(err => {
 			console.log(err);
 			res.status(400).send(err);
 		});
-
-	// TODO: delete the images: img_carId_idx
 }
 
 function updateCar(req, res) {
@@ -151,9 +158,31 @@ function updateCar(req, res) {
 }
 
 exports.r = {
+	logger,
 	addCar,
 	uploadImage,
 	getAll,
 	deleteCar,
 	updateCar,
 };
+
+function deletePicturesForCarId(carId) {
+	const files = fs
+		.readdirSync(config.assetsDir)
+		.filter(
+			allFilesPaths => allFilesPaths.match(`img_${carId}_*`) !== null
+		);
+
+	if (files.length === 0) return false;
+
+	files.forEach(f => {
+		fp = `${config.assetsDir}${f}`;
+
+		fs.unlink(fp, err => {
+			if (err) return false;
+			console.log(fp, 'was deleted');
+		});
+	});
+
+	return true;
+}

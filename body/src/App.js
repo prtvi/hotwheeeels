@@ -26,7 +26,7 @@ export default function App() {
 	const [isModalOpen, setModalOpen] = React.useState(false);
 	const handleModalClose = () => {
 		setModalOpen(false);
-		window.location.href = window.location.href;
+		window.location.reload();
 	};
 	const handleModalOpen = () => setModalOpen(true);
 
