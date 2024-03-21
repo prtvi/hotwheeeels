@@ -66,7 +66,7 @@ function uploadImage(req, res) {
 		const fileNameParts = file.name.split('.');
 		const extension = '.' + fileNameParts[fileNameParts.length - 1];
 
-		const newFilePath = config.assetsDir + fileRefKey + extension;
+		const newFilePath = config.config.assetsDir + fileRefKey + extension;
 
 		file.mv(newFilePath, err => {
 			if (err) {
@@ -102,10 +102,8 @@ function getAll(req, res) {
 
 function deleteCar(req, res) {
 	const carId = req.query.car_id;
-	console.log(carId);
 
-	const success = deletePicturesForCarId(carId);
-	if (!success) return res.status(400).send('error deleting images');
+	deletePicturesForCarId(carId);
 
 	Car.deleteOne({ carId: carId })
 		.then(() => {
@@ -168,7 +166,7 @@ exports.r = {
 
 function deletePicturesForCarId(carId) {
 	const files = fs
-		.readdirSync(config.assetsDir)
+		.readdirSync(config.config.assetsDir)
 		.filter(
 			allFilesPaths => allFilesPaths.match(`img_${carId}_*`) !== null
 		);
@@ -176,12 +174,9 @@ function deletePicturesForCarId(carId) {
 	if (files.length === 0) return false;
 
 	files.forEach(f => {
-		fp = `${config.assetsDir}${f}`;
-
-		fs.unlink(fp, err => {
-			if (err) return false;
-			console.log(fp, 'was deleted');
-		});
+		fp = `${config.config.assetsDir}${f}`;
+		fs.unlinkSync(fp);
+		console.log('delete file:', fp);
 	});
 
 	return true;
