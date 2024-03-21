@@ -10,6 +10,7 @@
 			"forFormOnly": false,
 			"viewSize": "small",
 			"inputType": "text",
+			"maxLength": 32,
 			"defaultValue": "lamborghini",
 			"placeholder": "(as on the car)",
 			"required": true
@@ -20,6 +21,7 @@
 			"forFormOnly": false,
 			"viewSize": "small",
 			"inputType": "text",
+			"maxLength": 20,
 			"defaultValue": "hot wheels",
 			"placeholder": "hotwheels, matchbox etc",
 			"required": true
@@ -40,6 +42,7 @@
 			"forFormOnly": false,
 			"viewSize": "small",
 			"inputType": "text",
+			"maxLength": 15,
 			"defaultValue": "red",
 			"placeholder": "color",
 			"required": false
@@ -59,6 +62,7 @@
 			"forFormOnly": false,
 			"viewSize": "small",
 			"inputType": "text",
+			"maxLength": 20,
 			"defaultValue": "junkieyard",
 			"placeholder": "store name",
 			"required": false
@@ -69,6 +73,7 @@
 			"forFormOnly": false,
 			"viewSize": "small",
 			"inputType": "text",
+			"maxLength": 50,
 			"defaultValue": "#1841",
 			"placeholder": "(if any)",
 			"required": false
@@ -79,6 +84,7 @@
 			"forFormOnly": false,
 			"viewSize": "small",
 			"inputType": "text",
+			"maxLength": 20,
 			"defaultValue": "tooned",
 			"placeholder": "car/suv/tooned",
 			"required": false
@@ -107,6 +113,7 @@
 			"forFormOnly": false,
 			"viewSize": "small",
 			"inputType": "text",
+			"maxLength": 20,
 			"defaultValue": "Joy",
 			"placeholder": "optional",
 			"required": false
@@ -117,6 +124,7 @@
 			"forFormOnly": false,
 			"viewSize": "small",
 			"inputType": "text",
+			"maxLength": 15,
 			"defaultValue": "125/250",
 			"placeholder": "eg: 125/250",
 			"required": false
@@ -127,6 +135,7 @@
 			"forFormOnly": false,
 			"viewSize": "small",
 			"inputType": "text",
+			"maxLength": 4,
 			"defaultValue": "2022",
 			"placeholder": "2023",
 			"required": false
@@ -137,6 +146,7 @@
 			"forFormOnly": false,
 			"viewSize": "small",
 			"inputType": "text",
+			"maxLength": 15,
 			"defaultValue": "HW Turbo 8/10",
 			"placeholder": "eg: HW Turbo 8/10",
 			"required": false
@@ -147,6 +157,7 @@
 			"forFormOnly": false,
 			"viewSize": "small",
 			"inputType": "text",
+			"maxLength": 15,
 			"defaultValue": "black/plastic",
 			"placeholder": "eg: black/plastic",
 			"required": false
@@ -157,6 +168,7 @@
 			"forFormOnly": false,
 			"viewSize": "small",
 			"inputType": "text",
+			"maxLength": 15,
 			"defaultValue": "smoke tint",
 			"placeholder": "eg: smoke tint",
 			"required": false
@@ -167,6 +179,7 @@
 			"forFormOnly": false,
 			"viewSize": "small",
 			"inputType": "text",
+			"maxLength": 15,
 			"defaultValue": "black",
 			"placeholder": "eg: black",
 			"required": false
@@ -177,6 +190,7 @@
 			"forFormOnly": false,
 			"viewSize": "small",
 			"inputType": "text",
+			"maxLength": 10,
 			"defaultValue": "HVT01",
 			"placeholder": "eg: HCT01",
 			"required": false

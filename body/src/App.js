@@ -19,7 +19,7 @@ const sortDescending = (a, b) => {
 };
 
 export default function App() {
-	const maxModalHeight = 700;
+	const maxModalHeight = 600;
 	const minModalHeight = 200;
 
 	// modal
@@ -94,7 +94,7 @@ export default function App() {
 
 	return (
 		<div className="App">
-			<h1 className="pf-600">🛞 Hot Wheeeeeeeels 🚗</h1>
+			<h1 className="pf-600">🛞 Hot Wheeeels 🚗</h1>
 
 			{/* <Marquee direction="left" /> */}
 

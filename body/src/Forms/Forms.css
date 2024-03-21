@@ -1,39 +1,35 @@
 /* AddCarForm.jsx */
 
-.add-new-car-form {
-	padding: 2px;
+.add-car-form {
 	height: var(--modal-child-height);
 	overflow-y: scroll;
 }
 
 .form-content {
+	padding: 2px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	width: var(--form-width);
+	width: var(--modal-child-width);
 }
 
 .row {
 	display: flex;
 	justify-content: space-between;
-	width: var(--form-width);
+	width: var(--modal-child-width);
 }
 
 /* FormItem.jsx */
 
 .row-item {
 	font-size: 14px;
-	margin: 5px 0;
 }
 
-/* small class will allow two items to occupy the row */
 .ri-small {
-	width: calc(var(--form-width) / 2 - 5px);
+	width: var(--row-item-small-width);
 }
-
-/* large class if the row size is 1, will occupy entire row */
 .ri-large {
-	width: var(--form-width);
+	width: var(--modal-child-width);
 }
 
 .row-item input {
@@ -45,7 +41,7 @@
 .row-item input[type='number'],
 .row-item input[type='date'] {
 	display: block;
-	width: calc(var(--form-width) / 2 - 15px);
+	width: calc(var(--modal-child-width) / 2 - 15px);
 }
 
 .row-item input[type='checkbox'] {
@@ -60,7 +56,7 @@
 .row-item textarea {
 	font-family: 'Poppins', sans-serif;
 	display: block;
-	width: calc(var(--form-width));
+	width: calc(var(--modal-child-width) - 6px);
 	resize: none;
 }
 
@@ -72,16 +68,18 @@
 
 .row-item.button-box > button {
 	margin: 10px;
+	margin-bottom: 0;
 }
 
 /* EditCarDetails.jsx */
 
 .edit-car-details {
-	width: var(--car-showcase-width);
+	width: var(--modal-child-width);
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;
-	position: relative;
+	position: absolute;
+	top: 0;
 }
 .edit-car-details.edit {
 	justify-content: space-between;
@@ -92,10 +90,17 @@
 	justify-content: space-around;
 	align-items: center;
 	width: 50px;
+	background-color: whitesmoke;
+	border-radius: 0 0 4px 0;
+	opacity: 0.8;
 }
 .edit-comp-group.active {
 	display: flex;
+	opacity: 1;
 }
+/* .edit-comp-group.active:hover {
+	opacity: 1;
+} */
 .edit-comp-group:nth-child(2) {
 	width: 120px;
 	position: absolute;

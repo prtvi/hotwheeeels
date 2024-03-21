@@ -10,19 +10,19 @@ export default function Toolbar(props) {
 	};
 
 	return (
-		<div className="search-and-add">
-			<div className="search-box">
+		<div className="toolbar">
+			<div className="searchbox-container">
 				<input
 					className="pf-300"
 					type="text"
 					name="search"
-					placeholder="🔍 Search for cars"
+					placeholder="🔍  Search for cars"
 					onChange={onSearch}
 				/>
 			</div>
 
-			<div className="add-car-button">
-				<button className="btn pf-300" type="button" onClick={showCar}>
+			<div className="add-car-btn-container">
+				<button className="btn pf-300" onClick={showCar}>
 					+ 🚘
 				</button>
 			</div>

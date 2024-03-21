@@ -44,7 +44,7 @@
 }
 
 .card:hover img {
-	transform: scale(1.2);
+	transform: scale(1.1);
 	border-top-left-radius: var(--card-border-radius);
 	border-top-right-radius: var(--card-border-radius);
 }
@@ -52,8 +52,16 @@
 .card-name-container {
 	height: calc(var(--card-height) - var(--card-img-height));
 	color: snow;
-	font-size: 13px;
+	font-size: 9px;
+	text-align: center;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
+
+.card-name-container span {
+	padding: 0 2px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: normal;
 }

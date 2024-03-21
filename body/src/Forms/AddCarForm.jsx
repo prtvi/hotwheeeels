@@ -34,7 +34,21 @@ function getFormRowItems(specs) {
 	return rows;
 }
 
-const engineURL = config.engineURL;
+function getFormContentDom(rowItems) {
+	return rowItems.map((row, rowIdx) => {
+		return (
+			<div className="row" key={rowIdx}>
+				{row.map(ri => (
+					<FormItem
+						key={ri.key}
+						spec={ri}
+						itemSizeClass={`ri-${ri.viewSize}`}
+					/>
+				))}
+			</div>
+		);
+	});
+}
 
 export default function AddCarForm(props) {
 	const { showMsg } = props;
@@ -49,7 +63,7 @@ export default function AddCarForm(props) {
 		const formDataJson = {};
 		formData.forEach((value, key) => (formDataJson[key] = value));
 		const result = await axios.post(
-			`${engineURL}/api/add_car?car_id=${ts}`,
+			`${config.engineURL}/api/add_car?car_id=${ts}`,
 			formDataJson
 		);
 
@@ -61,7 +75,7 @@ export default function AddCarForm(props) {
 		);
 
 		const result1 = await axios.post(
-			`${engineURL}/api/image_upload?car_id=${ts}`,
+			`${config.engineURL}/api/image_upload?car_id=${ts}`,
 			imgFormData
 		);
 
@@ -73,22 +87,10 @@ export default function AddCarForm(props) {
 	}
 
 	return (
-		<div className="add-new-car-form">
+		<div className="add-car-form">
 			<form onSubmit={handleFormSubmit} id="add-car-form">
 				<div className="form-content">
-					{rowsToShow.map((row, rowIdx) => {
-						return (
-							<div className="row" key={rowIdx}>
-								{row.map(ri => (
-									<FormItem
-										key={ri.key}
-										spec={ri}
-										itemSizeClass={`ri-${ri.viewSize}`}
-									/>
-								))}
-							</div>
-						);
-					})}
+					{getFormContentDom(rowsToShow)}
 				</div>
 			</form>
 		</div>

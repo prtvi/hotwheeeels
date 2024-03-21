@@ -1,36 +1,35 @@
-.search-and-add {
+.toolbar {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: var(--search-box-height);
+	height: var(--toolbar-height);
 	margin: 20px auto;
 	padding: 0 40px;
 }
 
-.search-box {
+.searchbox-container {
 	width: 80vw;
-	height: var(--search-box-height);
+	height: var(--toolbar-height);
 	margin: 20px auto;
 	text-align: center;
 }
-
-.search-box input {
+.searchbox-container input {
 	padding: 0 8px;
 	width: 90%;
 	height: calc(100% - 4px);
-	font-size: 18px;
+	font-size: 12px;
 	border-radius: 6px;
 	color: rgb(69, 69, 69);
 	border: 2px solid lightgray;
 }
 
-.add-car-button {
+.add-car-btn-container {
 	width: 20vw;
-	height: var(--search-box-height);
+	height: var(--toolbar-height);
 	margin: 0 auto;
 	text-align: center;
 }
-
-.add-car-button button {
-	height: var(--search-box-height);
+.add-car-btn-container button {
+	height: var(--toolbar-height);
+	font-size: 12px;
 }

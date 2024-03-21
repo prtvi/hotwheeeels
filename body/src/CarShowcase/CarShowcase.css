@@ -2,11 +2,11 @@
 
 .car-showcase {
 	height: var(--modal-child-height);
+	position: relative;
 }
 
 .car-showcase .details {
-	margin-top: 10px;
-	width: var(--car-showcase-width);
+	width: var(--modal-child-width);
 	height: var(--details-height);
 	overflow-y: scroll;
 	display: flex;
@@ -18,10 +18,10 @@
 .row {
 	display: flex;
 	justify-content: space-between;
-	width: var(--car-showcase-width);
-	min-height: 40px;
+	width: var(--modal-child-width);
+	min-height: 30px;
 	height: fit-content;
-	margin: 4px 0;
+	margin: 6px 0;
 }
 
 /* ShowcaseItem.jsx */
@@ -36,8 +36,8 @@
 }
 
 .ri-small {
-	width: calc(var(--car-showcase-width) / 2);
+	width: var(--row-item-small-width);
 }
 .ri-large {
-	width: var(--car-showcase-width);
+	width: var(--modal-child-width);
 }

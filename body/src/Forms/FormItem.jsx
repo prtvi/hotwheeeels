@@ -16,6 +16,22 @@ export default function FormItem(props) {
 
 	switch (spec.inputType) {
 		case 'text':
+			return (
+				<div className={className}>
+					<label className="pf-300" htmlFor={spec.key}>
+						{spec.label}
+					</label>
+					<input
+						type={spec.inputType}
+						name={spec.key}
+						placeholder={spec.placeholder}
+						required={spec.required}
+						defaultValue={value}
+						maxLength={spec.maxLength}
+					/>
+				</div>
+			);
+
 		case 'number':
 		case 'date':
 			return (
