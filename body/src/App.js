@@ -12,34 +12,21 @@ import CarList from './CarList/CarList.jsx';
 import CarShowcase from './CarShowcase/CarShowcase.jsx';
 import Toolbar from './Toolbar/Toolbar.jsx';
 
-const sortDescending = (a, b) => {
-	if (a.score > b.score) return 1;
-	if (a.score < b.score) return -1;
-	return 0;
-};
-
 export default function App() {
 	const maxModalHeight = 600;
-	const minModalHeight = 200;
+	const minModalHeight = 100;
 
 	// modal
 	const [isModalOpen, setModalOpen] = React.useState(false);
+	const [modalTitle, setModalTitle] = React.useState('Add a new car');
+	const [modalHeight, setModalHeight] = React.useState(maxModalHeight);
+	const [modalContent, setModalContent] = React.useState(<AddCarForm />);
+
 	const handleModalClose = () => {
 		setModalOpen(false);
 		window.location.reload();
 	};
 	const handleModalOpen = () => setModalOpen(true);
-
-	// modal content
-	const [modalContent, setModalContent] = React.useState(<AddCarForm />);
-	const [modalTitle, setModalTitle] = React.useState('Add a new car');
-	const [modalHeight, setModalHeight] = React.useState(maxModalHeight);
-
-	// all results from api call
-	const [allResults, setAllResults] = React.useState([]);
-	// results to show on UI
-	const [resultsForView, setResultsForView] = React.useState([]);
-
 	const setModalContentForMessage = function (msg) {
 		setModalContent(() => <Message closeModal={handleModalClose} />);
 		setModalTitle(msg);
@@ -59,6 +46,10 @@ export default function App() {
 		setModalTitle(car.carName);
 		setModalHeight(maxModalHeight);
 	};
+
+	// all results from api call && results to show on UI
+	const [allResults, setAllResults] = React.useState([]);
+	const [resultsForView, setResultsForView] = React.useState([]);
 
 	React.useEffect(() => {
 		async function fetchData() {
@@ -83,7 +74,11 @@ export default function App() {
 		setResultsForView(() => {
 			let res = fuse
 				.search(e.target.value)
-				.sort(sortDescending)
+				.sort((a, b) => {
+					if (a.score > b.score) return 1;
+					if (a.score < b.score) return -1;
+					return 0;
+				})
 				.map(i => i.item);
 
 			if (res.length === 0) res = allResults;

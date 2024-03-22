@@ -24,6 +24,7 @@ export default function FormItem(props) {
 					<input
 						type={spec.inputType}
 						name={spec.key}
+						id={spec.key}
 						placeholder={spec.placeholder}
 						required={spec.required}
 						defaultValue={value}
@@ -42,6 +43,7 @@ export default function FormItem(props) {
 					<input
 						type={spec.inputType}
 						name={spec.key}
+						id={spec.key}
 						placeholder={spec.placeholder}
 						required={spec.required}
 						defaultValue={value}
@@ -58,6 +60,7 @@ export default function FormItem(props) {
 					<input
 						type={spec.inputType}
 						name={spec.key}
+						id={spec.key}
 						placeholder={spec.placeholder}
 						required={spec.required}
 						defaultChecked={value}
@@ -74,6 +77,7 @@ export default function FormItem(props) {
 					<input
 						type={spec.inputType}
 						name={spec.key}
+						id={spec.key}
 						accept="image/*"
 						multiple={true}
 						required={spec.required}
@@ -89,6 +93,7 @@ export default function FormItem(props) {
 					</label>
 					<textarea
 						name={spec.key}
+						id={spec.key}
 						cols="20"
 						rows="3"
 						defaultValue={value}
@@ -117,6 +122,7 @@ export default function FormItem(props) {
 					<input
 						type={spec.inputType}
 						name={spec.key}
+						id={spec.key}
 						placeholder={spec.placeholder}
 						required={spec.required}
 					/>

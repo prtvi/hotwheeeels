@@ -50,39 +50,49 @@ function getFormContentDom(rowItems) {
 	});
 }
 
+async function postFormTextData(form, url) {
+	const formData = new FormData(form);
+	const formDataJson = {};
+	formData.forEach((value, key) => (formDataJson[key] = value));
+
+	const response = await axios.post(url, formDataJson);
+	return response;
+}
+
+async function postImageData(fileInput, url, carId) {
+	const imgFormData = new FormData();
+	Array.from(fileInput.files).forEach((file, i) =>
+		imgFormData.append(`img_${carId}_${i}`, file)
+	);
+
+	const response = await axios.post(url, imgFormData);
+	return response;
+}
+
+export { postFormTextData, postImageData };
+
 export default function AddCarForm(props) {
 	const { showMsg } = props;
 	const rowsToShow = getFormRowItems(config.formItems);
 
 	async function handleFormSubmit(e) {
 		e.preventDefault();
-		const ts = Date.now();
-
-		// post form text data
-		const formData = new FormData(e.currentTarget);
-		const formDataJson = {};
-		formData.forEach((value, key) => (formDataJson[key] = value));
-		const result = await axios.post(
-			`${config.engineURL}/api/add_car?car_id=${ts}`,
-			formDataJson
-		);
-
-		// post form image data
-		const imgFormData = new FormData();
+		const carId = Date.now();
 		const fileInput = document.getElementsByName('imgs')[0];
-		Array.from(fileInput.files).forEach((file, i) =>
-			imgFormData.append(`img_${ts}_${i}`, file)
-		);
 
-		const result1 = await axios.post(
-			`${config.engineURL}/api/image_upload?car_id=${ts}`,
-			imgFormData
-		);
+		if (fileInput.files.length > config.maxFileUploadLimit) {
+			alert(`You can upload only ${config.maxFileUploadLimit} pictures`);
+			return;
+		}
 
-		if (result.status === 200 && result1.status === 200)
-			showMsg(
-				`${formDataJson.carName} has been added to your collection!`
-			);
+		const urlText = `${config.engineURL}/api/add_car?car_id=${carId}`;
+		const urlImage = `${config.engineURL}/api/image_upload?car_id=${carId}`;
+
+		const textFormRes = await postFormTextData(e.currentTarget, urlText);
+		const imageFormRes = await postImageData(fileInput, urlImage, carId);
+
+		if (textFormRes.status === 200 && imageFormRes.status === 200)
+			showMsg(`The car has been added to your collection!`);
 		else showMsg('Some error occurred! Try again in some time');
 	}
 

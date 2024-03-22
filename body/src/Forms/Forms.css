@@ -6,7 +6,6 @@
 }
 
 .form-content {
-	padding: 2px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
@@ -80,9 +79,11 @@
 	align-items: center;
 	position: absolute;
 	top: 0;
+	opacity: 0.9;
 }
 .edit-car-details.edit {
 	justify-content: space-between;
+	background-color: whitesmoke;
 }
 
 .edit-comp-group {
@@ -92,19 +93,18 @@
 	width: 50px;
 	background-color: whitesmoke;
 	border-radius: 0 0 4px 0;
-	opacity: 0.8;
 }
 .edit-comp-group.active {
 	display: flex;
-	opacity: 1;
 }
-/* .edit-comp-group.active:hover {
-	opacity: 1;
-} */
 .edit-comp-group:nth-child(2) {
 	width: 120px;
 	position: absolute;
 	right: 55px;
+}
+
+.edit-comp {
+	padding: 3px 0;
 }
 
 .edit-comp.msg {

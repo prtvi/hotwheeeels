@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import './Forms.css';
 import config from '../config.json';
+import { postFormTextData, postImageData } from './AddCarForm.jsx';
 
 function showEditComponents(show) {
 	const editComponentGroups = document.querySelectorAll('.edit-comp-group');
@@ -42,37 +43,31 @@ export default function EditCarDetails(props) {
 
 	async function updateCar(carId) {
 		const form = document.getElementById('update-car-form');
-		// post form text data
-		const formData = new FormData(form);
-		const formDataJson = {};
-		formData.forEach((value, key) => (formDataJson[key] = value));
-		const result = await axios.post(
-			`${config.engineURL}/api/update_car?car_id=${carId}`,
-			formDataJson
-		);
-
-		// post form image data
-		const imgFormData = new FormData();
 		const fileInput = document.getElementsByName('imgs')[0];
 
+		if (fileInput.files.length > config.maxFileUploadLimit) {
+			alert(`You can upload only ${config.maxFileUploadLimit} pictures`);
+			return;
+		}
+
+		const urlText = `${config.engineURL}/api/update_car?car_id=${carId}`;
+		const textFormRes = await postFormTextData(form, urlText);
+
 		if (fileInput.files.length > 0) {
-			Array.from(fileInput.files).forEach((file, i) =>
-				imgFormData.append(`img_${carId}_${i}`, file)
+			const urlImage = `${config.engineURL}/api/image_upload?car_id=${carId}`;
+			const imageFormRes = await postImageData(
+				fileInput,
+				urlImage,
+				carId
 			);
 
-			const result1 = await axios.post(
-				`${config.engineURL}/api/image_upload?car_id=${carId}`,
-				imgFormData
-			);
-
-			if (result.status === 200 && result1.status === 200)
-				showMsg(`${formDataJson.carName} has been updated!`);
+			if (textFormRes.status === 200 && imageFormRes.status === 200)
+				showMsg(`The car has been updated!`);
 			else showMsg('Some error occurred! Try again in some time');
 			return;
 		}
 
-		if (result.status === 200)
-			showMsg(`${formDataJson.carName} has been updated!`);
+		if (textFormRes.status === 200) showMsg(`Car has been updated!`);
 		else showMsg('Some error occurred! Try again in some time');
 	}
 

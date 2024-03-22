@@ -2,7 +2,7 @@ import React from 'react';
 import './CarShowcase.css';
 import { validSpec } from './ShowcaseItem.jsx';
 import ShowcaseItem from './ShowcaseItem.jsx';
-import Carousel from '../Utils/Carousel.jsx';
+import Carousel from './Carousel.jsx';
 import EditCarDetails from '../Forms/EditCarDetails.jsx';
 import UpdateCarForm from '../Forms/UpdateCarForm.jsx';
 import config from '../config.json';

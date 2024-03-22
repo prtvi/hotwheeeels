@@ -3,6 +3,7 @@
 	"engineURL": "http://localhost:3001",
 	"dbEndpoint": "mongodb://127.0.0.1:27017/hw",
 	"assetsDir": "./assets/",
+	"maxFileUploadLimit": 5,
 	"formItems": [
 		{
 			"label": "Name",
