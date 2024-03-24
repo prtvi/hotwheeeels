@@ -65,24 +65,26 @@ export default function App() {
 	}, []);
 
 	const fuse = new Fuse(allResults, {
-		keys: ['carName'],
+		keys: ['carName', 'brand', 'carType'],
 		includeScore: true,
 	});
+
+	const getResultsFromFuse = function (inputText) {
+		return fuse
+			.search(inputText)
+			.sort((a, b) => {
+				if (a.score > b.score) return 1;
+				if (a.score < b.score) return -1;
+				return 0;
+			})
+			.map(i => i.item);
+	};
 
 	// searchbox
 	const handleSearchInput = e => {
 		setResultsForView(() => {
-			let res = fuse
-				.search(e.target.value)
-				.sort((a, b) => {
-					if (a.score > b.score) return 1;
-					if (a.score < b.score) return -1;
-					return 0;
-				})
-				.map(i => i.item);
-
+			let res = getResultsFromFuse(e.target.value);
 			if (res.length === 0) res = allResults;
-
 			return res;
 		});
 	};
