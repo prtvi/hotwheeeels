@@ -1,35 +1,68 @@
 .toolbar {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: var(--toolbar-height);
+	width: var(--toolbar-width);
 	margin: 20px auto;
-	padding: 0 40px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
 }
 
-.searchbox-container {
-	width: 80vw;
-	height: var(--toolbar-height);
-	margin: 20px auto;
-	text-align: center;
+.toolbar .row1,
+.toolbar .row2 {
+	width: var(--toolbar-row-width);
 }
-.searchbox-container input {
+
+.row1 {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: var(--toolbar-row1-height);
+}
+.row1-child {
+	height: var(--toolbar-row1-height);
+}
+
+.row1-child input {
 	padding: 0 8px;
-	width: 90%;
 	height: calc(100% - 4px);
+	width: 180px;
 	font-size: 12px;
 	border-radius: 6px;
 	color: rgb(69, 69, 69);
 	border: 2px solid lightgray;
 }
-
-.add-car-btn-container {
-	width: 20vw;
-	height: var(--toolbar-height);
-	margin: 0 auto;
-	text-align: center;
-}
-.add-car-btn-container button {
-	height: var(--toolbar-height);
+.row1-child button {
+	height: var(--toolbar-row1-height);
 	font-size: 12px;
+}
+
+/* row 2 */
+
+.row2 {
+	height: var(--toolbar-row2-height);
+	margin-top: 5px;
+}
+.row2-child {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: calc(var(--toolbar-row2-height) / 2);
+}
+
+.row2-child label {
+	font-size: 12px;
+}
+
+.row2-child-input {
+	width: 240px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.row2-child select,
+.row2-child input {
+	font-size: 12px;
+	width: 110px;
+	padding: 2px;
 }

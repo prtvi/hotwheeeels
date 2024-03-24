@@ -2,7 +2,10 @@
 	--bg: #0d1116;
 	--color: #e6edf3;
 
-	--toolbar-height: 30px;
+	--toolbar-width: 360px;
+	--toolbar-row-width: 300px;
+	--toolbar-row1-height: 30px;
+	--toolbar-row2-height: 60px;
 
 	--card-width: 100px;
 	--card-height: 150px;
@@ -105,6 +108,10 @@ body {
 	font-family: 'Poppins', sans-serif;
 	font-weight: 600;
 	font-style: italic;
+}
+
+.hidden {
+	display: none;
 }
 
 .btn {
