@@ -12,38 +12,42 @@
 	width: var(--modal-child-width);
 }
 
-.row {
+.form-row {
 	display: flex;
 	justify-content: space-between;
 	width: var(--modal-child-width);
+	min-height: 40px;
+	height: fit-content;
+	margin: 0;
+	margin-top: var(--row-top-margin);
 }
 
 /* FormItem.jsx */
 
-.row-item {
-	font-size: 14px;
+.form-row-item {
+	font-size: var(--btn-fs);
 }
 
-.ri-small {
-	width: var(--row-item-small-width);
+.fri-small {
+	width: calc(var(--modal-child-width) / 2);
 }
-.ri-large {
+.fri-large {
 	width: var(--modal-child-width);
 }
 
-.row-item input {
+.form-row-item input {
 	font-family: 'Poppins', sans-serif;
+	font-size: var(--btn-fs);
 	height: 25px;
 	padding: 0 3px;
 }
-.row-item input[type='text'],
-.row-item input[type='number'],
-.row-item input[type='date'] {
+.form-row-item input[type='text'],
+.form-row-item input[type='number'],
+.form-row-item input[type='date'] {
 	display: block;
 	width: calc(var(--modal-child-width) / 2 - 15px);
 }
-
-.row-item input[type='checkbox'] {
+.form-row-item input[type='checkbox'] {
 	height: 15px;
 	width: 15px;
 	margin-left: 6px;
@@ -51,23 +55,25 @@
 	vertical-align: middle;
 	cursor: pointer;
 }
-
-.row-item textarea {
+.form-row-item textarea {
 	font-family: 'Poppins', sans-serif;
+	font-size: var(--btn-fs);
 	display: block;
 	width: calc(var(--modal-child-width) - 6px);
 	resize: none;
 }
-
-.row-item.button-box {
+.form-row-item.button-box {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
-
-.row-item.button-box > button {
+.form-row-item.button-box > button {
 	margin: 10px;
 	margin-bottom: 0;
+}
+.form-row-item.center-chbx {
+	display: flex;
+	align-items: center;
 }
 
 /* EditCarDetails.jsx */
@@ -99,7 +105,7 @@
 	display: flex;
 }
 .edit-comp-group:nth-child(2) {
-	width: 120px;
+	width: 150px;
 	position: absolute;
 	right: 55px;
 }
@@ -108,7 +114,7 @@
 	padding: 3px 0;
 }
 .edit-comp.msg {
-	font-size: 13px;
+	font-size: calc(var(--showcase-item-label-fs) + 2px);
 }
 .edit-comp.icon {
 	cursor: pointer;
@@ -119,10 +125,4 @@
 .edit-comp.icon.active {
 	background-color: rgb(145, 231, 110);
 	border-radius: 500px;
-}
-
-@media screen and (min-width: 450px) {
-	.edit-comp.msg {
-		font-size: 14px;
-	}
 }

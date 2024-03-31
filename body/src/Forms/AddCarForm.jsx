@@ -37,13 +37,9 @@ function getFormRowItems(specs) {
 function getFormContentDom(rowItems) {
 	return rowItems.map((row, rowIdx) => {
 		return (
-			<div className="row" key={rowIdx}>
+			<div className="form-row" key={rowIdx}>
 				{row.map(ri => (
-					<FormItem
-						key={ri.key}
-						spec={ri}
-						itemSizeClass={`ri-${ri.viewSize}`}
-					/>
+					<FormItem key={ri.key} spec={ri} viewSize={ri.viewSize} />
 				))}
 			</div>
 		);

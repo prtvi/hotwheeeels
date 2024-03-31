@@ -5,8 +5,6 @@
 	flex-direction: column;
 	justify-content: space-around;
 	align-items: center;
-
-	border: 1px solid red;
 }
 
 .row1 {
@@ -23,7 +21,7 @@
 .row1-child input {
 	padding: 0 8px;
 	height: calc(100% - 4px);
-	width: 200px;
+	width: var(--search-input-width);
 	font-size: var(--btn-fs);
 	border-radius: 6px;
 	color: rgb(69, 69, 69);
@@ -31,10 +29,4 @@
 }
 .row1-child button {
 	height: var(--toolbar-row1-height);
-}
-
-@media screen and (min-width: 450px) {
-	.row1-child input {
-		width: 250px;
-	}
 }

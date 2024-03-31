@@ -58,7 +58,11 @@ marquee.left {
 	position: relative;
 }
 
+.modal-title {
+	font-size: var(--modal-header-fs);
+}
 .modal-close {
+	font-size: calc(var(--modal-header-fs) - 2px);
 	cursor: pointer;
 	position: absolute;
 	right: -5px;
@@ -66,4 +70,10 @@ marquee.left {
 }
 .modal-close:hover {
 	transform: scale(1.1);
+}
+
+@media screen and (min-width: 580px) {
+	.modal-body {
+		padding: 30px;
+	}
 }

@@ -1,35 +1,3 @@
-:root {
-	--bg: #0d1116;
-	--color: #e6edf3;
-	--btn-fs: 12px;
-
-	--toolbar-width: 360px;
-	--toolbar-row-width: 300px;
-	--toolbar-row1-height: 30px;
-
-	--card-width: 100px;
-	--card-height: 150px;
-	--card-img-height: calc(var(--card-height) - 30px);
-	--card-border-radius: 8px;
-
-	/* modal height -> 600, padding 20px, so height left -> 600-40 = 560px, subtract header 30px, ~530px->modal-child-height */
-
-	--modal-height: 600px;
-	--modal-child-height: 530px;
-	--modal-child-width: 300px;
-	--modal-header-height: 30px;
-
-	/* add car form */
-	--row-item-small-width: calc(var(--modal-child-width) / 2);
-
-	/* car showcase */
-	--carousel-height: 300px;
-	--carousel-img-height: calc(var(--carousel-height) - 20px);
-	--details-height: calc(
-		var(--modal-child-height) - var(--carousel-height) - 20px
-	);
-}
-
 .pf-100 {
 	font-family: 'Poppins', sans-serif;
 	font-weight: 100;
@@ -127,6 +95,37 @@ h1 {
 	background-color: #2980b9;
 }
 
+:root {
+	--bg: #0d1116;
+	--color: #e6edf3;
+	--btn-fs: 12px;
+
+	--toolbar-width: 360px;
+	--toolbar-row-width: 300px;
+	--toolbar-row1-height: 30px;
+	--search-input-width: 200px;
+
+	--card-width: 100px;
+	--card-height: 150px;
+	--card-border-radius: 8px;
+	--card-display-text-height: 30px;
+	--card-img-height: calc(
+		var(--card-height) - var(--card-display-text-height)
+	);
+
+	--modal-height: 600px;
+	--modal-child-height: 530px;
+	--modal-child-width: 300px;
+	--modal-header-fs: 20px;
+	--modal-header-height: 30px;
+
+	--carousel-height: 300px;
+	--carousel-img-height: calc(var(--carousel-height) - 20px);
+	--row-top-margin: 5px;
+	--row-height: 40px;
+	--showcase-item-label-fs: 11px;
+}
+
 @media screen and (min-width: 450px) {
 	:root {
 		--btn-fs: 13px;
@@ -134,15 +133,21 @@ h1 {
 		--toolbar-width: 400px;
 		--toolbar-row-width: 350px;
 		--toolbar-row1-height: 35px;
+		--search-input-width: 250px;
 
 		--card-width: 110px;
 		--card-height: 160px;
+		--card-display-text-height: 32px;
 
 		--modal-height: 700px;
 		--modal-child-height: 625px;
 		--modal-child-width: 350px;
+		--modal-header-fs: 22px;
 
 		--carousel-height: 350px;
+		--row-top-margin: 7px;
+		--row-height: 45px;
+		--showcase-item-label-fs: 13px;
 	}
 
 	.btn {
@@ -156,7 +161,38 @@ h1 {
 }
 
 @media screen and (min-width: 580px) {
+	:root {
+		--btn-fs: 15px;
+
+		--toolbar-width: 500px;
+		--toolbar-row-width: 450px;
+		--toolbar-row1-height: 40px;
+		--search-input-width: 350px;
+
+		--card-width: 130px;
+		--card-height: 180px;
+		--card-display-text-height: 35px;
+
+		--modal-height: 750px;
+		--modal-child-height: 680px;
+		--modal-child-width: 400px;
+		--modal-header-fs: 24px;
+
+		--carousel-height: 400px;
+		--row-top-margin: 9px;
+		--row-height: 50px;
+		--showcase-item-label-fs: 15px;
+	}
+
+	.btn {
+		padding: 7px 14px;
+	}
+
+	h1 {
+		font-size: 26px;
+	}
 }
+
 @media screen and (min-width: 768px) {
 }
 @media screen and (min-width: 1024px) {

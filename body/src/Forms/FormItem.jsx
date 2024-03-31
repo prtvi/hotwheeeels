@@ -3,8 +3,8 @@ import './Forms.css';
 import config from '../config.json';
 
 export default function FormItem(props) {
-	const { spec, itemSizeClass } = props;
-	const className = `row-item ${itemSizeClass}`;
+	const { spec, viewSize } = props;
+	const className = `form-row-item fri-${viewSize}`;
 
 	let value;
 
@@ -53,7 +53,7 @@ export default function FormItem(props) {
 
 		case 'checkbox':
 			return (
-				<div className={className}>
+				<div className={`${className} center-chbx`}>
 					<label className="pf-300" htmlFor={spec.key}>
 						{spec.label}
 					</label>
