@@ -74,8 +74,7 @@ body {
 }
 h1 {
 	text-align: center;
-	margin: 20px;
-	margin-top: 40px;
+	margin: 40px 20px 30px 20px;
 	font-size: 22px;
 }
 
@@ -83,7 +82,7 @@ h1 {
 	font-family: 'Poppins', sans-serif;
 	font-weight: 300;
 	font-size: var(--btn-fs);
-	padding: 5px 10px;
+	padding: var(--btn-padding);
 	background-color: #3498db;
 	color: #fff;
 	border: none;
@@ -98,7 +97,9 @@ h1 {
 :root {
 	--bg: #0d1116;
 	--color: #e6edf3;
+
 	--btn-fs: 12px;
+	--btn-padding: 5px 10px;
 
 	--toolbar-width: 360px;
 	--toolbar-row-width: 300px;
@@ -116,12 +117,12 @@ h1 {
 	--modal-height: 600px;
 	--modal-child-height: 530px;
 	--modal-child-width: 300px;
-	--modal-header-fs: 20px;
+	--modal-header-fs: 17px;
 	--modal-header-height: 30px;
 
 	--carousel-height: 300px;
 	--carousel-img-height: calc(var(--carousel-height) - 20px);
-	--row-top-margin: 5px;
+	--row-top-margin: 6px;
 	--row-height: 40px;
 	--showcase-item-label-fs: 11px;
 }
@@ -129,6 +130,7 @@ h1 {
 @media screen and (min-width: 450px) {
 	:root {
 		--btn-fs: 13px;
+		--btn-padding: 6px 12px;
 
 		--toolbar-width: 400px;
 		--toolbar-row-width: 350px;
@@ -142,16 +144,12 @@ h1 {
 		--modal-height: 700px;
 		--modal-child-height: 625px;
 		--modal-child-width: 350px;
-		--modal-header-fs: 22px;
+		--modal-header-fs: 19px;
 
 		--carousel-height: 350px;
-		--row-top-margin: 7px;
+		--row-top-margin: 8px;
 		--row-height: 45px;
 		--showcase-item-label-fs: 13px;
-	}
-
-	.btn {
-		padding: 6px 12px;
 	}
 
 	h1 {
@@ -163,6 +161,7 @@ h1 {
 @media screen and (min-width: 580px) {
 	:root {
 		--btn-fs: 15px;
+		--btn-padding: 7px 14px;
 
 		--toolbar-width: 500px;
 		--toolbar-row-width: 450px;
@@ -176,16 +175,12 @@ h1 {
 		--modal-height: 750px;
 		--modal-child-height: 680px;
 		--modal-child-width: 400px;
-		--modal-header-fs: 24px;
+		--modal-header-fs: 22px;
 
 		--carousel-height: 400px;
-		--row-top-margin: 9px;
+		--row-top-margin: 10px;
 		--row-height: 50px;
 		--showcase-item-label-fs: 15px;
-	}
-
-	.btn {
-		padding: 7px 14px;
 	}
 
 	h1 {
@@ -194,8 +189,37 @@ h1 {
 }
 
 @media screen and (min-width: 768px) {
+	:root {
+		--btn-fs: 16px;
+		--btn-padding: 8px 16px;
+
+		--toolbar-width: 600px;
+		--toolbar-row-width: 500px;
+		--toolbar-row1-height: 45px;
+		--search-input-width: 400px;
+
+		--card-width: 150px;
+		--card-height: 200px;
+		--card-display-text-height: 38px;
+
+		--modal-child-width: 500px;
+
+		--row-top-margin: 12px;
+		--row-height: 52px;
+		--showcase-item-label-fs: 16px;
+	}
+
+	h1 {
+		font-size: 30px;
+	}
 }
+
 @media screen and (min-width: 1024px) {
-}
-@media screen and (min-width: 1250px) {
+	:root {
+		--modal-child-width: 525px;
+		--modal-header-fs: 24px;
+
+		--row-top-margin: 14px;
+		--row-height: 54px;
+	}
 }

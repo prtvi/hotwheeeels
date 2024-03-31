@@ -53,7 +53,7 @@ export default function FormItem(props) {
 
 		case 'checkbox':
 			return (
-				<div className={`${className} center-chbx`}>
+				<div className={`${className} center-vertically`}>
 					<label className="pf-300" htmlFor={spec.key}>
 						{spec.label}
 					</label>
@@ -70,7 +70,7 @@ export default function FormItem(props) {
 
 		case 'file':
 			return (
-				<div className={className}>
+				<div className={`${className} center-vertically`}>
 					<label className="pf-300" htmlFor={spec.key}>
 						{spec.label}
 					</label>

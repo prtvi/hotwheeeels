@@ -48,12 +48,12 @@ export default function UpdateCarForm(props) {
 				<div className="form-content">
 					{rowsToShow.map((row, rowIdx) => {
 						return (
-							<div className="row" key={rowIdx}>
+							<div className="form-row" key={rowIdx}>
 								{row.map(ri => (
 									<FormItem
 										key={ri.key}
 										spec={ri}
-										itemSizeClass={`ri-${ri.viewSize}`}
+										viewSize={ri.viewSize}
 									/>
 								))}
 							</div>

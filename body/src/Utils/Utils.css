@@ -77,3 +77,9 @@ marquee.left {
 		padding: 30px;
 	}
 }
+
+@media screen and (min-width: 1024px) {
+	.modal-body {
+		padding: 30px 50px;
+	}
+}

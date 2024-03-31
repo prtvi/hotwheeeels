@@ -1,6 +1,6 @@
 .toolbar {
 	width: var(--toolbar-width);
-	margin: 20px auto;
+	margin: 30px auto;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;

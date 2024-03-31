@@ -5,7 +5,7 @@
 	justify-content: center;
 	align-items: center;
 	flex-wrap: wrap;
-	padding: 5px;
+	margin: 10px;
 }
 
 /* Car.jsx */
@@ -193,8 +193,25 @@
 }
 
 @media screen and (min-width: 580px) {
-	/* Cars.jsx */
 	.car-list {
-		padding: 10px 30px;
+		margin: 10px 30px;
+	}
+}
+
+@media screen and (min-width: 768px) {
+	.car-list {
+		margin: 10px 50px;
+	}
+}
+
+@media screen and (min-width: 1024px) {
+	.car-list {
+		margin: 20px 100px;
+	}
+}
+
+@media screen and (min-width: 1250px) {
+	.car-list {
+		margin: 40px 100px;
 	}
 }
