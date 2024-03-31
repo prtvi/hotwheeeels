@@ -13,13 +13,9 @@ import CarShowcase from './CarShowcase/CarShowcase.jsx';
 import Toolbar from './Toolbar/Toolbar.jsx';
 
 export default function App() {
-	const maxModalHeight = 600;
-	const minModalHeight = 100;
-
 	// modal
 	const [isModalOpen, setModalOpen] = React.useState(false);
 	const [modalTitle, setModalTitle] = React.useState('Add a new car');
-	const [modalHeight, setModalHeight] = React.useState(maxModalHeight);
 	const [modalContent, setModalContent] = React.useState(<AddCarForm />);
 
 	const handleModalClose = () => {
@@ -30,21 +26,18 @@ export default function App() {
 	const setModalContentForMessage = function (msg) {
 		setModalContent(() => <Message closeModal={handleModalClose} />);
 		setModalTitle(msg);
-		setModalHeight(minModalHeight);
 	};
 	const setModalContentForAddCarForm = function () {
 		setModalContent(() => (
 			<AddCarForm showMsg={setModalContentForMessage} />
 		));
 		setModalTitle('Add a new car');
-		setModalHeight(maxModalHeight);
 	};
 	const setModalContentForCarShowcase = function (car) {
 		setModalContent(() => (
 			<CarShowcase car={car} showMsg={setModalContentForMessage} />
 		));
 		setModalTitle(car.carName);
-		setModalHeight(maxModalHeight);
 	};
 
 	// all results from api call && results to show on UI
@@ -111,7 +104,6 @@ export default function App() {
 
 			<Modal
 				modalTitle={modalTitle}
-				height={modalHeight}
 				isOpen={isModalOpen}
 				closeModal={handleModalClose}
 			>

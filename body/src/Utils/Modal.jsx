@@ -2,7 +2,7 @@ import React from 'react';
 import './Utils.css';
 
 export default function Modal(props) {
-	const { modalTitle, height, isOpen, closeModal, children } = props;
+	const { modalTitle, isOpen, closeModal, children } = props;
 
 	const handleEscForClosingModal = React.useCallback(
 		e => {
@@ -27,7 +27,7 @@ export default function Modal(props) {
 
 	return (
 		<div className="modal-out" onClick={handleClickOutsideModalBody}>
-			<div className="modal-body" style={{ height: `${height}px` }}>
+			<div className="modal-body">
 				<div className="modal-header">
 					<div className="modal-title">
 						<h3 className="pf-400">{modalTitle}</h3>

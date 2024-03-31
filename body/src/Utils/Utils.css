@@ -36,6 +36,7 @@ marquee.left {
 }
 
 .modal-body {
+	height: var(--modal-height);
 	background: whitesmoke;
 	color: black;
 	margin: auto;
@@ -62,7 +63,6 @@ marquee.left {
 	position: absolute;
 	right: -5px;
 	top: -15px;
-	color: white;
 }
 .modal-close:hover {
 	transform: scale(1.1);

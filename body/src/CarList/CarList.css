@@ -6,6 +6,8 @@
 	align-items: center;
 	flex-wrap: wrap;
 	padding: 5px;
+
+	border: 1px solid red;
 }
 
 /* Car.jsx */
@@ -52,7 +54,6 @@
 .card-name-container {
 	height: calc(var(--card-height) - var(--card-img-height));
 	color: snow;
-	font-size: 9px;
 	text-align: center;
 	display: flex;
 	justify-content: center;
@@ -60,8 +61,15 @@
 }
 
 .card-name-container span {
+	font-size: 9px;
 	padding: 0 2px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: normal;
+}
+
+@media screen and (min-width: 450px) {
+	.card-name-container span {
+		font-size: 10px;
+	}
 }

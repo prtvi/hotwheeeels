@@ -5,14 +5,16 @@
 	flex-direction: column;
 	justify-content: space-around;
 	align-items: center;
+
+	border: 1px solid red;
 }
 
 .row1 {
 	width: var(--toolbar-row-width);
+	height: var(--toolbar-row1-height);
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	height: var(--toolbar-row1-height);
 }
 .row1-child {
 	height: var(--toolbar-row1-height);
@@ -22,12 +24,17 @@
 	padding: 0 8px;
 	height: calc(100% - 4px);
 	width: 200px;
-	font-size: 12px;
+	font-size: var(--btn-fs);
 	border-radius: 6px;
 	color: rgb(69, 69, 69);
 	border: 2px solid lightgray;
 }
 .row1-child button {
 	height: var(--toolbar-row1-height);
-	font-size: 12px;
+}
+
+@media screen and (min-width: 450px) {
+	.row1-child input {
+		width: 250px;
+	}
 }
