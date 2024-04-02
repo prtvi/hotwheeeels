@@ -28,3 +28,5 @@ yarn-error.log*
 data.json
 assets/
 *.txt
+.env
+engine/config/*.json

@@ -114,8 +114,8 @@ h1 {
 		var(--card-height) - var(--card-display-text-height)
 	);
 
-	--modal-height: 600px;
-	--modal-child-height: 530px;
+	--modal-height: 550px;
+	--modal-child-height: 480px;
 	--modal-child-width: 300px;
 	--modal-header-fs: 17px;
 	--modal-header-height: 30px;
@@ -141,12 +141,12 @@ h1 {
 		--card-height: 160px;
 		--card-display-text-height: 32px;
 
-		--modal-height: 700px;
-		--modal-child-height: 625px;
+		--modal-height: 600px;
+		--modal-child-height: 550px;
 		--modal-child-width: 350px;
 		--modal-header-fs: 19px;
 
-		--carousel-height: 350px;
+		--carousel-height: 320px;
 		--row-top-margin: 8px;
 		--row-height: 45px;
 		--showcase-item-label-fs: 13px;
@@ -172,12 +172,8 @@ h1 {
 		--card-height: 180px;
 		--card-display-text-height: 35px;
 
-		--modal-height: 750px;
-		--modal-child-height: 680px;
-		--modal-child-width: 400px;
 		--modal-header-fs: 22px;
 
-		--carousel-height: 400px;
 		--row-top-margin: 10px;
 		--row-height: 50px;
 		--showcase-item-label-fs: 15px;
@@ -203,6 +199,8 @@ h1 {
 		--card-display-text-height: 38px;
 
 		--modal-child-width: 500px;
+
+		--carousel-height: 350px;
 
 		--row-top-margin: 12px;
 		--row-height: 52px;

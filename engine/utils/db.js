@@ -1,10 +1,16 @@
 const mongoose = require('mongoose');
-const { config } = require('./config.js');
+const config = require('config');
 
-mongoose
-	.connect(config.config.dbEndpoint)
-	.then(() => console.log('db connected'))
-	.catch(err => console.log(err));
+exports.initDb = function () {
+	mongoose.connect(process.env.DB_URL);
+
+	const conn = mongoose.connection;
+	conn.on('connected', () => console.log('db connected'));
+	conn.on('disconnected', () => console.log('db disconnected'));
+	conn.on('error', console.error.bind(console, 'connection error:'));
+
+	return conn;
+};
 
 function getSchemaForFormItem(formItems) {
 	const schema = {};
@@ -50,12 +56,11 @@ function getSchemaForFormItem(formItems) {
 	return schema;
 }
 
-const schema = getSchemaForFormItem(config.config.formItems);
+const schema = getSchemaForFormItem(config.get('formItems'));
 schema['carId'] = {
 	type: String,
 	required: true,
 	unique: true,
 };
 
-const carSchema = mongoose.Schema(schema);
-module.exports = mongoose.model('Car', carSchema);
+exports.Car = new mongoose.model('Car', mongoose.Schema(schema));

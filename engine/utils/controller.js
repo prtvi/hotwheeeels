@@ -1,6 +1,6 @@
 const fs = require('fs');
-const Car = require('./db.js');
-const { config } = require('./config.js');
+const config = require('config');
+const { Car } = require('./db.js');
 
 function logger(req, res, next) {
 	console.log(req.url);
@@ -66,7 +66,7 @@ function uploadImage(req, res) {
 		const fileNameParts = file.name.split('.');
 		const extension = '.' + fileNameParts[fileNameParts.length - 1];
 
-		const newFilePath = config.config.assetsDir + fileRefKey + extension;
+		const newFilePath = config.get('assetsDir') + fileRefKey + extension;
 
 		file.mv(newFilePath, err => {
 			if (err) {
@@ -75,8 +75,7 @@ function uploadImage(req, res) {
 			}
 		});
 
-		const absUrl = config.config.engineURL + '/' + newFilePath.slice(2);
-
+		const absUrl = config.get('engineURL') + '/' + newFilePath.slice(2);
 		images.push(absUrl);
 	}
 
@@ -166,7 +165,7 @@ exports.r = {
 
 function deletePicturesForCarId(carId) {
 	const files = fs
-		.readdirSync(config.config.assetsDir)
+		.readdirSync(config.get('assetsDir'))
 		.filter(
 			allFilesPaths => allFilesPaths.match(`img_${carId}_*`) !== null
 		);
@@ -174,7 +173,7 @@ function deletePicturesForCarId(carId) {
 	if (files.length === 0) return false;
 
 	files.forEach(f => {
-		fp = `${config.config.assetsDir}${f}`;
+		fp = `${config.get('assetsDir')}${f}`;
 		fs.unlinkSync(fp);
 		console.log('delete file:', fp);
 	});
