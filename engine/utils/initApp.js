@@ -3,22 +3,25 @@ const fs = require('fs');
 const { initDb } = require('./db.js');
 
 exports.initApp = async function (rootDir) {
-	const response = await axios.get(
-		'https://raw.githubusercontent.com/prtvi/hotwheeeels/master/body/src/config.json'
-	);
-
 	const assetsDir = rootDir + '/assets/';
 	const configFile = rootDir + '/config/default.json';
 
-	const conf = response.data;
-	// console.log(conf);
+	if (!fs.existsSync(assetsDir)) fs.mkdirSync(assetsDir);
 
-	let path = assetsDir;
-	if (!fs.existsSync(path)) fs.mkdirSync(path);
+	try {
+		const response = await axios.get(
+			'https://raw.githubusercontent.com/prtvi/hotwheeeels/master/body/src/config.json'
+		);
 
-	path = configFile;
-	fs.writeFileSync(path, JSON.stringify(conf));
+		fs.writeFileSync(configFile, JSON.stringify(response.data));
 
-	console.log('config initialised!');
-	initDb();
+		console.log('config initialised from api!');
+	} catch (error) {
+		console.log(
+			error.code,
+			'error calling config api, config from local file initialised'
+		);
+	} finally {
+		initDb();
+	}
 };

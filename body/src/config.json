@@ -99,6 +99,15 @@
 			"required": false
 		},
 		{
+			"label": "Carded",
+			"key": "carded",
+			"forFormOnly": false,
+			"viewSize": "small",
+			"inputType": "checkbox",
+			"defaultValue": "checked",
+			"required": false
+		},
+		{
 			"label": "Is a gift",
 			"key": "isGift",
 			"forFormOnly": false,

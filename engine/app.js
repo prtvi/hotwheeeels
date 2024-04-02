@@ -2,11 +2,10 @@ const express = require('express');
 const fileUpload = require('express-fileupload');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const dotenv = require('dotenv');
 const { r } = require('./utils/controller.js');
 const { initApp } = require('./utils/initApp.js');
+require('dotenv').config();
 
-dotenv.config();
 const PORT = process.env.PORT || 3001;
 initApp(__dirname);
 

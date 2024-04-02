@@ -24,6 +24,7 @@
 
 .form-row-item {
 	font-size: var(--btn-fs);
+	min-height: 25px;
 }
 
 .fri-small {

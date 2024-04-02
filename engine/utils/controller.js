@@ -11,32 +11,8 @@ function addCar(req, res) {
 	const rBody = req.body;
 	const carId = req.query.car_id;
 
-	const newCar = new Car({
-		carId: carId,
-		carName: rBody.carName,
-		brand: rBody.brand,
-		price: +rBody.price,
-		color: rBody.color,
-		acquiredDate: rBody.acquiredDate,
-		purchasedFrom: rBody.purchasedFrom,
-		orderNumber: rBody.orderNumber,
-		carType: rBody.carType,
-		cardAvailable: rBody.cardAvailable === 'on',
-		isGift: rBody.isGift === 'on',
-		giftedBy: rBody.giftedBy,
-		coll: rBody.coll,
-		year: rBody.year,
-		series: rBody.series,
-		baseColorAndType: rBody.baseColorAndType,
-		windowColor: rBody.windowColor,
-		interiorColor: rBody.interiorColor,
-		toy: rBody.toy,
-		notes: rBody.notes,
-		imgs: [],
-	});
-
-	newCar
-		.save()
+	const car = new Car(newCarObj(rBody, carId));
+	car.save()
 		.then(() => {
 			console.log('saved car!');
 			return res.send('saved car!');
@@ -95,7 +71,7 @@ function getAll(req, res) {
 		.then(cars => res.send(cars))
 		.catch(err => {
 			console.log(err);
-			return res.status(400).send(err);
+			res.status(400).send(err);
 		});
 }
 
@@ -118,32 +94,8 @@ function deleteCar(req, res) {
 function updateCar(req, res) {
 	const rBody = req.body;
 	const carId = req.query.car_id;
-	console.log(rBody);
 
-	Car.findOneAndUpdate(
-		{ carId: carId },
-		{
-			carName: rBody.carName,
-			brand: rBody.brand,
-			price: +rBody.price,
-			color: rBody.color,
-			acquiredDate: rBody.acquiredDate,
-			purchasedFrom: rBody.purchasedFrom,
-			orderNumber: rBody.orderNumber,
-			carType: rBody.carType,
-			cardAvailable: rBody.cardAvailable === 'on',
-			isGift: rBody.isGift === 'on',
-			giftedBy: rBody.giftedBy,
-			coll: rBody.coll,
-			year: rBody.year,
-			series: rBody.series,
-			baseColorAndType: rBody.baseColorAndType,
-			windowColor: rBody.windowColor,
-			interiorColor: rBody.interiorColor,
-			toy: rBody.toy,
-			notes: rBody.notes,
-		}
-	)
+	Car.findOneAndUpdate({ carId: carId }, newCarObj(rBody, carId))
 		.then(() => {
 			console.log('car update success');
 			return res.send('car updated successfully');
@@ -179,4 +131,43 @@ function deletePicturesForCarId(carId) {
 	});
 
 	return true;
+}
+
+function newCarObj(reqBody, carId) {
+	const formItems = config.get('formItems');
+	const carObj = {};
+	carObj['carId'] = carId;
+
+	for (let i = 0; i < formItems.length; i++) {
+		const fi = formItems[i];
+		const key = fi.key;
+		const value = reqBody[key];
+
+		let valueToAttach;
+		let ignore;
+
+		switch (fi.inputType) {
+			case 'text':
+			case 'textarea':
+			case 'date':
+				valueToAttach = value;
+				break;
+
+			case 'number':
+				valueToAttach = +value;
+				break;
+
+			case 'checkbox':
+				valueToAttach = value === 'on';
+				break;
+
+			default:
+				ignore = true;
+				break;
+		}
+
+		if (!ignore) carObj[key] = valueToAttach;
+	}
+
+	return carObj;
 }
