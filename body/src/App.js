@@ -83,12 +83,13 @@ export default function App() {
 
 	return (
 		<div className="App">
-			<h1 className="pf-600">🛞 Hot Wheeeels 🚗</h1>
+			<h1 className="pf-600">Hot Wheeeels 🚗</h1>
 
 			<Toolbar
 				onSearch={handleSearchInput}
 				openModal={handleModalOpen}
 				initAddCarForm={setModalContentForAddCarForm}
+				nCars={resultsForView.length}
 			/>
 
 			<Cars

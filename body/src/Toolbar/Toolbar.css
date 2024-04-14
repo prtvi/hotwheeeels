@@ -13,6 +13,7 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	margin-bottom: 4px;
 }
 .row1-child {
 	height: var(--toolbar-row1-height);
@@ -29,4 +30,15 @@
 }
 .row1-child button {
 	height: var(--toolbar-row1-height);
+}
+
+.row2 {
+	width: var(--toolbar-row-width);
+	height: var(--toolbar-row1-height);
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+.row2-child span {
+	font-size: var(--btn-fs);
 }

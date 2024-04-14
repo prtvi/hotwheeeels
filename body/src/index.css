@@ -108,7 +108,7 @@ h1 {
 
 	--card-width: 100px;
 	--card-height: 150px;
-	--card-border-radius: 8px;
+	--card-border-radius: 6px;
 	--card-display-text-height: 30px;
 	--card-img-height: calc(
 		var(--card-height) - var(--card-display-text-height)
