@@ -29,4 +29,3 @@ data.json
 assets/
 *.txt
 .env
-engine/config/*.json

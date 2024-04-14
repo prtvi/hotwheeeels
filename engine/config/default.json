@@ -1,0 +1,227 @@
+{
+	"ENV": "debug",
+	"engineURL": "http://localhost:3001",
+	"dbEndpoint": "mongodb://127.0.0.1:27017/hw",
+	"assetsDir": "./assets/",
+	"maxFileUploadLimit": 5,
+	"formItems": [
+		{
+			"label": "Name",
+			"key": "carName",
+			"forFormOnly": false,
+			"viewSize": "small",
+			"inputType": "text",
+			"maxLength": 32,
+			"defaultValue": "lamborghini",
+			"placeholder": "(as on the car)",
+			"required": true
+		},
+		{
+			"label": "Brand",
+			"key": "brand",
+			"forFormOnly": false,
+			"viewSize": "small",
+			"inputType": "text",
+			"maxLength": 20,
+			"defaultValue": "hot wheels",
+			"placeholder": "hotwheels, matchbox etc",
+			"required": true
+		},
+		{
+			"label": "Price ₹",
+			"key": "price",
+			"forFormOnly": false,
+			"viewSize": "small",
+			"inputType": "number",
+			"defaultValue": 249,
+			"placeholder": "₹",
+			"required": false
+		},
+		{
+			"label": "Color",
+			"key": "color",
+			"forFormOnly": false,
+			"viewSize": "small",
+			"inputType": "text",
+			"maxLength": 15,
+			"defaultValue": "red",
+			"placeholder": "color",
+			"required": false
+		},
+		{
+			"label": "Acquired date",
+			"key": "acquiredDate",
+			"forFormOnly": false,
+			"viewSize": "small",
+			"inputType": "date",
+			"defaultValue": "2023-09-17",
+			"required": true
+		},
+		{
+			"label": "Purchased from",
+			"key": "purchasedFrom",
+			"forFormOnly": false,
+			"viewSize": "small",
+			"inputType": "text",
+			"maxLength": 20,
+			"defaultValue": "junkieyard",
+			"placeholder": "store name",
+			"required": false
+		},
+		{
+			"label": "Order number",
+			"key": "orderNumber",
+			"forFormOnly": false,
+			"viewSize": "small",
+			"inputType": "text",
+			"maxLength": 50,
+			"defaultValue": "#1841",
+			"placeholder": "(if any)",
+			"required": false
+		},
+		{
+			"label": "Car type",
+			"key": "carType",
+			"forFormOnly": false,
+			"viewSize": "small",
+			"inputType": "text",
+			"maxLength": 20,
+			"defaultValue": "tooned",
+			"placeholder": "car/suv/tooned",
+			"required": false
+		},
+		{
+			"label": "Card available",
+			"key": "cardAvailable",
+			"forFormOnly": false,
+			"viewSize": "small",
+			"inputType": "checkbox",
+			"defaultValue": "checked",
+			"required": false
+		},
+		{
+			"label": "Is a gift",
+			"key": "isGift",
+			"forFormOnly": false,
+			"viewSize": "small",
+			"inputType": "checkbox",
+			"defaultValue": "checked",
+			"required": false
+		},
+		{
+			"label": "Gifted by",
+			"key": "giftedBy",
+			"forFormOnly": false,
+			"viewSize": "small",
+			"inputType": "text",
+			"maxLength": 20,
+			"defaultValue": "Joy",
+			"placeholder": "optional",
+			"required": false
+		},
+		{
+			"label": "Collection #",
+			"key": "coll",
+			"forFormOnly": false,
+			"viewSize": "small",
+			"inputType": "text",
+			"maxLength": 15,
+			"defaultValue": "125/250",
+			"placeholder": "eg: 125/250",
+			"required": false
+		},
+		{
+			"label": "Year",
+			"key": "year",
+			"forFormOnly": false,
+			"viewSize": "small",
+			"inputType": "text",
+			"maxLength": 4,
+			"defaultValue": "2022",
+			"placeholder": "2023",
+			"required": false
+		},
+		{
+			"label": "Series",
+			"key": "series",
+			"forFormOnly": false,
+			"viewSize": "small",
+			"inputType": "text",
+			"maxLength": 15,
+			"defaultValue": "HW Turbo 8/10",
+			"placeholder": "eg: HW Turbo 8/10",
+			"required": false
+		},
+		{
+			"label": "Base color / type",
+			"key": "baseColorAndType",
+			"forFormOnly": false,
+			"viewSize": "small",
+			"inputType": "text",
+			"maxLength": 15,
+			"defaultValue": "black/plastic",
+			"placeholder": "eg: black/plastic",
+			"required": false
+		},
+		{
+			"label": "Window color",
+			"key": "windowColor",
+			"forFormOnly": false,
+			"viewSize": "small",
+			"inputType": "text",
+			"maxLength": 15,
+			"defaultValue": "smoke tint",
+			"placeholder": "eg: smoke tint",
+			"required": false
+		},
+		{
+			"label": "Interior color",
+			"key": "interiorColor",
+			"forFormOnly": false,
+			"viewSize": "small",
+			"inputType": "text",
+			"maxLength": 15,
+			"defaultValue": "black",
+			"placeholder": "eg: black",
+			"required": false
+		},
+		{
+			"label": "Toy #",
+			"key": "toy",
+			"forFormOnly": false,
+			"viewSize": "small",
+			"inputType": "text",
+			"maxLength": 10,
+			"defaultValue": "HVT01",
+			"placeholder": "eg: HCT01",
+			"required": false
+		},
+		{
+			"label": "Upload an image",
+			"key": "imgs",
+			"forFormOnly": true,
+			"viewSize": "large",
+			"inputType": "file",
+			"defaultValue": "",
+			"required": true
+		},
+		{
+			"label": "Notes",
+			"key": "notes",
+			"forFormOnly": false,
+			"viewSize": "large",
+			"inputType": "textarea",
+			"defaultValue": "My first lamborghini",
+			"required": false
+		},
+		{
+			"label": "",
+			"key": "",
+			"forFormOnly": true,
+			"viewSize": "large",
+			"inputType": "btn",
+			"defaultValue": "",
+			"required": false
+		}
+	]
+}

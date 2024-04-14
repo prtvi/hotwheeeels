@@ -68,7 +68,14 @@ function uploadImage(req, res) {
 
 function getAll(req, res) {
 	Car.find()
-		.then(cars => res.send(cars))
+		.then(cars => {
+			const result = [];
+			cars.forEach(car => {
+				car.price = 0;
+				result.push(car);
+			});
+			res.send(result);
+		})
 		.catch(err => {
 			console.log(err);
 			res.status(400).send(err);
