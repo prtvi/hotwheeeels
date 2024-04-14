@@ -4,40 +4,14 @@ import Fuse from 'fuse.js';
 import config from './config.json';
 
 import Modal from './Utils/Modal.jsx';
-import Message from './Utils/Message.jsx';
-
 import Toolbar from './Toolbar/Toolbar.jsx';
 import Cars from './CarShowcase/Cars.jsx';
-import AddCarForm from './Forms/AddCarForm.jsx';
-import CarShowcase from './CarShowcase/CarShowcase.jsx';
 
 export default function App() {
 	// modal
 	const [isModalOpen, setModalOpen] = React.useState(false);
 	const [modalTitle, setModalTitle] = React.useState('Add a new car');
-	const [modalContent, setModalContent] = React.useState(<AddCarForm />);
-
-	const handleModalClose = () => {
-		setModalOpen(false);
-		window.location.reload();
-	};
-	const handleModalOpen = () => setModalOpen(true);
-	const setModalContentForMessage = function (msg) {
-		setModalContent(() => <Message closeModal={handleModalClose} />);
-		setModalTitle(msg);
-	};
-	const setModalContentForAddCarForm = function () {
-		setModalContent(() => (
-			<AddCarForm showMsg={setModalContentForMessage} />
-		));
-		setModalTitle('Add a new car');
-	};
-	const setModalContentForCarShowcase = function (car) {
-		setModalContent(() => (
-			<CarShowcase car={car} showMsg={setModalContentForMessage} />
-		));
-		setModalTitle(car.carName);
-	};
+	const [modalContent, setModalContent] = React.useState(<></>);
 
 	// all results from api call && results to show on UI
 	const [allResults, setAllResults] = React.useState([]);
@@ -87,21 +61,23 @@ export default function App() {
 
 			<Toolbar
 				onSearch={handleSearchInput}
-				openModal={handleModalOpen}
-				initAddCarForm={setModalContentForAddCarForm}
 				nCars={resultsForView.length}
+				setModalOpen={setModalOpen}
+				setModalContent={setModalContent}
+				setModalTitle={setModalTitle}
 			/>
 
 			<Cars
 				list={resultsForView}
-				openModal={handleModalOpen}
-				showCar={setModalContentForCarShowcase}
+				setModalOpen={setModalOpen}
+				setModalContent={setModalContent}
+				setModalTitle={setModalTitle}
 			/>
 
 			<Modal
 				modalTitle={modalTitle}
 				isOpen={isModalOpen}
-				closeModal={handleModalClose}
+				setModalOpen={setModalOpen}
 			>
 				{modalContent}
 			</Modal>

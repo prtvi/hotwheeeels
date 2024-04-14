@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import './Forms.css';
 import FormItem from './FormItem.jsx';
+import Message from '../Utils/Message.jsx';
 import config from '../config.json';
 
 function getFormRowItems(specs) {
@@ -68,8 +69,14 @@ async function postImageData(fileInput, url, carId) {
 export { postFormTextData, postImageData };
 
 export default function AddCarForm(props) {
-	const { showMsg } = props;
+	const { setModalContent, setModalTitle, setModalOpen } = props;
 	const rowsToShow = getFormRowItems(config.formItems);
+
+	const closeModal = () => setModalOpen(false);
+	const setModalContentForMessage = function (msg) {
+		setModalContent(() => <Message closeModal={closeModal} />);
+		setModalTitle(msg);
+	};
 
 	async function handleFormSubmit(e) {
 		e.preventDefault();
@@ -88,8 +95,13 @@ export default function AddCarForm(props) {
 		const imageFormRes = await postImageData(fileInput, urlImage, carId);
 
 		if (textFormRes.status === 200 && imageFormRes.status === 200)
-			showMsg(`The car has been added to your collection!`);
-		else showMsg('Some error occurred! Try again in some time');
+			setModalContentForMessage(
+				`The car has been added to your collection!`
+			);
+		else
+			setModalContentForMessage(
+				'Some error occurred! Try again in some time'
+			);
 	}
 
 	return (

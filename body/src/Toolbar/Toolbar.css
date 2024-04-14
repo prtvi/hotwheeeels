@@ -36,7 +36,7 @@
 	width: var(--toolbar-row-width);
 	height: var(--toolbar-row1-height);
 	display: flex;
-	justify-content: flex-end;
+	justify-content: space-between;
 	align-items: center;
 }
 .row2-child span {

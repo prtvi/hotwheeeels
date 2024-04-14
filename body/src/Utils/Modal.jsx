@@ -2,7 +2,12 @@ import React from 'react';
 import './Utils.css';
 
 export default function Modal(props) {
-	const { modalTitle, isOpen, closeModal, children } = props;
+	const { modalTitle, isOpen, setModalOpen, children } = props;
+
+	const closeModal = React.useCallback(
+		() => setModalOpen(false),
+		[setModalOpen]
+	);
 
 	const handleEscForClosingModal = React.useCallback(
 		e => {

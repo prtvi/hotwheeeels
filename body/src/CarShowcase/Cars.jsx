@@ -1,12 +1,22 @@
 import React from 'react';
 import './CarShowcase.css';
+import CarShowcase from './CarShowcase';
 
 function Car(props) {
-	const { car, openModal, showCar } = props;
+	const { car, setModalOpen, setModalContent, setModalTitle } = props;
 
 	const showCarHandler = function (e) {
-		showCar(car);
-		openModal();
+		setModalContent(() => (
+			<CarShowcase
+				car={car}
+				setModalOpen={setModalOpen}
+				setModalContent={setModalContent}
+				setModalTitle={setModalTitle}
+			/>
+		));
+
+		setModalTitle(car.carName);
+		setModalOpen(true);
 	};
 
 	return (
@@ -22,7 +32,7 @@ function Car(props) {
 }
 
 export default function Cars(props) {
-	const { list, openModal, showCar } = props;
+	const { list, setModalOpen, setModalContent, setModalTitle } = props;
 
 	return (
 		<div className="car-list">
@@ -30,8 +40,9 @@ export default function Cars(props) {
 				<Car
 					key={i}
 					car={car}
-					openModal={openModal}
-					showCar={showCar}
+					setModalOpen={setModalOpen}
+					setModalContent={setModalContent}
+					setModalTitle={setModalTitle}
 				/>
 			))}
 		</div>

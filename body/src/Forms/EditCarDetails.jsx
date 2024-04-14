@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import Message from '../Utils/Message.jsx';
 import './Forms.css';
 import config from '../config.json';
 import { postFormTextData, postImageData } from './AddCarForm.jsx';
@@ -30,15 +31,29 @@ function showCurrentMode(e) {
 }
 
 export default function EditCarDetails(props) {
-	const { carId, showMsg, mode, setMode } = props;
+	const {
+		carId,
+		setModalContent,
+		setModalTitle,
+		setModalOpen,
+		mode,
+		setMode,
+	} = props;
+
+	const closeModal = () => setModalOpen(false);
+	const setModalContentForMessage = function (msg) {
+		setModalContent(() => <Message closeModal={closeModal} />);
+		setModalTitle(msg);
+	};
 
 	async function deleteCar(carId) {
 		const res = await axios.get(
 			`${config.engineURL}/api/delete_car?car_id=${carId}`
 		);
 
-		if (res.status === 200) showMsg('Car has been deleted');
-		else showMsg('Something went wrong, try again later');
+		if (res.status === 200)
+			setModalContentForMessage('Car has been deleted');
+		else setModalContentForMessage('Something went wrong, try again later');
 	}
 
 	async function updateCar(carId) {
@@ -62,13 +77,20 @@ export default function EditCarDetails(props) {
 			);
 
 			if (textFormRes.status === 200 && imageFormRes.status === 200)
-				showMsg(`The car has been updated!`);
-			else showMsg('Some error occurred! Try again in some time');
+				setModalContentForMessage(`The car has been updated!`);
+			else
+				setModalContentForMessage(
+					'Some error occurred! Try again in some time'
+				);
 			return;
 		}
 
-		if (textFormRes.status === 200) showMsg(`Car has been updated!`);
-		else showMsg('Some error occurred! Try again in some time');
+		if (textFormRes.status === 200)
+			setModalContentForMessage(`Car has been updated!`);
+		else
+			setModalContentForMessage(
+				'Some error occurred! Try again in some time'
+			);
 	}
 
 	const [editMessage, setEditMessage] = React.useState('');
