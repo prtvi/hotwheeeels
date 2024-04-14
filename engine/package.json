@@ -6,7 +6,7 @@
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"start": "npx nodemon app.js --ignore '*.json' ",
-		"build": "npm build"
+		"build": "node app.js"
 	},
 	"author": "prtvi",
 	"license": "ISC",

@@ -1,7 +1,6 @@
 {
 	"ENV": "debug",
-	"engineURL": "http://localhost:3001",
-	"dbEndpoint": "mongodb://127.0.0.1:27017/hw",
+	"engineURL": "https://hotwheeeelsengine.netlify.app",
 	"assetsDir": "./assets/",
 	"maxFileUploadLimit": 5,
 	"formItems": [
@@ -93,6 +92,15 @@
 		{
 			"label": "Card available",
 			"key": "cardAvailable",
+			"forFormOnly": false,
+			"viewSize": "small",
+			"inputType": "checkbox",
+			"defaultValue": "checked",
+			"required": false
+		},
+		{
+			"label": "Carded",
+			"key": "carded",
 			"forFormOnly": false,
 			"viewSize": "small",
 			"inputType": "checkbox",
