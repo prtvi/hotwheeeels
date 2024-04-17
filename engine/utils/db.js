@@ -2,7 +2,9 @@ const mongoose = require('mongoose');
 const config = require('config');
 
 exports.initDb = function () {
-	mongoose.connect(process.env.DB_URL);
+	const dbUrl = process.env.DB_URL;
+	console.log('db connecting to', dbUrl);
+	mongoose.connect(dbUrl);
 
 	const conn = mongoose.connection;
 	conn.on('connected', () => console.log('db connected'));
@@ -53,14 +55,14 @@ function getSchemaForFormItem(formItems) {
 		};
 	}
 
+	schema['carId'] = {
+		type: String,
+		required: true,
+		unique: true,
+	};
+
 	return schema;
 }
 
 const schema = getSchemaForFormItem(config.get('formItems'));
-schema['carId'] = {
-	type: String,
-	required: true,
-	unique: true,
-};
-
 exports.Car = new mongoose.model('Car', mongoose.Schema(schema));

@@ -1,4 +1,5 @@
 const fs = require('fs');
+const jwt = require('jsonwebtoken');
 const config = require('config');
 const { Car } = require('./db.js');
 
@@ -113,6 +114,30 @@ function updateCar(req, res) {
 		});
 }
 
+function login(req, res) {
+	const jwtSecretKey = req.body.input;
+	const data = { time: Date() };
+
+	const token = jwt.sign(data, jwtSecretKey);
+	res.send(token);
+}
+
+function verifyToken(req, res) {
+	const token = req.body.token;
+	const jwtSecretKey = process.env.JWT_SECRET_KEY;
+
+	try {
+		const verified = jwt.verify(token, jwtSecretKey);
+		console.log(verified);
+
+		if (verified) return res.send('authenticated!');
+		else return res.status(401).send('unauthorised');
+	} catch (error) {
+		console.log('unauthorised');
+		return res.status(401).send('unauthorised');
+	}
+}
+
 exports.r = {
 	logger,
 	addCar,
@@ -120,6 +145,8 @@ exports.r = {
 	getAll,
 	deleteCar,
 	updateCar,
+	login,
+	verifyToken,
 };
 
 function deletePicturesForCarId(carId) {

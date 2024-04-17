@@ -127,6 +127,16 @@
 	border-radius: 500px;
 }
 
+/* Login.jsx */
+
+.login {
+	width: var(--search-input-width);
+	margin: 0 auto;
+}
+.login-input {
+	margin-bottom: 20px;
+}
+
 @media screen and (min-width: 580px) {
 	.form-row-item input {
 		padding: 1px 3px;

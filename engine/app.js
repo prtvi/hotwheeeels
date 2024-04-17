@@ -24,6 +24,8 @@ app.post('/api/image_upload', r.uploadImage);
 app.get('/api/get_all', r.getAll);
 app.get('/api/delete_car', r.deleteCar);
 app.post('/api/update_car', r.updateCar);
+app.post('/api/login', r.login);
+app.post('/api/verify_token', r.verifyToken);
 
 app.listen(PORT, () =>
 	console.log(`------ Engine running on port ${PORT} ------`)

@@ -6,8 +6,11 @@ import config from './config.json';
 import Modal from './Utils/Modal.jsx';
 import Toolbar from './Toolbar/Toolbar.jsx';
 import Cars from './CarShowcase/Cars.jsx';
+import Login from './Forms/Login.jsx';
 
 export default function App() {
+	const [authenticated, setAuthentication] = React.useState(false);
+
 	// modal
 	const [isModalOpen, setModalOpen] = React.useState(false);
 	const [modalTitle, setModalTitle] = React.useState('Add a new car');
@@ -59,28 +62,34 @@ export default function App() {
 		<div className="App">
 			<h1 className="pf-600">Hot Wheeeels 🚗</h1>
 
-			<Toolbar
-				onSearch={handleSearchInput}
-				nCars={resultsForView.length}
-				setModalOpen={setModalOpen}
-				setModalContent={setModalContent}
-				setModalTitle={setModalTitle}
-			/>
+			{authenticated ? (
+				<>
+					<Toolbar
+						onSearch={handleSearchInput}
+						nCars={resultsForView.length}
+						setModalOpen={setModalOpen}
+						setModalContent={setModalContent}
+						setModalTitle={setModalTitle}
+					/>
 
-			<Cars
-				list={resultsForView}
-				setModalOpen={setModalOpen}
-				setModalContent={setModalContent}
-				setModalTitle={setModalTitle}
-			/>
+					<Cars
+						list={resultsForView}
+						setModalOpen={setModalOpen}
+						setModalContent={setModalContent}
+						setModalTitle={setModalTitle}
+					/>
 
-			<Modal
-				modalTitle={modalTitle}
-				isOpen={isModalOpen}
-				setModalOpen={setModalOpen}
-			>
-				{modalContent}
-			</Modal>
+					<Modal
+						modalTitle={modalTitle}
+						isOpen={isModalOpen}
+						setModalOpen={setModalOpen}
+					>
+						{modalContent}
+					</Modal>
+				</>
+			) : (
+				<Login setAuthentication={setAuthentication} />
+			)}
 		</div>
 	);
 }
