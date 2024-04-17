@@ -1,6 +1,6 @@
 {
-	"ENV": "debug",
-	"engineURL": "http://localhost:3001",
+	"ENV": "prod",
+	"engineURL": "https://prtvi.alwaysdata.net/hotwheeeelsengine",
 	"assetsDir": "./assets/",
 	"maxFileUploadLimit": 5,
 	"formItems": [
