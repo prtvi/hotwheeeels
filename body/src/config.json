@@ -1,6 +1,6 @@
 {
 	"ENV": "prod",
-	"engineURL": "https://prtvi.alwaysdata.net/hotwheeeelsengine",
+	"engineURL": "https://prtvi.alwaysdata.net",
 	"assetsDir": "./assets/",
 	"maxFileUploadLimit": 5,
 	"formItems": [

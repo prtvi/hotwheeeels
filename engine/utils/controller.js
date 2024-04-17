@@ -52,10 +52,7 @@ function uploadImage(req, res) {
 			}
 		});
 
-		const absUrl =
-			config.get('engineURL').replace('hotwheeeelsengine', '') +
-			newFilePath.slice(2);
-
+		const absUrl = config.get('engineURL') + '/' + newFilePath.slice(2);
 		images.push(absUrl);
 	}
 
