@@ -133,8 +133,32 @@
 	width: var(--search-input-width);
 	margin: 0 auto;
 }
-.login-input {
-	margin-bottom: 20px;
+.login-form {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
+.login-form-component.c2 {
+	width: var(--search-input-width);
+	display: flex;
+	justify-content: space-between;
+}
+.login-label {
+	display: block;
+	font-size: var(--btn-fs);
+	margin-bottom: 4px;
+}
+.login-form-component input {
+	font-family: 'Poppins', sans-serif;
+	font-size: var(--btn-fs);
+	height: 25px;
+	padding: 0 3px;
+}
+.just-a-visitor {
+	margin-top: 15px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 @media screen and (min-width: 580px) {

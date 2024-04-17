@@ -1,95 +1,53 @@
 import React from 'react';
 import axios from 'axios';
-import Fuse from 'fuse.js';
 import config from './config.json';
 
-import Modal from './Utils/Modal.jsx';
-import Toolbar from './Toolbar/Toolbar.jsx';
-import Cars from './CarShowcase/Cars.jsx';
+import Main from './Main.jsx';
 import Login from './Forms/Login.jsx';
 
 export default function App() {
 	const [authenticated, setAuthentication] = React.useState(false);
+	const [visitorMode, setVisitorMode] = React.useState(false);
 
-	// modal
-	const [isModalOpen, setModalOpen] = React.useState(false);
-	const [modalTitle, setModalTitle] = React.useState('Add a new car');
-	const [modalContent, setModalContent] = React.useState(<></>);
+	const checkIfTokenExistsAndAuthenticate = async function () {
+		const token = sessionStorage.getItem('token');
+		if (token === null) return;
 
-	// all results from api call && results to show on UI
-	const [allResults, setAllResults] = React.useState([]);
-	const [resultsForView, setResultsForView] = React.useState([]);
+		const url = config.engineURL + '/api/verify_token';
+		const response = await axios.post(url, { token: token });
 
-	React.useEffect(() => {
-		async function fetchData() {
-			const res = await axios.get(`${config.engineURL}/api/get_all`);
-
-			if (res.status === 200) {
-				setAllResults(() => res.data);
-				setResultsForView(() => res.data);
-			}
+		if (response.status === 200) {
+			setAuthentication(true);
+			setVisitorMode(false);
+		} else {
+			setAuthentication(false);
 		}
-
-		fetchData();
-	}, []);
-
-	const fuse = new Fuse(allResults, {
-		keys: ['carName', 'brand', 'carType'],
-		includeScore: true,
-	});
-
-	const getResultsFromFuse = function (inputText) {
-		return fuse
-			.search(inputText)
-			.sort((a, b) => {
-				if (a.score > b.score) return 1;
-				if (a.score < b.score) return -1;
-				return 0;
-			})
-			.map(i => i.item);
 	};
 
-	// searchbox
-	const handleSearchInput = e => {
-		setResultsForView(() => {
-			let res = getResultsFromFuse(e.target.value);
-			if (res.length === 0) res = allResults;
-			return res;
-		});
+	checkIfTokenExistsAndAuthenticate();
+
+	console.log('authenticated:', authenticated);
+	console.log('visitorMode:', visitorMode);
+
+	const renderMain = function () {
+		if (authenticated || (!authenticated && visitorMode)) {
+			return (
+				<Main visitorMode={visitorMode} authenticated={authenticated} />
+			);
+		} else if (!authenticated && !visitorMode) {
+			return (
+				<Login
+					setAuthentication={setAuthentication}
+					setVisitorMode={setVisitorMode}
+				/>
+			);
+		}
 	};
 
 	return (
 		<div className="App">
 			<h1 className="pf-600">Hot Wheeeels 🚗</h1>
-
-			{authenticated ? (
-				<>
-					<Toolbar
-						onSearch={handleSearchInput}
-						nCars={resultsForView.length}
-						setModalOpen={setModalOpen}
-						setModalContent={setModalContent}
-						setModalTitle={setModalTitle}
-					/>
-
-					<Cars
-						list={resultsForView}
-						setModalOpen={setModalOpen}
-						setModalContent={setModalContent}
-						setModalTitle={setModalTitle}
-					/>
-
-					<Modal
-						modalTitle={modalTitle}
-						isOpen={isModalOpen}
-						setModalOpen={setModalOpen}
-					>
-						{modalContent}
-					</Modal>
-				</>
-			) : (
-				<Login setAuthentication={setAuthentication} />
-			)}
+			{renderMain()}
 		</div>
 	);
 }
