@@ -56,7 +56,8 @@ const getShowcaseDom = function (rowsForView, car) {
 };
 
 export default function CarShowcase(props) {
-	const { car, setModalContent, setModalTitle, setModalOpen } = props;
+	const { car, setModalContent, setModalTitle, setModalOpen, visitorMode } =
+		props;
 	const rowsForView = getRowsForShowcase(config.formItems, car);
 
 	const [mode, setMode] = React.useState('');
@@ -65,14 +66,18 @@ export default function CarShowcase(props) {
 		<div className="car-showcase">
 			<Carousel images={car.imgs} />
 
-			<EditCarDetails
-				carId={car.carId}
-				setModalContent={setModalContent}
-				setModalTitle={setModalTitle}
-				setModalOpen={setModalOpen}
-				mode={mode}
-				setMode={setMode}
-			/>
+			{!visitorMode ? (
+				<EditCarDetails
+					carId={car.carId}
+					setModalContent={setModalContent}
+					setModalTitle={setModalTitle}
+					setModalOpen={setModalOpen}
+					mode={mode}
+					setMode={setMode}
+				/>
+			) : (
+				<></>
+			)}
 
 			<div className="details">
 				{mode === 'edit' ? (

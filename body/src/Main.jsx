@@ -8,6 +8,7 @@ import Toolbar from './Toolbar/Toolbar.jsx';
 import Cars from './CarShowcase/Cars.jsx';
 
 export default function Main(props) {
+	const { visitorMode } = props;
 	// modal
 	const [isModalOpen, setModalOpen] = React.useState(false);
 	const [modalTitle, setModalTitle] = React.useState('Add a new car');
@@ -63,6 +64,7 @@ export default function Main(props) {
 				setModalOpen={setModalOpen}
 				setModalContent={setModalContent}
 				setModalTitle={setModalTitle}
+				visitorMode={visitorMode}
 			/>
 
 			<Cars
@@ -70,6 +72,7 @@ export default function Main(props) {
 				setModalOpen={setModalOpen}
 				setModalContent={setModalContent}
 				setModalTitle={setModalTitle}
+				visitorMode={visitorMode}
 			/>
 
 			<Modal

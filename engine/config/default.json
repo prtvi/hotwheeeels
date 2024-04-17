@@ -1,6 +1,6 @@
 {
 	"ENV": "debug",
-	"engineURL": "https://hotwheeeelsengine.netlify.app",
+	"engineURL": "http://localhost:3001",
 	"assetsDir": "./assets/",
 	"maxFileUploadLimit": 5,
 	"formItems": [

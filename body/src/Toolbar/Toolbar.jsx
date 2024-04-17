@@ -3,8 +3,14 @@ import './Toolbar.css';
 import AddCarForm from '../Forms/AddCarForm.jsx';
 
 export default function Toolbar(props) {
-	const { onSearch, setModalOpen, setModalContent, setModalTitle, nCars } =
-		props;
+	const {
+		onSearch,
+		setModalOpen,
+		setModalContent,
+		setModalTitle,
+		nCars,
+		visitorMode,
+	} = props;
 
 	const nCarsText = nCars === 1 ? `${nCars} car` : `${nCars} cars`;
 
@@ -35,31 +41,41 @@ export default function Toolbar(props) {
 					/>
 				</div>
 
-				<div className="row1-child">
-					<button
-						className="btn pf-300"
-						onClick={setModalContentForForm}
-					>
-						+ 🚘
-					</button>
-				</div>
+				{!visitorMode ? (
+					<div className="row1-child">
+						<button
+							className="btn pf-300"
+							onClick={setModalContentForForm}
+						>
+							+ 🚘
+						</button>
+					</div>
+				) : (
+					<div className="row1-child ncars">
+						<span className="pf-200">{nCarsText}</span>
+					</div>
+				)}
 			</div>
 
-			<div className="row2">
-				<div className="row2-child">
-					<button
-						className="btn"
-						title="refresh data"
-						onClick={reload}
-					>
-						🔄
-					</button>
-				</div>
+			{!visitorMode ? (
+				<div className="row2">
+					<div className="row2-child">
+						<button
+							className="btn"
+							title="refresh data"
+							onClick={reload}
+						>
+							🔄
+						</button>
+					</div>
 
-				<div className="row2-child">
-					<span className="ncars pf-200">{nCarsText}</span>
+					<div className="row2-child">
+						<span className="pf-200">{nCarsText}</span>
+					</div>
 				</div>
-			</div>
+			) : (
+				<></>
+			)}
 		</div>
 	);
 }

@@ -26,14 +26,9 @@ export default function App() {
 
 	checkIfTokenExistsAndAuthenticate();
 
-	console.log('authenticated:', authenticated);
-	console.log('visitorMode:', visitorMode);
-
 	const renderMain = function () {
 		if (authenticated || (!authenticated && visitorMode)) {
-			return (
-				<Main visitorMode={visitorMode} authenticated={authenticated} />
-			);
+			return <Main visitorMode={visitorMode} />;
 		} else if (!authenticated && !visitorMode) {
 			return (
 				<Login

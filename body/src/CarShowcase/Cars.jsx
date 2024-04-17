@@ -3,7 +3,8 @@ import './CarShowcase.css';
 import CarShowcase from './CarShowcase';
 
 function Car(props) {
-	const { car, setModalOpen, setModalContent, setModalTitle } = props;
+	const { car, setModalOpen, setModalContent, setModalTitle, visitorMode } =
+		props;
 
 	const showCarHandler = function (e) {
 		setModalContent(() => (
@@ -12,6 +13,7 @@ function Car(props) {
 				setModalOpen={setModalOpen}
 				setModalContent={setModalContent}
 				setModalTitle={setModalTitle}
+				visitorMode={visitorMode}
 			/>
 		));
 
@@ -32,7 +34,8 @@ function Car(props) {
 }
 
 export default function Cars(props) {
-	const { list, setModalOpen, setModalContent, setModalTitle } = props;
+	const { list, setModalOpen, setModalContent, setModalTitle, visitorMode } =
+		props;
 
 	return (
 		<div className="car-list">
@@ -43,6 +46,7 @@ export default function Cars(props) {
 					setModalOpen={setModalOpen}
 					setModalContent={setModalContent}
 					setModalTitle={setModalTitle}
+					visitorMode={visitorMode}
 				/>
 			))}
 		</div>

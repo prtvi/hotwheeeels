@@ -39,6 +39,11 @@
 	justify-content: space-between;
 	align-items: center;
 }
+.row1-child span,
 .row2-child span {
 	font-size: var(--btn-fs);
+}
+
+.row1-child.ncars {
+	line-height: var(--toolbar-row1-height);
 }
