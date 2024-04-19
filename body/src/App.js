@@ -5,16 +5,35 @@ import config from './config.json';
 import Main from './Main.jsx';
 import Login from './Forms/Login.jsx';
 
+async function makeRequest(url, requestBody) {
+	try {
+		if (requestBody === undefined) {
+			return await axios.get(url);
+		} else {
+			return await axios.post(url, requestBody);
+		}
+	} catch (error) {
+		return error;
+	}
+}
+
+const getEngineUrl = () =>
+	config.ENV === 'prod' ? config.engineURL : config.engineURLDev;
+
+export { getEngineUrl, makeRequest };
+
 export default function App() {
 	const [authenticated, setAuthentication] = React.useState(false);
 	const [visitorMode, setVisitorMode] = React.useState(false);
 
-	const checkIfTokenExistsAndAuthenticate = async function () {
+	(async function () {
 		const token = sessionStorage.getItem('token');
 		if (token === null) return;
 
-		const url = config.engineURL + '/api/verify_token';
-		const response = await axios.post(url, { token: token });
+		const response = await makeRequest(
+			getEngineUrl() + '/api/verify_token',
+			{ token: token }
+		);
 
 		if (response.status === 200) {
 			setAuthentication(true);
@@ -22,9 +41,7 @@ export default function App() {
 		} else {
 			setAuthentication(false);
 		}
-	};
-
-	checkIfTokenExistsAndAuthenticate();
+	})();
 
 	const renderMain = function () {
 		if (authenticated || (!authenticated && visitorMode)) {

@@ -1,9 +1,9 @@
 import React from 'react';
-import axios from 'axios';
 import Message from '../Utils/Message.jsx';
 import './Forms.css';
 import config from '../config.json';
 import { postFormTextData, postImageData } from './AddCarForm.jsx';
+import { getEngineUrl, makeRequest } from '../App.js';
 
 function showEditComponents(show) {
 	const editComponentGroups = document.querySelectorAll('.edit-comp-group');
@@ -47,8 +47,8 @@ export default function EditCarDetails(props) {
 	};
 
 	async function deleteCar(carId) {
-		const res = await axios.get(
-			`${config.engineURL}/api/delete_car?car_id=${carId}`
+		const res = await makeRequest(
+			`${getEngineUrl()}/api/delete_car?car_id=${carId}`
 		);
 
 		if (res.status === 200)
@@ -65,11 +65,11 @@ export default function EditCarDetails(props) {
 			return;
 		}
 
-		const urlText = `${config.engineURL}/api/update_car?car_id=${carId}`;
+		const urlText = `${getEngineUrl()}/api/update_car?car_id=${carId}`;
 		const textFormRes = await postFormTextData(form, urlText);
 
 		if (fileInput.files.length > 0) {
-			const urlImage = `${config.engineURL}/api/image_upload?car_id=${carId}`;
+			const urlImage = `${getEngineUrl()}/api/image_upload?car_id=${carId}`;
 			const imageFormRes = await postImageData(
 				fileInput,
 				urlImage,

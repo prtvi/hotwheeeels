@@ -1,11 +1,10 @@
 import React from 'react';
-import axios from 'axios';
 import Fuse from 'fuse.js';
-import config from './config.json';
 
 import Modal from './Utils/Modal.jsx';
 import Toolbar from './Toolbar/Toolbar.jsx';
 import Cars from './CarShowcase/Cars.jsx';
+import { getEngineUrl, makeRequest } from './App.js';
 
 export default function Main(props) {
 	const { visitorMode } = props;
@@ -20,7 +19,7 @@ export default function Main(props) {
 
 	React.useEffect(() => {
 		async function fetchData() {
-			const res = await axios.get(`${config.engineURL}/api/get_all`);
+			const res = await makeRequest(`${getEngineUrl()}/api/get_all`);
 
 			if (res.status === 200) {
 				setAllResults(() => res.data);

@@ -1,9 +1,9 @@
 import React from 'react';
-import axios from 'axios';
 import './Forms.css';
 import FormItem from './FormItem.jsx';
 import Message from '../Utils/Message.jsx';
 import config from '../config.json';
+import { getEngineUrl, makeRequest } from '../App.js';
 
 function getFormRowItems(specs) {
 	const rows = [];
@@ -52,7 +52,7 @@ async function postFormTextData(form, url) {
 	const formDataJson = {};
 	formData.forEach((value, key) => (formDataJson[key] = value));
 
-	const response = await axios.post(url, formDataJson);
+	const response = await makeRequest(url, formDataJson);
 	return response;
 }
 
@@ -62,7 +62,7 @@ async function postImageData(fileInput, url, carId) {
 		imgFormData.append(`img_${carId}_${i}`, file)
 	);
 
-	const response = await axios.post(url, imgFormData);
+	const response = await makeRequest(url, imgFormData);
 	return response;
 }
 
@@ -88,8 +88,8 @@ export default function AddCarForm(props) {
 			return;
 		}
 
-		const urlText = `${config.engineURL}/api/add_car?car_id=${carId}`;
-		const urlImage = `${config.engineURL}/api/image_upload?car_id=${carId}`;
+		const urlText = `${getEngineUrl()}/api/add_car?car_id=${carId}`;
+		const urlImage = `${getEngineUrl()}/api/image_upload?car_id=${carId}`;
 
 		const textFormRes = await postFormTextData(e.currentTarget, urlText);
 		const imageFormRes = await postImageData(fileInput, urlImage, carId);

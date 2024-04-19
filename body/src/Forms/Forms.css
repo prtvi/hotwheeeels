@@ -34,12 +34,6 @@
 	width: var(--modal-child-width);
 }
 
-.form-row-item input {
-	font-family: 'Poppins', sans-serif;
-	font-size: var(--btn-fs);
-	height: 25px;
-	padding: 0 3px;
-}
 .form-row-item input[type='text'],
 .form-row-item input[type='number'],
 .form-row-item input[type='date'] {
@@ -138,22 +132,26 @@
 	flex-direction: column;
 	justify-content: space-around;
 }
+.login-form-component {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
 .login-form-component.c2 {
 	width: var(--search-input-width);
 	display: flex;
 	justify-content: space-between;
 }
-.login-label {
-	display: block;
+.login-label,
+.login-message {
 	font-size: var(--btn-fs);
 	margin-bottom: 4px;
 }
-.login-form-component input {
-	font-family: 'Poppins', sans-serif;
-	font-size: var(--btn-fs);
-	height: 25px;
-	padding: 0 3px;
+.login-message {
+	animation: shake 0.5s;
+	animation-iteration-count: 1s;
 }
+
 .just-a-visitor {
 	margin-top: 15px;
 	display: flex;

@@ -23,7 +23,6 @@
 	padding: 0 8px;
 	height: calc(100% - 4px);
 	width: var(--search-input-width);
-	font-size: var(--btn-fs);
 	border-radius: 6px;
 	color: rgb(69, 69, 69);
 	border: 2px solid lightgray;

@@ -1,6 +1,11 @@
 import React from 'react';
-import axios from 'axios';
-import config from '../config.json';
+import { getEngineUrl, makeRequest } from '../App';
+
+const showIncorrectPass = () => {
+	const ele = document.querySelector('.login-message');
+	ele.classList.remove('hidden');
+	setTimeout(() => ele.classList.add('hidden'), 1500);
+};
 
 export default function Login(props) {
 	const { setAuthentication, setVisitorMode } = props;
@@ -8,25 +13,32 @@ export default function Login(props) {
 	const postLogin = async function (e) {
 		e.preventDefault();
 		const inputValue = document.querySelector('#login').value;
+		const engineUrl = getEngineUrl();
 
-		const engineURL = config.engineURL;
-		const url = engineURL + '/api/login';
-		const response = await axios.post(url, { input: inputValue });
-		const token = response.data;
+		const response = await makeRequest(engineUrl + '/api/login', {
+			input: inputValue,
+		});
 
 		if (response.status === 200) {
+			const token = response.data;
 			sessionStorage.setItem('token', token);
 
-			const url = engineURL + '/api/verify_token';
-			const response = await axios.post(url, { token: token });
+			const response2 = await makeRequest(
+				engineUrl + '/api/verify_token',
+				{ token: token }
+			);
 
-			if (response.status === 200) {
+			if (response2.status === 200) {
 				setAuthentication(true);
 				setVisitorMode(false);
 			} else {
+				showIncorrectPass();
+				sessionStorage.removeItem('token');
 				setAuthentication(false);
 			}
 		} else {
+			showIncorrectPass();
+			sessionStorage.removeItem('token');
 			setAuthentication(false);
 		}
 	};
@@ -44,6 +56,9 @@ export default function Login(props) {
 						<label htmlFor="login" className="pf-300 login-label">
 							Authenticate:
 						</label>
+						<span className="pf-300 login-message hidden">
+							incorrect pass
+						</span>
 					</div>
 
 					<div className="login-form-component c2">
@@ -57,7 +72,7 @@ export default function Login(props) {
 						/>
 
 						<button className="btn login-btn" type="submit">
-							Login 🧑‍🔧
+							Login
 						</button>
 					</div>
 				</div>

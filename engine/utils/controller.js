@@ -52,7 +52,12 @@ function uploadImage(req, res) {
 			}
 		});
 
-		const absUrl = config.get('engineURL') + '/' + newFilePath.slice(2);
+		const engineUrl =
+			config.get('ENV') === 'prod'
+				? config.get('engineURL')
+				: config.get('engineURLDev');
+
+		const absUrl = engineUrl + '/' + newFilePath.slice(2);
 		images.push(absUrl);
 	}
 

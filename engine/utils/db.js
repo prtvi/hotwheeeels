@@ -2,7 +2,11 @@ const mongoose = require('mongoose');
 const config = require('config');
 
 exports.initDb = function () {
-	const dbUrl = process.env.DB_URL;
+	const dbUrl =
+		config.get('ENV') === 'prod'
+			? process.env.DB_URL
+			: process.env.DB_URL_DEV;
+
 	console.log('db connecting to', dbUrl);
 	mongoose.connect(dbUrl);
 
