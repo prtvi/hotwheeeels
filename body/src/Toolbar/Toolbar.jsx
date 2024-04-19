@@ -13,6 +13,19 @@ export default function Toolbar(props) {
 	} = props;
 
 	const nCarsText = nCars === 1 ? `${nCars} car` : `${nCars} cars`;
+	const [searchInput, setSearchInput] = React.useState('');
+
+	const onSearchHandler = function (e) {
+		const ele = document.querySelector('.input-cross');
+
+		if (e.currentTarget.value.length > 0) ele.classList.remove('hidden');
+		else ele.classList.add('hidden');
+
+		setSearchInput(e.currentTarget.value);
+		onSearch(e);
+	};
+
+	const clearInput = () => setSearchInput('');
 
 	const setModalContentForForm = function () {
 		setModalContent(() => (
@@ -31,14 +44,21 @@ export default function Toolbar(props) {
 	return (
 		<div className="toolbar">
 			<div className="row1">
-				<div className="row1-child">
+				<div className="row1-child input-child">
 					<input
 						className="pf-300"
 						type="text"
 						name="search"
+						value={searchInput}
 						placeholder="🔍  Search for cars"
-						onChange={onSearch}
+						onChange={onSearchHandler}
 					/>
+					<span
+						className="pf-300 input-cross hidden"
+						onClick={clearInput}
+					>
+						x
+					</span>
 				</div>
 
 				{!visitorMode ? (

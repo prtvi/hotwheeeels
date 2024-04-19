@@ -71,8 +71,8 @@ export default function Login(props) {
 							placeholder="password"
 						/>
 
-						<button className="btn login-btn" type="submit">
-							Login
+						<button className="pf-300 login-btn" type="submit">
+							➡️
 						</button>
 					</div>
 				</div>

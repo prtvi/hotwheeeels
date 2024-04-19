@@ -31,6 +31,17 @@
 	height: var(--toolbar-row1-height);
 }
 
+.input-child {
+	position: relative;
+}
+.input-cross {
+	position: absolute;
+	right: 8px;
+	top: 5px;
+	color: black;
+	cursor: pointer;
+}
+
 .row2 {
 	width: var(--toolbar-row-width);
 	height: var(--toolbar-row1-height);
