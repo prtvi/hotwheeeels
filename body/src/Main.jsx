@@ -1,6 +1,7 @@
 import React from 'react';
 import Fuse from 'fuse.js';
 
+import Skeleton from './Utils/Skeleton.jsx';
 import Modal from './Utils/Modal.jsx';
 import Toolbar from './Toolbar/Toolbar.jsx';
 import Cars from './CarShowcase/Cars.jsx';
@@ -54,6 +55,21 @@ export default function Main(props) {
 			return res;
 		});
 	};
+
+	if (allResults.length === 0)
+		return (
+			<>
+				<Toolbar
+					onSearch={handleSearchInput}
+					nCars={resultsForView.length}
+					setModalOpen={setModalOpen}
+					setModalContent={setModalContent}
+					setModalTitle={setModalTitle}
+					visitorMode={visitorMode}
+				/>
+				<Skeleton />
+			</>
+		);
 
 	return (
 		<>

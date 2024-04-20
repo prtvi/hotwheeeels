@@ -2,6 +2,7 @@ import React from 'react';
 import './Forms.css';
 import FormItem from './FormItem.jsx';
 import Message from '../Utils/Message.jsx';
+import Loader from '../Utils/Loader.jsx';
 import config from '../config.json';
 import { getEngineUrl, makeRequest } from '../App.js';
 
@@ -78,6 +79,9 @@ export default function AddCarForm(props) {
 		setModalTitle(msg);
 	};
 
+	const [responses, setResponses] = React.useState([]);
+	const [formSubmitted, setFormSubmitted] = React.useState(false);
+
 	async function handleFormSubmit(e) {
 		e.preventDefault();
 		const carId = Date.now();
@@ -88,21 +92,28 @@ export default function AddCarForm(props) {
 			return;
 		}
 
+		setFormSubmitted(true);
+		setModalTitle('Submitting ...');
+
 		const urlText = `${getEngineUrl()}/api/add_car?car_id=${carId}`;
 		const urlImage = `${getEngineUrl()}/api/image_upload?car_id=${carId}`;
 
 		const textFormRes = await postFormTextData(e.currentTarget, urlText);
 		const imageFormRes = await postImageData(fileInput, urlImage, carId);
 
+		setResponses(() => [textFormRes, imageFormRes]);
+
 		if (textFormRes.status === 200 && imageFormRes.status === 200)
 			setModalContentForMessage(
-				`The car has been added to your collection!`
+				`A new car has been added to your collection!`
 			);
 		else
 			setModalContentForMessage(
 				'Some error occurred! Try again in some time'
 			);
 	}
+
+	if (formSubmitted && responses.length === 0) return <Loader />;
 
 	return (
 		<div className="add-car-form">

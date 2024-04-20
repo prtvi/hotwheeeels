@@ -8,7 +8,7 @@ export default function FormItem(props) {
 
 	let value;
 
-	if (config.ENV === 'debug') value = spec.defaultValue;
+	if (config.ENV === 'dev') value = spec.defaultValue;
 	else value = '';
 
 	// set the current value for update car form

@@ -6,7 +6,7 @@ export default function Message(props) {
 
 	document
 		.querySelector(':root')
-		.style.setProperty('--modal-height', '100px');
+		.style.setProperty('--modal-height', '120px');
 
 	return (
 		<div className="message">

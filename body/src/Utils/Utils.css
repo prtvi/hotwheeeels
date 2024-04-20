@@ -72,6 +72,64 @@ marquee.left {
 	transform: scale(1.1);
 }
 
+/* Skeleton.jsx */
+
+.skeletal-list {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+	margin: 10px;
+}
+.skeleton,
+.skeleton-name {
+	width: var(--card-width);
+	height: var(--card-img-height);
+	margin: 5px;
+	border-radius: 2px;
+
+	animation-duration: 1.5s;
+	animation-fill-mode: forwards;
+	animation-iteration-count: infinite;
+	animation-name: placeHolderShimmer;
+	animation-timing-function: linear;
+	background-color: #0f263e;
+	background: linear-gradient(to right, #565656 8%, #666666 18%, #565656 33%);
+	background-size: 800px 104px;
+	position: relative;
+}
+.skeleton-name {
+	height: calc(var(--card-height) - var(--card-img-height) - 5px);
+}
+@keyframes placeHolderShimmer {
+	0% {
+		background-position: -500px 0;
+	}
+	100% {
+		background-position: 500px 0;
+	}
+}
+
+/* Loader.jsx */
+
+.loader {
+	margin: auto;
+	border: 20px solid #eaf0f6;
+	border-radius: 50%;
+	border-top: 20px solid #3498db;
+	width: 50px;
+	height: 50px;
+	animation: spinner 4s linear infinite;
+}
+@keyframes spinner {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
 @media screen and (min-width: 580px) {
 	.modal-body {
 		padding: 30px;
