@@ -20,6 +20,9 @@ export default function ShowcaseItem(props) {
 	let valueField = value || '-';
 	if (typeof value === 'boolean') valueField = value ? 'Yes' : 'No';
 
+	if (label === 'Acquired date')
+		valueField = new Date(value).toDateString().slice(3);
+
 	return (
 		<div className={className}>
 			<span className="label pf-300">{label}</span>

@@ -46,6 +46,7 @@ export default function Login(props) {
 	const setAsVisitor = function () {
 		setAuthentication(false);
 		setVisitorMode(true);
+		sessionStorage.setItem('visitor', 'yes');
 	};
 
 	return (

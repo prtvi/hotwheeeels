@@ -51,7 +51,7 @@ export default function Main(props) {
 	const handleSearchInput = e => {
 		setResultsForView(() => {
 			let res = getResultsFromFuse(e.target.value);
-			if (res.length === 0) res = allResults;
+			if (res.length === 0) res = [];
 			return res;
 		});
 	};
@@ -70,6 +70,31 @@ export default function Main(props) {
 				<Skeleton />
 			</>
 		);
+
+	if (resultsForView.length === 0) {
+		const reload = () => window.location.reload();
+
+		return (
+			<>
+				<Toolbar
+					onSearch={handleSearchInput}
+					nCars={resultsForView.length}
+					setModalOpen={setModalOpen}
+					setModalContent={setModalContent}
+					setModalTitle={setModalTitle}
+					visitorMode={visitorMode}
+				/>
+				<div className="message-box">
+					<span className="pf-400 result-msg">
+						No matches were found
+					</span>
+					<button className="btn reload pf-300" onClick={reload}>
+						Go back
+					</button>
+				</div>
+			</>
+		);
+	}
 
 	return (
 		<>

@@ -24,7 +24,9 @@ export { getEngineUrl, makeRequest };
 
 export default function App() {
 	const [authenticated, setAuthentication] = React.useState(false);
-	const [visitorMode, setVisitorMode] = React.useState(false);
+	const [visitorMode, setVisitorMode] = React.useState(
+		sessionStorage.getItem('visitor') === 'yes'
+	);
 
 	(async function () {
 		const token = sessionStorage.getItem('token');

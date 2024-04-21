@@ -1,5 +1,4 @@
 const fs = require('fs');
-const path = require('path');
 const jwt = require('jsonwebtoken');
 const sharp = require('sharp');
 const config = require('config');
@@ -8,6 +7,22 @@ const { Car } = require('./db.js');
 function logger(req, res, next) {
 	console.log(req.url);
 	next();
+}
+
+function getAll(req, res) {
+	Car.find()
+		.then(cars => {
+			const result = [];
+			cars.forEach(car => {
+				car.price = 0;
+				result.push(car);
+			});
+			res.send(result);
+		})
+		.catch(err => {
+			console.log(err);
+			res.status(400).send(err);
+		});
 }
 
 function addCar(req, res) {
@@ -65,22 +80,6 @@ async function uploadImage(req, res) {
 		});
 }
 
-function getAll(req, res) {
-	Car.find()
-		.then(cars => {
-			const result = [];
-			cars.forEach(car => {
-				car.price = 0;
-				result.push(car);
-			});
-			res.send(result);
-		})
-		.catch(err => {
-			console.log(err);
-			res.status(400).send(err);
-		});
-}
-
 function deleteCar(req, res) {
 	const carId = req.query.car_id;
 
@@ -126,21 +125,19 @@ function verifyToken(req, res) {
 
 	try {
 		const verified = jwt.verify(token, jwtSecretKey);
-		console.log(verified);
 
 		if (verified) return res.send('authenticated!');
 		else return res.status(401).send('unauthorised');
 	} catch (error) {
-		console.log('unauthorised');
 		return res.status(401).send('unauthorised');
 	}
 }
 
 exports.r = {
 	logger,
+	getAll,
 	addCar,
 	uploadImage,
-	getAll,
 	deleteCar,
 	updateCar,
 	login,
