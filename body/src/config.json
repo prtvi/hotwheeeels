@@ -1,5 +1,5 @@
 {
-	"ENV": "dev",
+	"ENV": "prod",
 	"engineURL": "https://prtvi.alwaysdata.net",
 	"engineURLDev": "http://localhost:3001",
 	"assetsDir": "./assets/",
