@@ -30,7 +30,7 @@
 		{
 			"label": "Price ₹",
 			"key": "price",
-			"forFormOnly": false,
+			"forFormOnly": true,
 			"viewSize": "small",
 			"inputType": "number",
 			"defaultValue": 249,
@@ -58,28 +58,6 @@
 			"required": true
 		},
 		{
-			"label": "Purchased from",
-			"key": "purchasedFrom",
-			"forFormOnly": false,
-			"viewSize": "small",
-			"inputType": "text",
-			"maxLength": 20,
-			"defaultValue": "junkieyard",
-			"placeholder": "store name",
-			"required": false
-		},
-		{
-			"label": "Order number",
-			"key": "orderNumber",
-			"forFormOnly": false,
-			"viewSize": "small",
-			"inputType": "text",
-			"maxLength": 50,
-			"defaultValue": "#1841",
-			"placeholder": "(if any)",
-			"required": false
-		},
-		{
 			"label": "Car type",
 			"key": "carType",
 			"forFormOnly": false,
@@ -91,7 +69,7 @@
 			"required": false
 		},
 		{
-			"label": "Card available",
+			"label": "Card available?",
 			"key": "cardAvailable",
 			"forFormOnly": false,
 			"viewSize": "small",
@@ -100,32 +78,12 @@
 			"required": false
 		},
 		{
-			"label": "Carded",
+			"label": "Still carded?",
 			"key": "carded",
 			"forFormOnly": false,
 			"viewSize": "small",
 			"inputType": "checkbox",
 			"defaultValue": "checked",
-			"required": false
-		},
-		{
-			"label": "Is a gift",
-			"key": "isGift",
-			"forFormOnly": false,
-			"viewSize": "small",
-			"inputType": "checkbox",
-			"defaultValue": "checked",
-			"required": false
-		},
-		{
-			"label": "Gifted by",
-			"key": "giftedBy",
-			"forFormOnly": false,
-			"viewSize": "small",
-			"inputType": "text",
-			"maxLength": 20,
-			"defaultValue": "Joy",
-			"placeholder": "optional",
 			"required": false
 		},
 		{
@@ -137,17 +95,6 @@
 			"maxLength": 15,
 			"defaultValue": "125/250",
 			"placeholder": "eg: 125/250",
-			"required": false
-		},
-		{
-			"label": "Year",
-			"key": "year",
-			"forFormOnly": false,
-			"viewSize": "small",
-			"inputType": "text",
-			"maxLength": 4,
-			"defaultValue": "2022",
-			"placeholder": "2023",
 			"required": false
 		},
 		{
@@ -173,28 +120,6 @@
 			"required": false
 		},
 		{
-			"label": "Window color",
-			"key": "windowColor",
-			"forFormOnly": false,
-			"viewSize": "small",
-			"inputType": "text",
-			"maxLength": 15,
-			"defaultValue": "smoke tint",
-			"placeholder": "eg: smoke tint",
-			"required": false
-		},
-		{
-			"label": "Interior color",
-			"key": "interiorColor",
-			"forFormOnly": false,
-			"viewSize": "small",
-			"inputType": "text",
-			"maxLength": 15,
-			"defaultValue": "black",
-			"placeholder": "eg: black",
-			"required": false
-		},
-		{
 			"label": "Toy #",
 			"key": "toy",
 			"forFormOnly": false,
@@ -206,7 +131,49 @@
 			"required": false
 		},
 		{
-			"label": "Upload an image",
+			"label": "Year",
+			"key": "year",
+			"forFormOnly": false,
+			"viewSize": "small",
+			"inputType": "text",
+			"maxLength": 4,
+			"defaultValue": "2022",
+			"placeholder": "2023",
+			"required": false
+		},
+		{
+			"label": "Purchased from/order #",
+			"key": "purchasedFromAndOrderNum",
+			"forFormOnly": true,
+			"viewSize": "small",
+			"inputType": "text",
+			"maxLength": 30,
+			"defaultValue": "junkieyard / #1841",
+			"placeholder": "store name/order #",
+			"required": false
+		},
+		{
+			"label": "Is a gift?",
+			"key": "isGift",
+			"forFormOnly": true,
+			"viewSize": "small",
+			"inputType": "checkbox",
+			"defaultValue": "checked",
+			"required": false
+		},
+		{
+			"label": "Gifted by",
+			"key": "giftedBy",
+			"forFormOnly": true,
+			"viewSize": "small",
+			"inputType": "text",
+			"maxLength": 20,
+			"defaultValue": "Joy",
+			"placeholder": "optional",
+			"required": false
+		},
+		{
+			"label": "Upload pictures",
 			"key": "imgs",
 			"forFormOnly": true,
 			"viewSize": "large",

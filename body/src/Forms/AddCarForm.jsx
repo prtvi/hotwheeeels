@@ -6,6 +6,27 @@ import Loader from '../Utils/Loader.jsx';
 import config from '../config.json';
 import { getEngineUrl, makeRequest } from '../App.js';
 
+async function postFormTextData(form, url) {
+	const formData = new FormData(form);
+	const formDataJson = {};
+	formData.forEach((value, key) => (formDataJson[key] = value));
+
+	const response = await makeRequest(url, formDataJson);
+	return response;
+}
+
+async function postImageData(fileInput, url) {
+	const imgFormData = new FormData();
+	Array.from(fileInput.files).forEach(file =>
+		imgFormData.append('imgs', file)
+	);
+
+	const response = await makeRequest(url, imgFormData);
+	return response;
+}
+
+export { postFormTextData, postImageData };
+
 function getFormRowItems(specs) {
 	const rows = [];
 	const allRowItems = [];
@@ -48,27 +69,6 @@ function getFormContentDom(rowItems) {
 	});
 }
 
-async function postFormTextData(form, url) {
-	const formData = new FormData(form);
-	const formDataJson = {};
-	formData.forEach((value, key) => (formDataJson[key] = value));
-
-	const response = await makeRequest(url, formDataJson);
-	return response;
-}
-
-async function postImageData(fileInput, url, carId) {
-	const imgFormData = new FormData();
-	Array.from(fileInput.files).forEach((file, i) =>
-		imgFormData.append(`img_${carId}_${i}`, file)
-	);
-
-	const response = await makeRequest(url, imgFormData);
-	return response;
-}
-
-export { postFormTextData, postImageData };
-
 export default function AddCarForm(props) {
 	const { setModalContent, setModalTitle, setModalOpen } = props;
 	const rowsToShow = getFormRowItems(config.formItems);
@@ -95,11 +95,12 @@ export default function AddCarForm(props) {
 		setFormSubmitted(true);
 		setModalTitle('Submitting ...');
 
-		const urlText = `${getEngineUrl()}/api/add_car?car_id=${carId}`;
-		const urlImage = `${getEngineUrl()}/api/image_upload?car_id=${carId}`;
+		const engineUrl = getEngineUrl();
+		const urlText = `${engineUrl}/api/add_car?car_id=${carId}`;
+		const urlImage = `${engineUrl}/api/image_upload?car_id=${carId}`;
 
 		const textFormRes = await postFormTextData(e.currentTarget, urlText);
-		const imageFormRes = await postImageData(fileInput, urlImage, carId);
+		const imageFormRes = await postImageData(fileInput, urlImage);
 
 		setResponses(() => [textFormRes, imageFormRes]);
 

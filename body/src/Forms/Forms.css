@@ -150,6 +150,7 @@
 .login-message {
 	animation: shake 0.5s;
 	animation-iteration-count: 1s;
+	font-size: calc(var(--btn-fs) - 2px);
 }
 
 .login-btn {

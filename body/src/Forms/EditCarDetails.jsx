@@ -70,11 +70,7 @@ export default function EditCarDetails(props) {
 
 		if (fileInput.files.length > 0) {
 			const urlImage = `${getEngineUrl()}/api/image_upload?car_id=${carId}`;
-			const imageFormRes = await postImageData(
-				fileInput,
-				urlImage,
-				carId
-			);
+			const imageFormRes = await postImageData(fileInput, urlImage);
 
 			if (textFormRes.status === 200 && imageFormRes.status === 200)
 				setModalContentForMessage(`The car has been updated!`);

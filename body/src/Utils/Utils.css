@@ -99,7 +99,7 @@ marquee.left {
 	position: relative;
 }
 .skeleton-name {
-	height: calc(var(--card-height) - var(--card-img-height) - 5px);
+	height: calc(var(--card-height) - var(--card-img-height) - 10px);
 }
 @keyframes placeHolderShimmer {
 	0% {

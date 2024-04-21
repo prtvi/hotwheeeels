@@ -1,5 +1,7 @@
 const fs = require('fs');
+const path = require('path');
 const jwt = require('jsonwebtoken');
+const sharp = require('sharp');
 const config = require('config');
 const { Car } = require('./db.js');
 
@@ -24,7 +26,7 @@ function addCar(req, res) {
 		});
 }
 
-function uploadImage(req, res) {
+async function uploadImage(req, res) {
 	const fileInput = req.files;
 	const carId = req.query.car_id;
 
@@ -37,27 +39,18 @@ function uploadImage(req, res) {
 	const fileRefKeys = Object.keys(fileInput);
 
 	for (let i = 0; i < fileRefKeys.length; i++) {
-		const fileRefKey = fileRefKeys[i];
-		const file = fileInput[fileRefKey];
+		const file = fileInput[+fileRefKeys[i]];
+		const compressedImage = `img_${carId}_${i}.webp`;
+		const imagePath = config.get('assetsDir') + compressedImage;
 
-		const fileNameParts = file.name.split('.');
-		const extension = '.' + fileNameParts[fileNameParts.length - 1];
-
-		const newFilePath = config.get('assetsDir') + fileRefKey + extension;
-
-		file.mv(newFilePath, err => {
-			if (err) {
-				console.log('ERROR', err);
-				return res.status(400).send(err);
-			}
-		});
+		await sharp(file.buffer).webp({ quality: 20 }).toFile(imagePath);
 
 		const engineUrl =
 			config.get('ENV') === 'prod'
 				? config.get('engineURL')
 				: config.get('engineURLDev');
 
-		const absUrl = engineUrl + '/' + newFilePath.slice(2);
+		const absUrl = engineUrl + '/' + imagePath.slice(2);
 		images.push(absUrl);
 	}
 
