@@ -15,11 +15,18 @@ async function postFormTextData(form, url) {
 	return response;
 }
 
-async function postImageData(fileInput, url) {
+async function postImageData(fileInput, url, carId) {
 	const imgFormData = new FormData();
-	Array.from(fileInput.files).forEach(file =>
-		imgFormData.append('imgs', file)
-	);
+	Array.from(fileInput.files).forEach((file, i) => {
+		// create new file object to rename file on upload
+		const fnparts = file.name.split('.');
+		const ext = fnparts[fnparts.length - 1].toLowerCase();
+
+		const blob = file.slice(0, file.size);
+		const newFile = new File([blob], `img_${carId}_${i}.${ext}`);
+
+		imgFormData.append('imgs', newFile);
+	});
 
 	const response = await makeRequest(url, imgFormData);
 	return response;
@@ -100,7 +107,7 @@ export default function AddCarForm(props) {
 		const urlImage = `${engineUrl}/api/image_upload?car_id=${carId}`;
 
 		const textFormRes = await postFormTextData(e.currentTarget, urlText);
-		const imageFormRes = await postImageData(fileInput, urlImage);
+		const imageFormRes = await postImageData(fileInput, urlImage, carId);
 
 		setResponses(() => [textFormRes, imageFormRes]);
 

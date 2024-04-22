@@ -1,8 +1,7 @@
 {
-	"ENV": "prod",
+	"ENV": "dev",
 	"engineURL": "https://prtvi.alwaysdata.net",
 	"engineURLDev": "http://localhost:3001",
-	"assetsDir": "./assets/",
 	"maxFileUploadLimit": 5,
 	"formItems": [
 		{
