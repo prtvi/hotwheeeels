@@ -9,6 +9,7 @@ import { getEngineUrl, makeRequest } from './App.js';
 
 export default function Main(props) {
 	const { visitorMode } = props;
+
 	// modal
 	const [isModalOpen, setModalOpen] = React.useState(false);
 	const [modalTitle, setModalTitle] = React.useState('Add a new car');
@@ -20,7 +21,21 @@ export default function Main(props) {
 
 	React.useEffect(() => {
 		async function fetchData() {
-			const res = await makeRequest(`${getEngineUrl()}/api/get_all`);
+			let res;
+
+			if (visitorMode) {
+				// visitor flow
+				const url = `${getEngineUrl()}/api/get_all`;
+				res = await makeRequest(url);
+			} else {
+				// auth flow
+				const headers = {
+					headers: { token: sessionStorage.getItem('token') },
+				};
+
+				const url = `${getEngineUrl()}/api/auth/get_all`;
+				res = await makeRequest(url, headers);
+			}
 
 			if (res.status === 200) {
 				setAllResults(() => res.data);
@@ -29,10 +44,10 @@ export default function Main(props) {
 		}
 
 		fetchData();
-	}, []);
+	}, [visitorMode]);
 
 	const fuse = new Fuse(allResults, {
-		keys: ['carName', 'brand', 'carType'],
+		keys: ['carName'],
 		includeScore: true,
 	});
 

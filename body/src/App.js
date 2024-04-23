@@ -5,9 +5,9 @@ import config from './config.json';
 import Main from './Main.jsx';
 import Login from './Forms/Login.jsx';
 
-async function makeRequest(url, requestBody, headers) {
+async function makeRequest(url, headers, requestBody) {
 	try {
-		if (requestBody === undefined) return await axios.get(url);
+		if (requestBody === undefined) return await axios.get(url, headers);
 		else return await axios.post(url, requestBody, headers);
 	} catch (error) {
 		return error;
@@ -31,8 +31,8 @@ export default function App() {
 
 		const response = await makeRequest(
 			getEngineUrl() + '/api/auth/verify_token',
-			{ token: token },
-			{ headers: { token: token } }
+			{ headers: { token: token } },
+			{ token: token }
 		);
 
 		if (response.status === 200) {

@@ -51,8 +51,8 @@ export default function EditCarDetails(props) {
 	async function deleteCar(carId) {
 		const res = await makeRequest(
 			`${getEngineUrl()}/api/auth/delete_car`,
-			{ car_id: carId },
-			headers
+			headers,
+			{ car_id: carId }
 		);
 
 		if (res.status === 200)

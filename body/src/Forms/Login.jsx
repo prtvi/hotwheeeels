@@ -15,16 +15,19 @@ export default function Login(props) {
 		const inputValue = document.querySelector('#login').value;
 		const engineUrl = getEngineUrl();
 
-		const response = await makeRequest(engineUrl + '/api/login', {
-			input: inputValue,
-		});
+		const response = await makeRequest(
+			engineUrl + '/api/login',
+			{},
+			{ input: inputValue }
+		);
 
 		if (response.status === 200) {
 			const token = response.data;
 			sessionStorage.setItem('token', token);
 
 			const response2 = await makeRequest(
-				engineUrl + '/api/verify_token',
+				engineUrl + '/api/auth/verify_token',
+				{ headers: { token: token } },
 				{ token: token }
 			);
 

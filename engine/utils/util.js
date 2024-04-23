@@ -64,6 +64,21 @@ function newCarObj(reqBody, carId) {
 	return carObj;
 }
 
+function getMaskedCarFields() {
+	const formItems = config.get('formItems');
+	const fields = {};
+
+	for (let i = 0; i < formItems.length; i++) {
+		const fi = formItems[i];
+
+		if (fi.key === '' || fi.forFormOnly) continue;
+		else fields[fi.key] = 1;
+	}
+
+	fields['imgs'] = 1;
+	return fields;
+}
+
 async function deletePicturesForCarId(carId) {
 	const results = await Car.aggregate([
 		{ $match: { carId: carId } },
@@ -113,6 +128,7 @@ exports.u = {
 	initApp,
 	deletePicturesForCarId,
 	newCarObj,
+	getMaskedCarFields,
 	compressAndReturnBuffer,
 	bufferToStream,
 	makeRequest,

@@ -152,18 +152,9 @@
 			"required": false
 		},
 		{
-			"label": "Is a gift?",
-			"key": "isGift",
-			"forFormOnly": true,
-			"viewSize": "small",
-			"inputType": "checkbox",
-			"defaultValue": "checked",
-			"required": false
-		},
-		{
 			"label": "Gifted by",
 			"key": "giftedBy",
-			"forFormOnly": true,
+			"forFormOnly": false,
 			"viewSize": "small",
 			"inputType": "text",
 			"maxLength": 20,

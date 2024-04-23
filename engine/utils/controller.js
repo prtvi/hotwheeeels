@@ -16,21 +16,27 @@ function authMiddleware(req, res, next) {
 	try {
 		const verified = jwt.verify(token, jwtSecretKey);
 
+		console.log('authenticated');
 		if (verified) return next();
 		else return res.status(401).send('unauthorised');
 	} catch (error) {
+		console.log('unauthourised');
 		return res.status(401).send('unauthorised');
 	}
 }
 
+async function getAllMasked(req, res) {
+	const projection = u.getMaskedCarFields();
+	const results = await Car.find({}, projection);
+
+	if (results.length > 0) return res.send(results);
+	else return res.status(400).send(err);
+}
+
 async function getAll(req, res) {
-	try {
-		const results = await Car.find();
-		return res.send(results);
-	} catch (err) {
-		console.log(err);
-		return res.status(400).send(err);
-	}
+	const results = await Car.find();
+	if (results.length > 0) return res.send(results);
+	else return res.status(400).send(err);
 }
 
 function addCar(req, res) {
@@ -184,6 +190,7 @@ function verifyToken(req, res) {
 exports.r = {
 	logger,
 	authMiddleware,
+	getAllMasked,
 	getAll,
 	addCar,
 	uploadImage,

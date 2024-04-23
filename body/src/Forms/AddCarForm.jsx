@@ -11,7 +11,7 @@ async function postFormTextData(form, url, headers) {
 	const formDataJson = {};
 	formData.forEach((value, key) => (formDataJson[key] = value));
 
-	const response = await makeRequest(url, formDataJson, headers);
+	const response = await makeRequest(url, headers, formDataJson);
 	return response;
 }
 
@@ -28,7 +28,7 @@ async function postImageData(fileInput, url, carId, headers) {
 		imgFormData.append('imgs', newFile);
 	});
 
-	const response = await makeRequest(url, imgFormData, headers);
+	const response = await makeRequest(url, headers, imgFormData);
 	return response;
 }
 

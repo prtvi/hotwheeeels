@@ -21,10 +21,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(r.logger);
 
 app.get('/', (req, res) => res.send('hello world!'));
-app.get('/api/get_all', r.getAll);
+app.get('/api/get_all', r.getAllMasked);
 app.post('/api/login', r.login);
 
 app.use('/api/auth', r.authMiddleware);
+app.get('/api/auth/get_all', r.getAll);
 app.post('/api/auth/verify_token', r.verifyToken);
 app.post('/api/auth/add_car', r.addCar);
 app.post('/api/auth/image_upload', upload.array('imgs', mufl), r.uploadImage);
