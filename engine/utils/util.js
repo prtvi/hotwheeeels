@@ -6,13 +6,10 @@ const { Readable } = require('stream');
 const { initDb } = require('./db.js');
 const { Car } = require('./db.js');
 
-async function makeRequest(url, requestBody) {
+async function makeRequest(url, requestBody, headers) {
 	try {
-		if (requestBody === undefined) {
-			return await axios.get(url);
-		} else {
-			return await axios.post(url, requestBody);
-		}
+		if (requestBody === undefined) return await axios.get(url);
+		else return await axios.post(url, requestBody, headers);
 	} catch (error) {
 		return error;
 	}
@@ -73,16 +70,29 @@ async function deletePicturesForCarId(carId) {
 		{ $project: { _id: 0, n: { $size: '$imgs' } } },
 	]).exec();
 
-	if (results.length === 0) return;
+	if (results.length === 0) {
+		console.log('nothing to delete for carId:', carId);
+		return false;
+	}
 
 	const folder = config.get('ENV');
 	const nImages = results[0].n;
+
+	if (nImages === 0) {
+		console.log('nothing to delete for carId:', carId);
+		return false;
+	}
+
+	let success = false;
 	for (let i = 0; i < nImages; i++) {
 		const img = `${folder}/img_${carId}_${i}`;
 
 		const res = await cloudinary.uploader.destroy(img);
 		console.log(res);
+		success = res.result === 'ok';
 	}
+
+	return success;
 }
 
 async function compressAndReturnBuffer(buffer) {

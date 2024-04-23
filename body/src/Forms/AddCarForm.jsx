@@ -6,16 +6,16 @@ import Loader from '../Utils/Loader.jsx';
 import config from '../config.json';
 import { getEngineUrl, makeRequest } from '../App.js';
 
-async function postFormTextData(form, url) {
+async function postFormTextData(form, url, headers) {
 	const formData = new FormData(form);
 	const formDataJson = {};
 	formData.forEach((value, key) => (formDataJson[key] = value));
 
-	const response = await makeRequest(url, formDataJson);
+	const response = await makeRequest(url, formDataJson, headers);
 	return response;
 }
 
-async function postImageData(fileInput, url, carId) {
+async function postImageData(fileInput, url, carId, headers) {
 	const imgFormData = new FormData();
 	Array.from(fileInput.files).forEach((file, i) => {
 		// create new file object to rename file on upload
@@ -28,7 +28,7 @@ async function postImageData(fileInput, url, carId) {
 		imgFormData.append('imgs', newFile);
 	});
 
-	const response = await makeRequest(url, imgFormData);
+	const response = await makeRequest(url, imgFormData, headers);
 	return response;
 }
 
@@ -103,11 +103,22 @@ export default function AddCarForm(props) {
 		setModalTitle('Submitting ...');
 
 		const engineUrl = getEngineUrl();
-		const urlText = `${engineUrl}/api/add_car?car_id=${carId}`;
-		const urlImage = `${engineUrl}/api/image_upload?car_id=${carId}`;
+		const urlText = `${engineUrl}/api/auth/add_car?car_id=${carId}`;
+		const urlImage = `${engineUrl}/api/auth/image_upload?car_id=${carId}`;
 
-		const textFormRes = await postFormTextData(e.currentTarget, urlText);
-		const imageFormRes = await postImageData(fileInput, urlImage, carId);
+		const headers = { headers: { token: sessionStorage.getItem('token') } };
+
+		const textFormRes = await postFormTextData(
+			e.currentTarget,
+			urlText,
+			headers
+		);
+		const imageFormRes = await postImageData(
+			fileInput,
+			urlImage,
+			carId,
+			headers
+		);
 
 		setResponses(() => [textFormRes, imageFormRes]);
 

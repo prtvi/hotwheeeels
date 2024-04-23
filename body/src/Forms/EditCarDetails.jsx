@@ -46,9 +46,13 @@ export default function EditCarDetails(props) {
 		setModalTitle(msg);
 	};
 
+	const headers = { headers: { token: sessionStorage.getItem('token') } };
+
 	async function deleteCar(carId) {
 		const res = await makeRequest(
-			`${getEngineUrl()}/api/delete_car?car_id=${carId}`
+			`${getEngineUrl()}/api/auth/delete_car`,
+			{ car_id: carId },
+			headers
 		);
 
 		if (res.status === 200)
@@ -65,15 +69,17 @@ export default function EditCarDetails(props) {
 			return;
 		}
 
-		const urlText = `${getEngineUrl()}/api/update_car?car_id=${carId}`;
-		const textFormRes = await postFormTextData(form, urlText);
+		const engineUrl = getEngineUrl();
+		const urlText = `${engineUrl}/api/auth/update_car?car_id=${carId}`;
+		const textFormRes = await postFormTextData(form, urlText, headers);
 
 		if (fileInput.files.length > 0) {
-			const urlImage = `${getEngineUrl()}/api/image_upload?car_id=${carId}`;
+			const urlImage = `${engineUrl}/api/auth/image_upload?car_id=${carId}`;
 			const imageFormRes = await postImageData(
 				fileInput,
 				urlImage,
-				carId
+				carId,
+				headers
 			);
 
 			if (textFormRes.status === 200 && imageFormRes.status === 200)

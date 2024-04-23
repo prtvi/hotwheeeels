@@ -12,6 +12,7 @@ require('dotenv').config();
 const PORT = process.env.PORT || 3001;
 u.initApp();
 
+const mufl = config.get('maxFileUploadLimit');
 const app = express();
 
 app.use(cors());
@@ -21,22 +22,14 @@ app.use(r.logger);
 
 app.get('/', (req, res) => res.send('hello world!'));
 app.get('/api/get_all', r.getAll);
-
-app.post('/api/add_car', r.addCar);
-
-app.post(
-	'/api/image_upload',
-	upload.array('imgs', config.get('maxFileUploadLimit')),
-	r.uploadImage
-);
-app.post('/api/internal/get_img_url', upload.single('img'), r.imageUrl);
-
-app.get('/api/delete_car', r.deleteCar);
-app.post('/api/update_car', r.updateCar);
-
 app.post('/api/login', r.login);
-app.post('/api/verify_token', r.verifyToken);
 
-app.listen(PORT, () =>
-	console.log(`------ engine running on port ${PORT} ------`)
-);
+app.use('/api/auth', r.authMiddleware);
+app.post('/api/auth/verify_token', r.verifyToken);
+app.post('/api/auth/add_car', r.addCar);
+app.post('/api/auth/image_upload', upload.array('imgs', mufl), r.uploadImage);
+app.post('/api/auth/get_img_url', upload.single('img'), r.getImageUrl);
+app.post('/api/auth/delete_car', r.deleteCar);
+app.post('/api/auth/update_car', r.updateCar);
+
+app.listen(PORT, () => console.log(`engine running on port ${PORT}`));
