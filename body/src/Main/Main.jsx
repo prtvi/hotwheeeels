@@ -1,11 +1,12 @@
 import React from 'react';
 import Fuse from 'fuse.js';
 
-import Skeleton from './Utils/Skeleton.jsx';
-import Modal from './Utils/Modal.jsx';
-import Toolbar from './Toolbar/Toolbar.jsx';
-import Cars from './CarShowcase/Cars.jsx';
-import { getEngineUrl, makeRequest } from './App.js';
+import './Main.css';
+import Skeleton from '../Utils/Skeleton.jsx';
+import Modal from '../Utils/Modal.jsx';
+import Toolbar from './Toolbar.jsx';
+import Cars from '../CarShowcase/Cars.jsx';
+import { getEngineUrl, makeRequest } from '../App.js';
 
 export default function Main(props) {
 	const { visitorMode } = props;

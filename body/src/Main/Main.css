@@ -57,3 +57,12 @@
 .row1-child.ncars {
 	line-height: var(--toolbar-row1-height);
 }
+
+/* Main */
+.message-box {
+	text-align: center;
+}
+.result-msg {
+	display: block;
+	margin-bottom: 12px;
+}

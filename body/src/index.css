@@ -85,14 +85,6 @@ input {
 	padding: 0 3px;
 }
 
-.message-box {
-	text-align: center;
-}
-.result-msg {
-	display: block;
-	margin-bottom: 12px;
-}
-
 .btn {
 	font-family: 'Poppins', sans-serif;
 	font-weight: 300;

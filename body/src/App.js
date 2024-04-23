@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import config from './config.json';
 
-import Main from './Main.jsx';
+import Main from './Main/Main.jsx';
 import Login from './Forms/Login.jsx';
 
 async function makeRequest(url, headers, requestBody) {
