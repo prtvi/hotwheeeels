@@ -64,7 +64,7 @@ async function uploadImage(req, res) {
 		return res.status(400).send('no files were uploaded.');
 
 	const deleteImgSuccess = await u.deletePicturesForCarId(carId);
-	console.log('image delete success:', deleteImgSuccess);
+	console.log('image delete msg:', deleteImgSuccess);
 
 	const images = [];
 	for (let i = 0; i < nFiles; i++) {
@@ -143,7 +143,7 @@ async function deleteCar(req, res) {
 	const carId = req.body.car_id;
 
 	const deleteImgSuccess = await u.deletePicturesForCarId(carId);
-	console.log('image delete success:', deleteImgSuccess);
+	console.log('image delete msg:', deleteImgSuccess);
 
 	const deleteRes = await Car.deleteOne({ carId: carId });
 

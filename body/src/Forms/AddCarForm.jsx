@@ -32,7 +32,19 @@ async function postImageData(fileInput, url, carId, headers) {
 	return response;
 }
 
-export { postFormTextData, postImageData };
+function getFormContentDom(rowItems) {
+	return rowItems.map((row, rowIdx) => {
+		return (
+			<div className="form-row" key={rowIdx}>
+				{row.map(ri => (
+					<FormItem key={ri.key} spec={ri} viewSize={ri.viewSize} />
+				))}
+			</div>
+		);
+	});
+}
+
+export { postFormTextData, postImageData, getFormContentDom };
 
 function getFormRowItems(specs) {
 	const rows = [];
@@ -48,7 +60,7 @@ function getFormRowItems(specs) {
 			continue;
 		}
 
-		// get all valid row items together
+		// get all row items together
 		allRowItems.push(spec);
 	}
 
@@ -62,18 +74,6 @@ function getFormRowItems(specs) {
 
 	// rows: [[r0, r1], [r2, r3], ..., [r19], [r20]]
 	return rows;
-}
-
-function getFormContentDom(rowItems) {
-	return rowItems.map((row, rowIdx) => {
-		return (
-			<div className="form-row" key={rowIdx}>
-				{row.map(ri => (
-					<FormItem key={ri.key} spec={ri} viewSize={ri.viewSize} />
-				))}
-			</div>
-		);
-	});
 }
 
 export default function AddCarForm(props) {

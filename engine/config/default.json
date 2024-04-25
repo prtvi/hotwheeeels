@@ -5,189 +5,106 @@
 	"maxFileUploadLimit": 5,
 	"formItems": [
 		{
-			"label": "Name",
 			"key": "carName",
-			"forFormOnly": false,
-			"viewSize": "small",
 			"inputType": "text",
-			"maxLength": 32,
-			"defaultValue": "lamborghini",
-			"placeholder": "(as on the car)",
-			"required": true
+			"required": true,
+			"forAuthOnly": false
 		},
 		{
-			"label": "Brand",
 			"key": "brand",
-			"forFormOnly": false,
-			"viewSize": "small",
 			"inputType": "text",
-			"maxLength": 20,
-			"defaultValue": "hot wheels",
-			"placeholder": "hotwheels, matchbox etc",
-			"required": true
+			"required": true,
+			"forAuthOnly": false
 		},
 		{
-			"label": "Price ₹",
 			"key": "price",
-			"forFormOnly": true,
-			"viewSize": "small",
 			"inputType": "number",
-			"defaultValue": 249,
-			"placeholder": "₹",
-			"required": false
+			"required": false,
+			"forAuthOnly": true
 		},
 		{
-			"label": "Color",
 			"key": "color",
-			"forFormOnly": false,
-			"viewSize": "small",
 			"inputType": "text",
-			"maxLength": 15,
-			"defaultValue": "red",
-			"placeholder": "color",
-			"required": false
+			"required": false,
+			"forAuthOnly": false
 		},
 		{
-			"label": "Acquired date",
 			"key": "acquiredDate",
-			"forFormOnly": false,
-			"viewSize": "small",
 			"inputType": "date",
-			"defaultValue": "2023-09-17",
-			"required": true
+			"required": true,
+			"forAuthOnly": false
 		},
 		{
-			"label": "Car type",
 			"key": "carType",
-			"forFormOnly": false,
-			"viewSize": "small",
 			"inputType": "text",
-			"maxLength": 20,
-			"defaultValue": "tooned",
-			"placeholder": "car/suv/tooned",
-			"required": false
+			"required": false,
+			"forAuthOnly": false
 		},
 		{
-			"label": "Card available?",
 			"key": "cardAvailable",
-			"forFormOnly": false,
-			"viewSize": "small",
 			"inputType": "checkbox",
-			"defaultValue": "checked",
-			"required": false
+			"required": false,
+			"forAuthOnly": false
 		},
 		{
-			"label": "Still carded?",
 			"key": "carded",
-			"forFormOnly": false,
-			"viewSize": "small",
 			"inputType": "checkbox",
-			"defaultValue": "checked",
-			"required": false
+			"required": false,
+			"forAuthOnly": false
 		},
 		{
-			"label": "Collection #",
 			"key": "coll",
-			"forFormOnly": false,
-			"viewSize": "small",
 			"inputType": "text",
-			"maxLength": 15,
-			"defaultValue": "125/250",
-			"placeholder": "eg: 125/250",
-			"required": false
+			"required": false,
+			"forAuthOnly": false
 		},
 		{
-			"label": "Series",
 			"key": "series",
-			"forFormOnly": false,
-			"viewSize": "small",
 			"inputType": "text",
-			"maxLength": 15,
-			"defaultValue": "HW Turbo 8/10",
-			"placeholder": "eg: HW Turbo 8/10",
-			"required": false
+			"required": false,
+			"forAuthOnly": false
 		},
 		{
-			"label": "Base color / type",
 			"key": "baseColorAndType",
-			"forFormOnly": false,
-			"viewSize": "small",
 			"inputType": "text",
-			"maxLength": 15,
-			"defaultValue": "black/plastic",
-			"placeholder": "eg: black/plastic",
-			"required": false
+			"required": false,
+			"forAuthOnly": false
 		},
 		{
-			"label": "Toy #",
 			"key": "toy",
-			"forFormOnly": false,
-			"viewSize": "small",
 			"inputType": "text",
-			"maxLength": 10,
-			"defaultValue": "HVT01",
-			"placeholder": "eg: HCT01",
-			"required": false
+			"required": false,
+			"forAuthOnly": false
 		},
 		{
-			"label": "Year",
 			"key": "year",
-			"forFormOnly": false,
-			"viewSize": "small",
 			"inputType": "text",
-			"maxLength": 4,
-			"defaultValue": "2022",
-			"placeholder": "2023",
-			"required": false
+			"required": false,
+			"forAuthOnly": false
 		},
 		{
-			"label": "Purchased from/order #",
 			"key": "purchasedFromAndOrderNum",
-			"forFormOnly": true,
-			"viewSize": "small",
 			"inputType": "text",
-			"maxLength": 30,
-			"defaultValue": "junkieyard / #1841",
-			"placeholder": "store name/order #",
-			"required": false
+			"required": false,
+			"forAuthOnly": true
 		},
 		{
-			"label": "Gifted by",
 			"key": "giftedBy",
-			"forFormOnly": false,
-			"viewSize": "small",
 			"inputType": "text",
-			"maxLength": 20,
-			"defaultValue": "Joy",
-			"placeholder": "optional",
-			"required": false
+			"required": false,
+			"forAuthOnly": false
 		},
 		{
-			"label": "Upload pictures",
 			"key": "imgs",
-			"forFormOnly": true,
-			"viewSize": "large",
 			"inputType": "file",
-			"defaultValue": "",
-			"required": true
+			"required": true,
+			"forAuthOnly": false
 		},
 		{
-			"label": "Notes",
 			"key": "notes",
-			"forFormOnly": false,
-			"viewSize": "large",
 			"inputType": "textarea",
-			"defaultValue": "My first lamborghini",
-			"required": false
-		},
-		{
-			"label": "",
-			"key": "",
-			"forFormOnly": true,
-			"viewSize": "large",
-			"inputType": "btn",
-			"defaultValue": "",
-			"required": false
+			"required": false,
+			"forAuthOnly": false
 		}
 	]
 }

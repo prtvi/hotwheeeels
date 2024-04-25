@@ -71,11 +71,10 @@ function getMaskedCarFields() {
 	for (let i = 0; i < formItems.length; i++) {
 		const fi = formItems[i];
 
-		if (fi.key === '' || fi.forFormOnly) continue;
+		if (fi.forAuthOnly) continue;
 		else fields[fi.key] = 1;
 	}
 
-	fields['imgs'] = 1;
 	return fields;
 }
 
@@ -85,29 +84,24 @@ async function deletePicturesForCarId(carId) {
 		{ $project: { _id: 0, n: { $size: '$imgs' } } },
 	]).exec();
 
-	if (results.length === 0) {
-		console.log('nothing to delete for carId:', carId);
-		return false;
-	}
+	if (results.length === 0) return 'nothing to delete for carId: ' + carId;
 
-	const folder = config.get('ENV');
 	const nImages = results[0].n;
+	if (nImages === 0) return 'nothing to delete for carId: ' + carId;
 
-	if (nImages === 0) {
-		console.log('nothing to delete for carId:', carId);
-		return false;
-	}
+	const msgs = [];
+	const folder = config.get('ENV');
 
-	let success = false;
 	for (let i = 0; i < nImages; i++) {
 		const img = `${folder}/img_${carId}_${i}`;
 
 		const res = await cloudinary.uploader.destroy(img);
 		console.log(res);
-		success = res.result === 'ok';
+
+		msgs.push(res.result);
 	}
 
-	return success;
+	return msgs;
 }
 
 async function compressAndReturnBuffer(buffer) {

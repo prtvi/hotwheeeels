@@ -1,9 +1,9 @@
 import React from 'react';
 import './Forms.css';
-import FormItem from './FormItem.jsx';
 import config from '../config.json';
+import { getFormContentDom } from './AddCarForm.jsx';
 
-function getFormRowItems(specs, car) {
+function getFormRowItemsForUpdate(specs, car) {
 	const rows = [];
 	const allRowItems = [];
 	const largeItemIdxs = [];
@@ -40,25 +40,13 @@ function getFormRowItems(specs, car) {
 
 export default function UpdateCarForm(props) {
 	const { car } = props;
-	const rowsToShow = getFormRowItems(config.formItems, car);
+	const rowsToShow = getFormRowItemsForUpdate(config.formItems, car);
 
 	return (
 		<div className="update-car-form">
 			<form id="update-car-form">
 				<div className="form-content">
-					{rowsToShow.map((row, rowIdx) => {
-						return (
-							<div className="form-row" key={rowIdx}>
-								{row.map(ri => (
-									<FormItem
-										key={ri.key}
-										spec={ri}
-										viewSize={ri.viewSize}
-									/>
-								))}
-							</div>
-						);
-					})}
+					{getFormContentDom(rowsToShow)}
 				</div>
 			</form>
 		</div>

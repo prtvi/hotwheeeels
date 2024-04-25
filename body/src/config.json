@@ -5,189 +5,187 @@
 	"maxFileUploadLimit": 5,
 	"formItems": [
 		{
-			"label": "Name",
 			"key": "carName",
+			"label": "Name",
+			"inputType": "text",
+			"required": true,
 			"forFormOnly": false,
 			"viewSize": "small",
-			"inputType": "text",
 			"maxLength": 32,
-			"defaultValue": "lamborghini",
-			"placeholder": "(as on the car)",
-			"required": true
+			"placeholder": "as on the car",
+			"defaultValue": "lamborghini"
 		},
 		{
-			"label": "Brand",
 			"key": "brand",
+			"label": "Brand",
+			"inputType": "text",
+			"required": true,
 			"forFormOnly": false,
 			"viewSize": "small",
-			"inputType": "text",
 			"maxLength": 20,
-			"defaultValue": "hot wheels",
 			"placeholder": "hotwheels, matchbox etc",
-			"required": true
+			"defaultValue": "hot wheels"
 		},
 		{
-			"label": "Price ₹",
 			"key": "price",
-			"forFormOnly": true,
-			"viewSize": "small",
+			"label": "Price ₹",
 			"inputType": "number",
-			"defaultValue": 249,
+			"required": false,
+			"forFormOnly": false,
+			"viewSize": "small",
 			"placeholder": "₹",
-			"required": false
+			"defaultValue": 249
 		},
 		{
-			"label": "Color",
 			"key": "color",
+			"label": "Color",
+			"inputType": "text",
+			"required": false,
 			"forFormOnly": false,
 			"viewSize": "small",
-			"inputType": "text",
 			"maxLength": 15,
-			"defaultValue": "red",
 			"placeholder": "color",
-			"required": false
+			"defaultValue": "red"
 		},
 		{
-			"label": "Acquired date",
 			"key": "acquiredDate",
-			"forFormOnly": false,
-			"viewSize": "small",
+			"label": "Acquired date",
 			"inputType": "date",
-			"defaultValue": "2023-09-17",
-			"required": true
+			"required": true,
+			"forFormOnly": false,
+			"viewSize": "small",
+			"defaultValue": "2023-09-17"
 		},
 		{
-			"label": "Car type",
 			"key": "carType",
+			"label": "Car type",
+			"inputType": "text",
+			"required": false,
 			"forFormOnly": false,
 			"viewSize": "small",
-			"inputType": "text",
 			"maxLength": 20,
-			"defaultValue": "tooned",
 			"placeholder": "car/suv/tooned",
-			"required": false
+			"defaultValue": "tooned"
 		},
 		{
-			"label": "Card available?",
 			"key": "cardAvailable",
+			"label": "Card available?",
+			"inputType": "checkbox",
+			"required": false,
 			"forFormOnly": false,
 			"viewSize": "small",
-			"inputType": "checkbox",
-			"defaultValue": "checked",
-			"required": false
+			"defaultValue": "checked"
 		},
 		{
-			"label": "Still carded?",
 			"key": "carded",
-			"forFormOnly": false,
-			"viewSize": "small",
+			"label": "Still carded?",
 			"inputType": "checkbox",
-			"defaultValue": "checked",
-			"required": false
+			"required": false,
+			"forFormOnly": false,
+			"viewSize": "small",
+			"defaultValue": "checked"
 		},
 		{
-			"label": "Collection #",
 			"key": "coll",
+			"label": "Collection #",
+			"inputType": "text",
+			"required": false,
 			"forFormOnly": false,
 			"viewSize": "small",
-			"inputType": "text",
 			"maxLength": 15,
-			"defaultValue": "125/250",
 			"placeholder": "eg: 125/250",
-			"required": false
+			"defaultValue": "125/250"
 		},
 		{
-			"label": "Series",
 			"key": "series",
+			"label": "Series",
+			"inputType": "text",
+			"required": false,
 			"forFormOnly": false,
 			"viewSize": "small",
-			"inputType": "text",
 			"maxLength": 15,
-			"defaultValue": "HW Turbo 8/10",
 			"placeholder": "eg: HW Turbo 8/10",
-			"required": false
+			"defaultValue": "HW Turbo 8/10"
 		},
 		{
-			"label": "Base color / type",
 			"key": "baseColorAndType",
+			"label": "Base color / type",
+			"inputType": "text",
+			"required": false,
 			"forFormOnly": false,
 			"viewSize": "small",
-			"inputType": "text",
 			"maxLength": 15,
-			"defaultValue": "black/plastic",
 			"placeholder": "eg: black/plastic",
-			"required": false
+			"defaultValue": "black/plastic"
 		},
 		{
-			"label": "Toy #",
 			"key": "toy",
+			"label": "Toy #",
+			"inputType": "text",
+			"required": false,
 			"forFormOnly": false,
 			"viewSize": "small",
-			"inputType": "text",
 			"maxLength": 10,
 			"defaultValue": "HVT01",
-			"placeholder": "eg: HCT01",
-			"required": false
+			"placeholder": "eg: HCT01"
 		},
 		{
-			"label": "Year",
 			"key": "year",
+			"label": "Year",
+			"inputType": "text",
+			"required": false,
 			"forFormOnly": false,
 			"viewSize": "small",
-			"inputType": "text",
 			"maxLength": 4,
-			"defaultValue": "2022",
 			"placeholder": "2023",
-			"required": false
+			"defaultValue": "2022"
 		},
 		{
-			"label": "Purchased from/order #",
 			"key": "purchasedFromAndOrderNum",
-			"forFormOnly": true,
-			"viewSize": "small",
+			"label": "Purchased from/order #",
 			"inputType": "text",
+			"required": false,
+			"forFormOnly": false,
+			"viewSize": "small",
 			"maxLength": 30,
-			"defaultValue": "junkieyard / #1841",
 			"placeholder": "store name/order #",
-			"required": false
+			"defaultValue": "junkieyard / #1841"
 		},
 		{
-			"label": "Gifted by",
 			"key": "giftedBy",
+			"label": "Gifted by",
+			"inputType": "text",
+			"required": false,
 			"forFormOnly": false,
 			"viewSize": "small",
-			"inputType": "text",
 			"maxLength": 20,
-			"defaultValue": "Joy",
-			"placeholder": "optional",
-			"required": false
+			"placeholder": "friend",
+			"defaultValue": "Joy"
 		},
 		{
-			"label": "Upload pictures",
 			"key": "imgs",
-			"forFormOnly": true,
-			"viewSize": "large",
+			"label": "Upload pictures",
 			"inputType": "file",
-			"defaultValue": "",
-			"required": true
+			"required": true,
+			"forFormOnly": true,
+			"viewSize": "large"
 		},
 		{
-			"label": "Notes",
 			"key": "notes",
+			"label": "Notes",
+			"inputType": "textarea",
+			"required": false,
 			"forFormOnly": false,
 			"viewSize": "large",
-			"inputType": "textarea",
-			"defaultValue": "My first lamborghini",
-			"required": false
+			"defaultValue": "My first lamborghini"
 		},
 		{
-			"label": "",
 			"key": "",
-			"forFormOnly": true,
-			"viewSize": "large",
+			"label": "",
 			"inputType": "btn",
-			"defaultValue": "",
-			"required": false
+			"required": false,
+			"forFormOnly": true,
+			"viewSize": "large"
 		}
 	]
 }
