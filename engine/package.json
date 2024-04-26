@@ -4,9 +4,7 @@
 	"description": "backend service for my hot wheels collection UI",
 	"main": "app.js",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
-		"start": "npx nodemon app.js --ignore '*.json' ",
-		"build": "node app.js"
+		"start": "npx nodemon app.js --ignore '*.json'"
 	},
 	"author": "prtvi",
 	"license": "ISC",

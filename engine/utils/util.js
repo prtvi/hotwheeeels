@@ -106,6 +106,8 @@ async function deletePicturesForCarId(carId) {
 
 async function compressAndReturnBuffer(buffer) {
 	return sharp(buffer).webp({ quality: 20 }).toBuffer();
+	// .resize(525, null)
+	// { quality: 20 outta 100, lossless: true }
 }
 
 function bufferToStream(buffer) {
