@@ -22,7 +22,7 @@
 			"required": true,
 			"forFormOnly": false,
 			"viewSize": "small",
-			"maxLength": 20,
+			"maxLength": 32,
 			"placeholder": "hotwheels, matchbox etc",
 			"defaultValue": "hot wheels"
 		},
@@ -43,7 +43,7 @@
 			"required": false,
 			"forFormOnly": false,
 			"viewSize": "small",
-			"maxLength": 15,
+			"maxLength": 32,
 			"placeholder": "color",
 			"defaultValue": "red"
 		},
@@ -63,7 +63,7 @@
 			"required": false,
 			"forFormOnly": false,
 			"viewSize": "small",
-			"maxLength": 20,
+			"maxLength": 32,
 			"placeholder": "car/suv/tooned",
 			"defaultValue": "tooned"
 		},
@@ -103,7 +103,7 @@
 			"required": false,
 			"forFormOnly": false,
 			"viewSize": "small",
-			"maxLength": 15,
+			"maxLength": 32,
 			"placeholder": "eg: HW Turbo 8/10",
 			"defaultValue": "HW Turbo 8/10"
 		},
@@ -114,7 +114,7 @@
 			"required": false,
 			"forFormOnly": false,
 			"viewSize": "small",
-			"maxLength": 15,
+			"maxLength": 32,
 			"placeholder": "eg: black/plastic",
 			"defaultValue": "black/plastic"
 		},
@@ -147,7 +147,7 @@
 			"required": false,
 			"forFormOnly": false,
 			"viewSize": "small",
-			"maxLength": 30,
+			"maxLength": 32,
 			"placeholder": "store name/order #",
 			"defaultValue": "junkieyard / #1841"
 		},
@@ -158,7 +158,7 @@
 			"required": false,
 			"forFormOnly": false,
 			"viewSize": "small",
-			"maxLength": 20,
+			"maxLength": 32,
 			"placeholder": "friend",
 			"defaultValue": "Joy"
 		},

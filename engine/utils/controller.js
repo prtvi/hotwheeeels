@@ -73,10 +73,12 @@ async function uploadImage(req, res) {
 		const fd = new FormData();
 		fd.append('img', new Blob([file.buffer]), file.originalname);
 
-		const url =
+		const baseUrl =
 			config.get('ENV') === 'prod'
 				? config.get('engineURL')
-				: config.get('engineURLDev') + '/api/auth/get_img_url';
+				: config.get('engineURLDev');
+
+		const url = baseUrl + '/api/auth/get_img_url';
 
 		const response = await u.makeRequest(url, fd, {
 			headers: { token: req.headers.token },
@@ -151,7 +153,7 @@ async function deleteCar(req, res) {
 		console.log('car deleted from db');
 		return res.send('car deleted from db!');
 	} else {
-		console.log('car not deleted from db', err);
+		console.log('car not deleted from db');
 		return res.status(400).send('car not deleted from db');
 	}
 }
