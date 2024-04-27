@@ -178,11 +178,20 @@ async function updateCar(req, res) {
 }
 
 function login(req, res) {
-	const jwtSecretKey = req.body.input;
-	const data = { time: Date() };
+	const pass = req.body.input;
 
-	const token = jwt.sign(data, jwtSecretKey);
-	res.send(token);
+	const data = { time: Date() };
+	const token = jwt.sign(data, pass);
+
+	try {
+		const jwtSecretKey = process.env.JWT_SECRET_KEY;
+		const verified = jwt.verify(token, jwtSecretKey);
+
+		if (verified) return res.send(token);
+		else return res.status(401).send('unauthorised');
+	} catch (error) {
+		return res.status(401).send('unauthorised');
+	}
 }
 
 function verifyToken(req, res) {

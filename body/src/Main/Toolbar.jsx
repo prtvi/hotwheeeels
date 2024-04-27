@@ -50,7 +50,7 @@ export default function Toolbar(props) {
 						type="text"
 						name="search"
 						value={searchInput}
-						placeholder="🔍  Search for cars"
+						placeholder="🔍  Search cars"
 						onChange={onSearchHandler}
 					/>
 					<span

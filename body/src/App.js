@@ -20,32 +20,36 @@ const getEngineUrl = () =>
 export { getEngineUrl, makeRequest };
 
 export default function App() {
+	const authMode = window.location.href.includes('auth');
+
 	const [authenticated, setAuthentication] = React.useState(false);
-	const [visitorMode, setVisitorMode] = React.useState(
-		sessionStorage.getItem('visitor') === 'yes'
-	);
+	const [visitorMode, setVisitorMode] = React.useState(!authMode);
 
-	(async function () {
-		const token = sessionStorage.getItem('token');
-		if (token === null) return;
+	if (authMode) {
+		(async function () {
+			const token = sessionStorage.getItem('token');
+			if (token === null) return;
 
-		const response = await makeRequest(
-			getEngineUrl() + '/api/auth/verify_token',
-			{ headers: { token: token } },
-			{ token: token }
-		);
+			const response = await makeRequest(
+				getEngineUrl() + '/api/auth/verify_token',
+				{ headers: { token: token } },
+				{ token: token }
+			);
 
-		if (response.status === 200) {
-			setAuthentication(true);
-			setVisitorMode(false);
-		} else {
-			setAuthentication(false);
-		}
-	})();
+			if (response.status === 200) {
+				setAuthentication(true);
+				setVisitorMode(false);
+			} else {
+				setAuthentication(false);
+			}
+		})();
+	}
 
 	const renderMain = function () {
-		if (authenticated || (!authenticated && visitorMode)) {
-			return <Main visitorMode={visitorMode} />;
+		if (authenticated) {
+			return <Main visitorMode={false} />;
+		} else if (!authenticated && visitorMode) {
+			return <Main visitorMode={true} />;
 		} else if (!authenticated && !visitorMode) {
 			return (
 				<Login

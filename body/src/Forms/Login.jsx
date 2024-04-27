@@ -25,31 +25,13 @@ export default function Login(props) {
 			const token = response.data;
 			sessionStorage.setItem('token', token);
 
-			const response2 = await makeRequest(
-				engineUrl + '/api/auth/verify_token',
-				{ headers: { token: token } },
-				{ token: token }
-			);
-
-			if (response2.status === 200) {
-				setAuthentication(true);
-				setVisitorMode(false);
-			} else {
-				showIncorrectPass();
-				sessionStorage.removeItem('token');
-				setAuthentication(false);
-			}
+			setAuthentication(true);
+			setVisitorMode(false);
 		} else {
 			showIncorrectPass();
 			sessionStorage.removeItem('token');
 			setAuthentication(false);
 		}
-	};
-
-	const setAsVisitor = function () {
-		setAuthentication(false);
-		setVisitorMode(true);
-		sessionStorage.setItem('visitor', 'yes');
 	};
 
 	return (
@@ -81,12 +63,6 @@ export default function Login(props) {
 					</div>
 				</div>
 			</form>
-
-			<div className="just-a-visitor">
-				<button className="btn" onClick={setAsVisitor}>
-					Just a visitor? 👀
-				</button>
-			</div>
 		</div>
 	);
 }
