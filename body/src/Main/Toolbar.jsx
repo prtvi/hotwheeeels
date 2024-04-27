@@ -4,7 +4,10 @@ import AddCarForm from '../Forms/AddCarForm.jsx';
 
 export default function Toolbar(props) {
 	const {
+		searchInput,
+		setSearchInput,
 		onSearch,
+		clearInput,
 		setModalOpen,
 		setModalContent,
 		setModalTitle,
@@ -13,7 +16,6 @@ export default function Toolbar(props) {
 	} = props;
 
 	const nCarsText = nCars === 1 ? `${nCars} car` : `${nCars} cars`;
-	const [searchInput, setSearchInput] = React.useState('');
 
 	const onSearchHandler = function (e) {
 		const ele = document.querySelector('.input-cross');
@@ -24,8 +26,6 @@ export default function Toolbar(props) {
 		setSearchInput(e.currentTarget.value);
 		onSearch(e);
 	};
-
-	const clearInput = () => setSearchInput('');
 
 	const setModalContentForForm = function () {
 		setModalContent(() => (
