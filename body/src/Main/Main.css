@@ -66,3 +66,21 @@
 	display: block;
 	margin-bottom: 12px;
 }
+
+/* Pagination */
+.pagination {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 20px 0 50px 0;
+}
+.pagination-text {
+	font-size: var(--btn-fs);
+}
+.pagination > div {
+	margin: 0 10px;
+}
+.pagination .left,
+.pagination .right {
+	cursor: pointer;
+}

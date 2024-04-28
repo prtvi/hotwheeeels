@@ -3,6 +3,7 @@
 	"engineURL": "https://hotwheeeelsengine.onrender.com",
 	"engineURLDev": "http://localhost:3001",
 	"maxFileUploadLimit": 5,
+	"resultsPerPage": 12,
 	"formItems": [
 		{
 			"key": "carName",

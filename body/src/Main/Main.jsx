@@ -6,7 +6,9 @@ import Skeleton from '../Utils/Skeleton.jsx';
 import Modal from '../Utils/Modal.jsx';
 import Toolbar from './Toolbar.jsx';
 import Cars from '../CarShowcase/Cars.jsx';
+import Pagination from './Pagination.jsx';
 import { getEngineUrl, makeRequest } from '../App.js';
+import config from '../config.json';
 
 function getResultsFromFuse(fuse, inputText) {
 	return fuse
@@ -37,7 +39,12 @@ export default function Main(props) {
 	const [allResults, setAllResults] = React.useState([]);
 	const [resultsForView, setResultsForView] = React.useState([]);
 
+	// search input
 	const [searchInput, setSearchInput] = React.useState('');
+
+	// pagination
+	const resultsPerPage = config.resultsPerPage;
+	const [currPage, setCurrPage] = React.useState(1);
 
 	React.useEffect(() => {
 		async function fetchData() {
@@ -132,16 +139,27 @@ export default function Main(props) {
 		);
 	}
 
+	const list = resultsForView.slice(
+		resultsPerPage * (currPage - 1),
+		resultsPerPage * currPage
+	);
+
 	return (
 		<>
 			{getToolbar()}
 
 			<Cars
-				list={resultsForView}
+				list={list}
 				setModalOpen={setModalOpen}
 				setModalContent={setModalContent}
 				setModalTitle={setModalTitle}
 				visitorMode={visitorMode}
+			/>
+
+			<Pagination
+				length={resultsForView.length}
+				currPage={currPage}
+				setCurrPage={setCurrPage}
 			/>
 
 			<Modal
