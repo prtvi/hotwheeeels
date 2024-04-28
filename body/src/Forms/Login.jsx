@@ -1,11 +1,6 @@
 import React from 'react';
-import { getEngineUrl, makeRequest } from '../App';
 
-const showIncorrectPass = () => {
-	const ele = document.querySelector('.login-message');
-	ele.classList.remove('hidden');
-	setTimeout(() => ele.classList.add('hidden'), 1500);
-};
+import { getEngineUrl, makeRequest, showIncorrectPass } from '../functions.js';
 
 export default function Login(props) {
 	const { setAuthentication, setVisitorMode } = props;

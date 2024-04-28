@@ -2,33 +2,15 @@ import React from 'react';
 import Message from '../Utils/Message.jsx';
 import './Forms.css';
 import config from '../config.json';
-import { postFormTextData, postImageData } from './AddCarForm.jsx';
-import { getEngineUrl, makeRequest } from '../App.js';
 
-function showEditComponents(show) {
-	const editComponentGroups = document.querySelectorAll('.edit-comp-group');
-	const editCarContainer = document.querySelector('.edit-car-details');
-
-	if (show) {
-		Array.from(editComponentGroups).forEach(c => c.classList.add('active'));
-		editCarContainer.classList.add('edit');
-	} else {
-		Array.from(editComponentGroups).forEach(c =>
-			c.classList.remove('active')
-		);
-		editCarContainer.classList.remove('edit');
-
-		// always show the edit and delete icons
-		editComponentGroups[0].classList.add('active');
-	}
-}
-
-function showCurrentMode(e) {
-	const mainAction = document.querySelectorAll('.main-action');
-	Array.from(mainAction).forEach(m => m.classList.remove('active'));
-
-	if (e) e.currentTarget.classList.add('active');
-}
+import {
+	showCurrentMode,
+	showEditComponents,
+	getEngineUrl,
+	makeRequest,
+	postFormTextData,
+	postImageData,
+} from '../functions.js';
 
 export default function EditCarDetails(props) {
 	const {

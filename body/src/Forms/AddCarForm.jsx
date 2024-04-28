@@ -1,80 +1,16 @@
 import React from 'react';
 import './Forms.css';
-import FormItem from './FormItem.jsx';
 import Message from '../Utils/Message.jsx';
 import Loader from '../Utils/Loader.jsx';
 import config from '../config.json';
-import { getEngineUrl, makeRequest } from '../App.js';
 
-async function postFormTextData(form, url, headers) {
-	const formData = new FormData(form);
-	const formDataJson = {};
-	formData.forEach((value, key) => (formDataJson[key] = value));
-
-	const response = await makeRequest(url, headers, formDataJson);
-	return response;
-}
-
-async function postImageData(fileInput, url, carId, headers) {
-	const imgFormData = new FormData();
-	Array.from(fileInput.files).forEach((file, i) => {
-		// create new file object to rename file on upload
-		const fnparts = file.name.split('.');
-		const ext = fnparts[fnparts.length - 1].toLowerCase();
-
-		const blob = file.slice(0, file.size);
-		const newFile = new File([blob], `img_${carId}_${i}.${ext}`);
-
-		imgFormData.append('imgs', newFile);
-	});
-
-	const response = await makeRequest(url, headers, imgFormData);
-	return response;
-}
-
-function getFormContentDom(rowItems) {
-	return rowItems.map((row, rowIdx) => {
-		return (
-			<div className="form-row" key={rowIdx}>
-				{row.map(ri => (
-					<FormItem key={ri.key} spec={ri} viewSize={ri.viewSize} />
-				))}
-			</div>
-		);
-	});
-}
-
-export { postFormTextData, postImageData, getFormContentDom };
-
-function getFormRowItems(specs) {
-	const rows = [];
-	const allRowItems = [];
-	const largeItemIdxs = [];
-
-	for (let i = 0; i < specs.length; i++) {
-		const spec = specs[i];
-
-		// fields that need to occupy the entire row, push their indexes
-		if (spec.viewSize === 'large') {
-			largeItemIdxs.push(i);
-			continue;
-		}
-
-		// get all row items together
-		allRowItems.push(spec);
-	}
-
-	// push row items as set of 2 items together [r0, r1]
-	for (let i = 0; i < allRowItems.length; i += 2)
-		rows.push(allRowItems.slice(i, i + 2));
-
-	// get all the large items using the indexes and push them as a single element in the row unlike small elements, rows: [[r0, r1], ... [r18], [r19]]
-	for (let i = 0; i < largeItemIdxs.length; i++)
-		rows.push([specs[largeItemIdxs[i]]]);
-
-	// rows: [[r0, r1], [r2, r3], ..., [r19], [r20]]
-	return rows;
-}
+import {
+	getEngineUrl,
+	postFormTextData,
+	postImageData,
+	getFormRowItems,
+	getFormContentDom,
+} from '../functions.js';
 
 export default function AddCarForm(props) {
 	const { setModalContent, setModalTitle, setModalOpen } = props;

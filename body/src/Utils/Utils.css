@@ -130,6 +130,15 @@ marquee.left {
 	}
 }
 
+/* NoResults.jsx */
+.message-box {
+	text-align: center;
+}
+.result-msg {
+	display: block;
+	margin-bottom: 12px;
+}
+
 @media screen and (min-width: 580px) {
 	.modal-body {
 		padding: 30px;

@@ -1,6 +1,6 @@
 import React from 'react';
 import './CarShowcase.css';
-import CarShowcase from './CarShowcase';
+import CarShowcase from './CarShowcase.jsx';
 
 function Car(props) {
 	const { car, setModalOpen, setModalContent, setModalTitle, visitorMode } =

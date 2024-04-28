@@ -3,29 +3,19 @@ import Fuse from 'fuse.js';
 
 import './Main.css';
 import Skeleton from '../Utils/Skeleton.jsx';
+import NoResults from '../Utils/NoResults.jsx';
 import Modal from '../Utils/Modal.jsx';
 import Toolbar from './Toolbar.jsx';
 import Cars from '../CarShowcase/Cars.jsx';
 import Pagination from './Pagination.jsx';
-import { getEngineUrl, makeRequest } from '../App.js';
 import config from '../config.json';
 
-function getResultsFromFuse(fuse, inputText) {
-	return fuse
-		.search(inputText)
-		.sort((a, b) => {
-			if (a.score > b.score) return 1;
-			if (a.score < b.score) return -1;
-			return 0;
-		})
-		.map(i => i.item);
-}
-
-function getResultsFromFilter(allItems, inputText) {
-	return allItems.filter(item =>
-		item.carName.toLowerCase().includes(inputText.toLowerCase())
-	);
-}
+import {
+	getEngineUrl,
+	makeRequest,
+	getResultsFromFuse,
+	getResultsFromFilter,
+} from '../functions.js';
 
 export default function Main(props) {
 	const { visitorMode } = props;
@@ -113,31 +103,18 @@ export default function Main(props) {
 		);
 	}
 
-	if (allResults.length === 0) {
+	function getTempComponents(temp) {
 		return (
 			<>
 				{getToolbar()}
-				<Skeleton />
+				{temp}
 			</>
 		);
 	}
 
-	if (resultsForView.length === 0) {
-		return (
-			<>
-				{getToolbar()}
-
-				<div className="message-box">
-					<span className="pf-400 result-msg">
-						No matches were found
-					</span>
-					<button className="btn reload pf-300" onClick={clearInput}>
-						Go back
-					</button>
-				</div>
-			</>
-		);
-	}
+	if (allResults.length === 0) return getTempComponents(<Skeleton />);
+	if (resultsForView.length === 0)
+		return getTempComponents(<NoResults clearInput={clearInput} />);
 
 	const list = resultsForView.slice(
 		resultsPerPage * (currPage - 1),

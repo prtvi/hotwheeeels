@@ -1,23 +1,9 @@
 import React from 'react';
-import axios from 'axios';
-import config from './config.json';
 
 import Main from './Main/Main.jsx';
 import Login from './Forms/Login.jsx';
 
-async function makeRequest(url, headers, requestBody) {
-	try {
-		if (requestBody === undefined) return await axios.get(url, headers);
-		else return await axios.post(url, requestBody, headers);
-	} catch (error) {
-		return error;
-	}
-}
-
-const getEngineUrl = () =>
-	config.ENV === 'prod' ? config.engineURL : config.engineURLDev;
-
-export { getEngineUrl, makeRequest };
+import { makeRequest, getEngineUrl } from './functions.js';
 
 export default function App() {
 	const authMode = window.location.href.includes('auth');

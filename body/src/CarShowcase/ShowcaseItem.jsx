@@ -1,15 +1,7 @@
 import React from 'react';
 import './CarShowcase.css';
 
-const validSpec = function (value) {
-	let valueField = value || '-';
-	if (typeof value === 'boolean') valueField = value ? 'Yes' : 'No';
-
-	if (valueField === '-') return false;
-	return true;
-};
-
-export { validSpec };
+import { validSpec } from '../functions.js';
 
 export default function ShowcaseItem(props) {
 	const { label, value, itemSizeClass } = props;
