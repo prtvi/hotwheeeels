@@ -1,25 +1,9 @@
 import React from 'react';
 import './CarShowcase.css';
-import CarShowcase from './CarShowcase.jsx';
 
 function Car(props) {
-	const { car, setModalOpen, setModalContent, setModalTitle, visitorMode } =
-		props;
-
-	const showCarHandler = function (e) {
-		setModalContent(() => (
-			<CarShowcase
-				car={car}
-				setModalOpen={setModalOpen}
-				setModalContent={setModalContent}
-				setModalTitle={setModalTitle}
-				visitorMode={visitorMode}
-			/>
-		));
-
-		setModalTitle(car.carName);
-		setModalOpen(true);
-	};
+	const { index, car, showCar } = props;
+	const showCarHandler = () => showCar(index);
 
 	return (
 		<div className="card" onClick={showCarHandler}>
@@ -34,20 +18,12 @@ function Car(props) {
 }
 
 export default function Cars(props) {
-	const { list, setModalOpen, setModalContent, setModalTitle, visitorMode } =
-		props;
+	const { list, showCar } = props;
 
 	return (
 		<div className="car-list">
 			{list.map((car, i) => (
-				<Car
-					key={i}
-					car={car}
-					setModalOpen={setModalOpen}
-					setModalContent={setModalContent}
-					setModalTitle={setModalTitle}
-					visitorMode={visitorMode}
-				/>
+				<Car key={i} car={car} index={i} showCar={showCar} />
 			))}
 		</div>
 	);

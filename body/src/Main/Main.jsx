@@ -2,6 +2,7 @@ import React from 'react';
 import Fuse from 'fuse.js';
 
 import './Main.css';
+import CarShowcase from '../CarShowcase/CarShowcase.jsx';
 import Skeleton from '../Utils/Skeleton.jsx';
 import NoResults from '../Utils/NoResults.jsx';
 import Modal from '../Utils/Modal.jsx';
@@ -69,7 +70,7 @@ export default function Main(props) {
 	});
 
 	// searchbox
-	const handleSearchInput = e => {
+	function handleSearchInput(e) {
 		setResultsForView(() => {
 			if (e === undefined) return allResults;
 
@@ -79,13 +80,13 @@ export default function Main(props) {
 			if (res.length === 0) res = [];
 			return res;
 		});
-	};
+	}
 
-	const clearInput = function () {
+	function clearInput() {
 		document.querySelector('.input-cross').classList.add('hidden');
 		setSearchInput('');
 		handleSearchInput();
-	};
+	}
 
 	function getToolbar() {
 		return (
@@ -116,22 +117,33 @@ export default function Main(props) {
 	if (resultsForView.length === 0)
 		return getTempComponents(<NoResults clearInput={clearInput} />);
 
-	const list = resultsForView.slice(
+	const paginationList = resultsForView.slice(
 		resultsPerPage * (currPage - 1),
 		resultsPerPage * currPage
 	);
 
-	return (
-		<>
-			{getToolbar()}
+	function showCar(index) {
+		const car = paginationList[index];
 
-			<Cars
-				list={list}
+		setModalContent(() => (
+			<CarShowcase
+				car={car}
 				setModalOpen={setModalOpen}
 				setModalContent={setModalContent}
 				setModalTitle={setModalTitle}
 				visitorMode={visitorMode}
 			/>
+		));
+
+		setModalTitle(car.carName);
+		setModalOpen(true);
+	}
+
+	return (
+		<>
+			{getToolbar()}
+
+			<Cars list={paginationList} showCar={showCar} />
 
 			<Pagination
 				length={resultsForView.length}
