@@ -3,6 +3,7 @@ import './Main.css';
 import config from '../config.json';
 
 export default function Pagination(props) {
+	// length is the result for view array length, after search/filter
 	const { length, currPage, setCurrPage } = props;
 
 	const resultsPerPage = config.resultsPerPage;
@@ -23,23 +24,17 @@ export default function Pagination(props) {
 
 	return (
 		<div className="pagination">
-			<div>
-				<span className="left" onClick={back}>
-					⬅️
-				</span>
-			</div>
+			<span className="left" onClick={back}>
+				&#10094;
+			</span>
 
-			<div>
-				<span className="pf-200 pagination-text">
-					{start} - {end} of {length}
-				</span>
-			</div>
+			<span className="pf-200 pagination-text">
+				{start} - {end} of {length}
+			</span>
 
-			<div>
-				<span className="right" onClick={forward}>
-					➡️
-				</span>
-			</div>
+			<span className="right" onClick={forward}>
+				&#10095;
+			</span>
 		</div>
 	);
 }

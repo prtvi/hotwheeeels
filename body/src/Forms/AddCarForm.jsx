@@ -10,6 +10,7 @@ import {
 	postImageData,
 	getFormRowItems,
 	getFormContentDom,
+	getAuthHeaders,
 } from '../functions.js';
 
 export default function AddCarForm(props) {
@@ -42,7 +43,7 @@ export default function AddCarForm(props) {
 		const urlText = `${engineUrl}/api/auth/add_car?car_id=${carId}`;
 		const urlImage = `${engineUrl}/api/auth/image_upload?car_id=${carId}`;
 
-		const headers = { headers: { token: sessionStorage.getItem('token') } };
+		const headers = getAuthHeaders();
 
 		const textFormRes = await postFormTextData(
 			e.currentTarget,

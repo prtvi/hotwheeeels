@@ -11,6 +11,7 @@ import {
 	makeRequest,
 	postFormTextData,
 	postImageData,
+	getAuthHeaders,
 } from '../functions.js';
 
 export default function EditCarDetails(props) {
@@ -28,7 +29,7 @@ export default function EditCarDetails(props) {
 	const [responses, setResponses] = React.useState([]);
 	const [formSubmitted, setFormSubmitted] = React.useState(false);
 
-	const headers = { headers: { token: sessionStorage.getItem('token') } };
+	const headers = getAuthHeaders();
 
 	const closeModal = () => setModalOpen(false);
 	const setModalContentForMessage = function (msg) {

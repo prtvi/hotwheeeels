@@ -1,6 +1,12 @@
 import React from 'react';
 
-import { getEngineUrl, makeRequest, showIncorrectPass } from '../functions.js';
+import {
+	getEngineUrl,
+	makeRequest,
+	showIncorrectPass,
+	setSessionStorage,
+	removeSessionItem,
+} from '../functions.js';
 
 export default function Login(props) {
 	const { setAuthentication, setVisitorMode } = props;
@@ -18,13 +24,13 @@ export default function Login(props) {
 
 		if (response.status === 200) {
 			const token = response.data;
-			sessionStorage.setItem('token', token);
+			setSessionStorage('token', token);
 
 			setAuthentication(true);
 			setVisitorMode(false);
 		} else {
 			showIncorrectPass();
-			sessionStorage.removeItem('token');
+			removeSessionItem('token');
 			setAuthentication(false);
 		}
 	};

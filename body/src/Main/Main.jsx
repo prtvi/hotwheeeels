@@ -8,6 +8,7 @@ import NoResults from '../Utils/NoResults.jsx';
 import Modal from '../Utils/Modal.jsx';
 import Toolbar from './Toolbar.jsx';
 import Cars from '../CarShowcase/Cars.jsx';
+import SwipeCar from '../CarShowcase/SwipeCar.jsx';
 import Pagination from './Pagination.jsx';
 import config from '../config.json';
 
@@ -16,6 +17,8 @@ import {
 	makeRequest,
 	getResultsFromFuse,
 	getResultsFromFilter,
+	getAuthHeaders,
+	setSessionStorage,
 } from '../functions.js';
 
 export default function Main(props) {
@@ -26,7 +29,8 @@ export default function Main(props) {
 	const [modalTitle, setModalTitle] = React.useState('Add a new car');
 	const [modalContent, setModalContent] = React.useState(<></>);
 
-	// all results from api call && results to show on UI
+	// all results to store all results from api call
+	// results for view to only render based on search/filter
 	const [allResults, setAllResults] = React.useState([]);
 	const [resultsForView, setResultsForView] = React.useState([]);
 
@@ -47,9 +51,7 @@ export default function Main(props) {
 				res = await makeRequest(url);
 			} else {
 				// auth flow
-				const headers = {
-					headers: { token: sessionStorage.getItem('token') },
-				};
+				const headers = getAuthHeaders();
 
 				const url = `${getEngineUrl()}/api/auth/get_all`;
 				res = await makeRequest(url, headers);
@@ -62,6 +64,7 @@ export default function Main(props) {
 		}
 
 		fetchData();
+		setSessionStorage('carIdx', 0);
 	}, [visitorMode]);
 
 	const fuse = new Fuse(allResults, {
@@ -119,13 +122,16 @@ export default function Main(props) {
 	if (resultsForView.length === 0)
 		return getTempComponents(<NoResults clearInput={clearInput} />);
 
+	// truncate results for view array and render only a portion of it based on curr page
 	const paginationList = resultsForView.slice(
 		resultsPerPage * (currPage - 1),
 		resultsPerPage * currPage
 	);
 
 	function showCar(index) {
+		// pick car only from pagination list
 		const car = paginationList[index];
+		setSessionStorage('carIdx', index);
 
 		setModalContent(() => (
 			<CarShowcase
@@ -137,7 +143,13 @@ export default function Main(props) {
 			/>
 		));
 
-		setModalTitle(car.carName);
+		setModalTitle(
+			<SwipeCar
+				carName={car.carName}
+				nItems={paginationList.length}
+				showCar={showCar}
+			/>
+		);
 		setModalOpen(true);
 	}
 

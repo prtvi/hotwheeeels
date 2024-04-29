@@ -307,6 +307,31 @@ function showIncorrectPass() {
 	setTimeout(() => ele.classList.add('hidden'), 1500);
 }
 
+function getAuthHeaders() {
+	return { headers: { token: getSessionItem('token', String) } };
+}
+
+function setSessionStorage(key, value) {
+	sessionStorage.setItem(key, value);
+}
+
+function removeSessionItem(key) {
+	sessionStorage.removeItem(key);
+}
+
+function getSessionItem(key, dataType) {
+	const value = sessionStorage.getItem(key);
+
+	switch (dataType) {
+		case Number:
+			return +value;
+		case String:
+			return value;
+		default:
+			return value;
+	}
+}
+
 export {
 	getEngineUrl,
 	makeRequest,
@@ -323,4 +348,8 @@ export {
 	showCurrentMode,
 	showIncorrectPass,
 	getFormRowItemsForUpdate,
+	getAuthHeaders,
+	setSessionStorage,
+	removeSessionItem,
+	getSessionItem,
 };

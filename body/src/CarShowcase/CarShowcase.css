@@ -112,6 +112,25 @@
 	width: var(--modal-child-width);
 }
 
+/* SwipeCar.jsx */
+
+.swipe-car {
+	width: var(--modal-child-width);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.swipe-car .left,
+.swipe-car .right {
+	cursor: pointer;
+}
+.swipe-car .left:active {
+	transform: translateX(-2px);
+}
+.swipe-car .right:active {
+	transform: translateX(2px);
+}
+
 /* Carousel.jsx */
 
 .slideshow-container {

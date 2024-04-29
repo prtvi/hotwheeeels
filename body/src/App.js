@@ -3,7 +3,7 @@ import React from 'react';
 import Main from './Main/Main.jsx';
 import Login from './Forms/Login.jsx';
 
-import { makeRequest, getEngineUrl } from './functions.js';
+import { makeRequest, getEngineUrl, getSessionItem } from './functions.js';
 
 export default function App() {
 	const authMode = window.location.href.includes('auth');
@@ -13,7 +13,7 @@ export default function App() {
 
 	if (authMode) {
 		(async function () {
-			const token = sessionStorage.getItem('token');
+			const token = getSessionItem('token', String);
 			if (token === null) return;
 
 			const response = await makeRequest(
