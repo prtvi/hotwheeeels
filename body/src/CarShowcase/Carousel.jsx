@@ -3,10 +3,9 @@ import './CarShowcase.css';
 
 export default function Carousel(props) {
 	const { images } = props;
-
 	const [slideIndex, setSlideIndex] = React.useState(0);
 
-	function goLeft() {
+	function left() {
 		let idx = 0;
 
 		if (slideIndex - 1 < 0) idx = images.length - 1;
@@ -16,7 +15,7 @@ export default function Carousel(props) {
 		showCurrSlide(idx);
 	}
 
-	function goRight() {
+	function right() {
 		let idx = 0;
 
 		if (slideIndex + 1 >= images.length) idx = 0;
@@ -55,10 +54,10 @@ export default function Carousel(props) {
 					);
 				})}
 
-				<span className="trigger prev" onClick={goLeft}>
+				<span className="carousel-arrow left" onClick={left}>
 					&#10094;
 				</span>
-				<span className="trigger next" onClick={goRight}>
+				<span className="carousel-arrow right" onClick={right}>
 					&#10095;
 				</span>
 

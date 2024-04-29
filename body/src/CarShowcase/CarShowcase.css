@@ -44,7 +44,7 @@
 
 .card-name-container {
 	height: calc(var(--card-height) - var(--card-img-height));
-	color: snow;
+	color: #fffafa;
 	text-align: center;
 	display: flex;
 	justify-content: center;
@@ -98,7 +98,7 @@
 .row-item .label {
 	font-size: var(--showcase-item-label-fs);
 	display: block;
-	color: gray;
+	color: #808080;
 }
 .row-item .value {
 	font-size: calc(var(--showcase-item-label-fs) + 2px);
@@ -119,16 +119,6 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-}
-.swipe-car .left,
-.swipe-car .right {
-	cursor: pointer;
-}
-.swipe-car .left:active {
-	transform: translateX(-2px);
-}
-.swipe-car .right:active {
-	transform: translateX(2px);
 }
 
 /* Carousel.jsx */
@@ -159,35 +149,38 @@
 	border-radius: 4px;
 }
 
-.trigger {
+.carousel-arrow {
+	font-size: 22px;
 	position: absolute;
-	height: 35px;
-	padding: 2px;
-	top: calc((var(--carousel-img-height) / 2) - 27.5px);
-	font-size: 30px;
+	top: calc((var(--carousel-img-height) / 2) - 18px);
+	height: 40px;
+	line-height: 40px;
+	border-radius: 40px;
+	width: 20px;
+	background-color: #969da281;
 	cursor: pointer;
-	background-color: rgb(174, 255, 0);
 }
-.trigger.prev {
-	border-radius: 0 2px 2px 0;
+.carousel-arrow.left {
 	left: 0;
+	border-radius: 0 40px 40px 0;
 }
-.trigger.next {
-	border-radius: 2px 0 0 2px;
+.carousel-arrow.right {
 	right: 0;
+	border-radius: 40px 0 0 40px;
+	text-align: right;
 }
 
 .dot {
 	height: 6px;
 	width: 6px;
 	margin: 0 2px;
-	background-color: #7b7b7b;
+	background-color: #c2c2c2;
 	border-radius: 50%;
 	display: inline-block;
 	transition: background-color 0.6s ease;
 }
 .dot.active {
-	background-color: #de6565;
+	background-color: var(--accent-color);
 }
 
 .fade {

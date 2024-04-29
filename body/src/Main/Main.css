@@ -24,8 +24,8 @@
 	height: calc(100% - 4px);
 	width: var(--search-input-width);
 	border-radius: 6px;
-	color: rgb(69, 69, 69);
-	border: 2px solid lightgray;
+	color: #454545;
+	border: 2px solid #d3d3d3;
 }
 .row1-child button {
 	height: var(--toolbar-row1-height);
@@ -71,13 +71,15 @@
 .pagination-text {
 	font-size: var(--btn-fs);
 }
-.pagination .left,
-.pagination .right {
+
+/* arrow-left and arrow-right are common classes for components - Pagination and SwipeCar */
+.arrow-left,
+.arrow-right {
 	cursor: pointer;
 }
-.pagination .left:active {
+.arrow-left:active {
 	transform: translateX(-2px);
 }
-.pagination .right:active {
+.arrow-right:active {
 	transform: translateX(2px);
 }

@@ -82,7 +82,7 @@
 }
 .edit-car-details.edit {
 	justify-content: space-between;
-	background-color: whitesmoke;
+	background-color: #f5f5f5;
 	opacity: 1;
 }
 
@@ -91,7 +91,7 @@
 	justify-content: space-around;
 	align-items: center;
 	width: 60px;
-	background-color: whitesmoke;
+	background-color: #f5f5f5;
 	border-radius: 0 0 4px 0;
 }
 .edit-comp-group.active {
@@ -117,7 +117,7 @@
 	transform: translateY(2px);
 }
 .edit-comp.icon.active {
-	background-color: #3498db;
+	background-color: var(--accent-color);
 	border-radius: 500px;
 }
 
@@ -157,7 +157,7 @@
 	font-family: 'Poppins', sans-serif;
 	font-size: var(--btn-fs);
 	padding: 2px 6px;
-	background-color: #3498db;
+	background-color: var(--accent-color);
 	color: #fff;
 	border: none;
 	border-radius: 4px;

@@ -6,7 +6,7 @@ import { getSessionItem } from '../functions.js';
 export default function SwipeCar(props) {
 	const { carName, nItems, showCar } = props;
 
-	const back = function () {
+	const left = function () {
 		const curr = getSessionItem('carIdx', Number);
 
 		let idx = 0;
@@ -16,7 +16,7 @@ export default function SwipeCar(props) {
 		showCar(idx);
 	};
 
-	const forward = function () {
+	const right = function () {
 		const curr = getSessionItem('carIdx', Number);
 
 		let idx = 0;
@@ -28,13 +28,13 @@ export default function SwipeCar(props) {
 
 	return (
 		<div className="swipe-car">
-			<span className="left" onClick={back}>
+			<span className="arrow-left" onClick={left}>
 				&#10094;
 			</span>
 
-			<span>{carName}</span>
+			<span className="pf-300">{carName}</span>
 
-			<span className="right" onClick={forward}>
+			<span className="arrow-right" onClick={right}>
 				&#10095;
 			</span>
 		</div>

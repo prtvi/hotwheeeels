@@ -9,12 +9,12 @@ export default function Pagination(props) {
 	const resultsPerPage = config.resultsPerPage;
 	const nPages = Math.ceil(length / resultsPerPage);
 
-	const back = function () {
+	const left = function () {
 		if (currPage - 1 === 0) setCurrPage(1);
 		else setCurrPage(c => c - 1);
 	};
 
-	const forward = function () {
+	const right = function () {
 		if (currPage + 1 >= nPages) setCurrPage(nPages);
 		else setCurrPage(c => c + 1);
 	};
@@ -24,7 +24,7 @@ export default function Pagination(props) {
 
 	return (
 		<div className="pagination">
-			<span className="left" onClick={back}>
+			<span className="arrow-left" onClick={left}>
 				&#10094;
 			</span>
 
@@ -32,7 +32,7 @@ export default function Pagination(props) {
 				{start} - {end} of {length}
 			</span>
 
-			<span className="right" onClick={forward}>
+			<span className="arrow-right" onClick={right}>
 				&#10095;
 			</span>
 		</div>
