@@ -4,9 +4,7 @@ import './Utils.css';
 export default function Message(props) {
 	const { closeModal } = props;
 
-	document
-		.querySelector(':root')
-		.style.setProperty('--modal-height', '120px');
+	document.querySelector('.modal-body').classList.add('message');
 
 	return (
 		<div className="message">

@@ -90,7 +90,7 @@
 	display: none;
 	justify-content: space-around;
 	align-items: center;
-	width: 50px;
+	width: 60px;
 	background-color: whitesmoke;
 	border-radius: 0 0 4px 0;
 }
@@ -117,7 +117,7 @@
 	transform: translateY(2px);
 }
 .edit-comp.icon.active {
-	background-color: rgb(145, 231, 110);
+	background-color: #3498db;
 	border-radius: 500px;
 }
 

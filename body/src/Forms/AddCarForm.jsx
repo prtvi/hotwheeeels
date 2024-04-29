@@ -68,7 +68,8 @@ export default function AddCarForm(props) {
 			);
 	}
 
-	if (formSubmitted && responses.length === 0) return <Loader />;
+	if (formSubmitted && responses.length === 0)
+		return <Loader width={'30px'} height={'30px'} modalHeight={'120px'} />;
 
 	return (
 		<div className="add-car-form">

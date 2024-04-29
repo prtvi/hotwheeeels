@@ -48,6 +48,9 @@ marquee.left {
 	justify-content: space-around;
 	flex-direction: column;
 }
+.modal-body.message {
+	height: 120px;
+}
 
 .modal-header {
 	height: var(--modal-header-height);
@@ -114,11 +117,9 @@ marquee.left {
 
 .loader {
 	margin: auto;
-	border: 20px solid #eaf0f6;
+	border: 5px solid #c6dff9;
+	border-top: 5px solid #3498db;
 	border-radius: 50%;
-	border-top: 20px solid #3498db;
-	width: 50px;
-	height: 50px;
 	animation: spinner 4s linear infinite;
 }
 @keyframes spinner {

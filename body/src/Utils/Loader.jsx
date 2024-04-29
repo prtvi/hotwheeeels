@@ -1,10 +1,13 @@
 import React from 'react';
 import './Utils.css';
 
-export default function Loader() {
-	document
-		.querySelector(':root')
-		.style.setProperty('--modal-height', '200px');
+export default function Loader(props) {
+	const { width, height, modalHeight } = props;
 
-	return <div className="loader"></div>;
+	if (modalHeight !== undefined)
+		document.querySelector('.modal-body').classList.add('message');
+
+	return (
+		<div className="loader" style={{ width: width, height: height }}></div>
+	);
 }

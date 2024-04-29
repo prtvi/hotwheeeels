@@ -80,6 +80,8 @@ export default function Main(props) {
 			if (res.length === 0) res = [];
 			return res;
 		});
+
+		setCurrPage(1);
 	}
 
 	function clearInput() {

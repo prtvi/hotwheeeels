@@ -1,5 +1,6 @@
 import React from 'react';
 import Message from '../Utils/Message.jsx';
+import Loader from '../Utils/Loader.jsx';
 import './Forms.css';
 import config from '../config.json';
 
@@ -22,20 +23,30 @@ export default function EditCarDetails(props) {
 		setMode,
 	} = props;
 
+	const [editMessage, setEditMessage] = React.useState('');
+
+	const [responses, setResponses] = React.useState([]);
+	const [formSubmitted, setFormSubmitted] = React.useState(false);
+
+	const headers = { headers: { token: sessionStorage.getItem('token') } };
+
 	const closeModal = () => setModalOpen(false);
 	const setModalContentForMessage = function (msg) {
 		setModalContent(() => <Message closeModal={closeModal} />);
 		setModalTitle(msg);
 	};
 
-	const headers = { headers: { token: sessionStorage.getItem('token') } };
-
 	async function deleteCar(carId) {
+		setFormSubmitted(true);
+		setModalTitle('Submitting ...');
+
 		const res = await makeRequest(
 			`${getEngineUrl()}/api/auth/delete_car`,
 			headers,
 			{ car_id: carId }
 		);
+
+		setResponses(() => [res]);
 
 		if (res.status === 200)
 			setModalContentForMessage('Car has been deleted');
@@ -51,6 +62,9 @@ export default function EditCarDetails(props) {
 			return;
 		}
 
+		setFormSubmitted(true);
+		setModalTitle('Submitting ...');
+
 		const engineUrl = getEngineUrl();
 		const urlText = `${engineUrl}/api/auth/update_car?car_id=${carId}`;
 		const textFormRes = await postFormTextData(form, urlText, headers);
@@ -64,6 +78,8 @@ export default function EditCarDetails(props) {
 				headers
 			);
 
+			setResponses(() => [textFormRes, imageFormRes]);
+
 			if (textFormRes.status === 200 && imageFormRes.status === 200)
 				setModalContentForMessage(`The car has been updated!`);
 			else
@@ -73,6 +89,8 @@ export default function EditCarDetails(props) {
 			return;
 		}
 
+		setResponses(() => [textFormRes]);
+
 		if (textFormRes.status === 200)
 			setModalContentForMessage(`Car has been updated!`);
 		else
@@ -80,8 +98,6 @@ export default function EditCarDetails(props) {
 				'Some error occurred! Try again in some time'
 			);
 	}
-
-	const [editMessage, setEditMessage] = React.useState('');
 
 	const handleEditClick = function (e) {
 		showCurrentMode(e);
@@ -132,6 +148,14 @@ export default function EditCarDetails(props) {
 			</div>
 
 			<div className="edit-comp-group">
+				<span className="edit-comp icon">
+					{formSubmitted && responses.length === 0 ? (
+						<Loader width={'5px'} height={'5px'} />
+					) : (
+						<></>
+					)}
+				</span>
+
 				<span
 					className="edit-comp icon final-action confirm-btn"
 					title="Confirm action"
