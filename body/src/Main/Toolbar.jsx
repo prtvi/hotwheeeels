@@ -39,12 +39,18 @@ export default function Toolbar(props) {
 		setModalOpen(true);
 	};
 
-	const reload = () => window.location.reload();
+	function toggleOptions(e) {
+		document.querySelector('.trow2').classList.toggle('hidden');
+		e.currentTarget.classList.toggle('active');
+
+		if (!visitorMode)
+			document.querySelector('.trow.pseudo').classList.toggle('hidden');
+	}
 
 	return (
 		<div className="toolbar">
-			<div className="row1">
-				<div className="row1-child input-child">
+			<div className="trow trow1">
+				<div className="trow-child input-child">
 					<input
 						className="pf-300"
 						type="text"
@@ -61,41 +67,75 @@ export default function Toolbar(props) {
 					</span>
 				</div>
 
-				{!visitorMode ? (
-					<div className="row1-child">
-						<button
-							className="btn pf-300"
-							onClick={setModalContentForForm}
+				{visitorMode ? (
+					<>
+						<div className="trow-child">
+							<span className="pf-200">{nCarsText}</span>
+						</div>
+						<div
+							className="trow-child toggle-options"
+							onClick={toggleOptions}
 						>
-							+ 🚘
-						</button>
-					</div>
+							<span>&#10094;</span>
+						</div>
+					</>
 				) : (
-					<div className="row1-child ncars">
-						<span className="pf-200">{nCarsText}</span>
-					</div>
+					<>
+						<div className="trow-child">
+							<button
+								className="btn pf-300"
+								onClick={setModalContentForForm}
+							>
+								+ 🚘
+							</button>
+						</div>
+						<div
+							className="trow-child toggle-options"
+							onClick={toggleOptions}
+						>
+							<span>&#10094;</span>
+						</div>
+					</>
 				)}
 			</div>
 
-			{!visitorMode ? (
-				<div className="row2">
-					<div className="row2-child">
-						<button
-							className="btn"
-							title="refresh data"
-							onClick={reload}
-						>
-							🔄
-						</button>
-					</div>
-
-					<div className="row2-child">
+			{/* show pseudo trow in auth mode, hide this when options are toggled and show ncars text in trow2 */}
+			{visitorMode ? (
+				<></>
+			) : (
+				<div className="trow pseudo">
+					<div className="trow-child">
 						<span className="pf-200">{nCarsText}</span>
 					</div>
 				</div>
-			) : (
-				<></>
 			)}
+
+			<div className="trow trow2 hidden">
+				{visitorMode ? (
+					<></>
+				) : (
+					<div className="trow-child keep-left">
+						<span className="pf-200">{nCarsText}</span>
+					</div>
+				)}
+
+				<div className="trow-child">
+					<label htmlFor="sortBy" className="pf-200 sort-by-label">
+						Sort by
+					</label>
+				</div>
+
+				<div className="trow-child">
+					<select id="sortBy">
+						<option value="carName">Car name</option>
+						<option value="acquiredDate">Acquired date</option>
+					</select>
+				</div>
+
+				<div className="trow-child sort-btn">
+					<span className="pf-300">⬇️</span>
+				</div>
+			</div>
 		</div>
 	);
 }
