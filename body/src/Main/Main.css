@@ -76,10 +76,24 @@
 .arrow-left,
 .arrow-right {
 	cursor: pointer;
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+	border-radius: 50px;
+	text-align: center;
 }
 .arrow-left:active {
 	transform: translateX(-2px);
 }
 .arrow-right:active {
 	transform: translateX(2px);
+}
+.arrow-left:hover,
+.arrow-right:hover {
+	background-color: #969da281;
+}
+.arrow-left.disabled,
+.arrow-right.disabled {
+	opacity: 0.6;
+	pointer-events: none;
 }

@@ -3,26 +3,20 @@ import './CarShowcase.css';
 
 export default function Carousel(props) {
 	const { images } = props;
-	const [slideIndex, setSlideIndex] = React.useState(0);
+	let slideIndex = 0;
 
 	function left() {
-		let idx = 0;
+		if (slideIndex - 1 < 0) slideIndex = images.length - 1;
+		else slideIndex = slideIndex - 1;
 
-		if (slideIndex - 1 < 0) idx = images.length - 1;
-		else idx = slideIndex - 1;
-
-		setSlideIndex(idx);
-		showCurrSlide(idx);
+		showCurrSlide(slideIndex);
 	}
 
 	function right() {
-		let idx = 0;
+		if (slideIndex + 1 >= images.length) slideIndex = 0;
+		else slideIndex = slideIndex + 1;
 
-		if (slideIndex + 1 >= images.length) idx = 0;
-		else idx = slideIndex + 1;
-
-		setSlideIndex(idx);
-		showCurrSlide(idx);
+		showCurrSlide(slideIndex);
 	}
 
 	function showCurrSlide(idx) {
@@ -38,6 +32,8 @@ export default function Carousel(props) {
 			slides[idx].style.display = 'block';
 			dots[idx].classList.add('active');
 		} else {
+			// carousel onload
+			slideIndex = 0;
 			slides[slideIndex].style.display = 'block';
 			dots[slideIndex].classList.add('active');
 		}

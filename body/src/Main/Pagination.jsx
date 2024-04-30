@@ -24,7 +24,10 @@ export default function Pagination(props) {
 
 	return (
 		<div className="pagination">
-			<span className="arrow-left" onClick={left}>
+			<span
+				className={`arrow-left ${currPage <= 1 ? 'disabled' : ''}`}
+				onClick={left}
+			>
 				&#10094;
 			</span>
 
@@ -32,7 +35,12 @@ export default function Pagination(props) {
 				{start} - {end} of {length}
 			</span>
 
-			<span className="arrow-right" onClick={right}>
+			<span
+				className={`arrow-right ${
+					currPage >= nPages ? 'disabled' : ''
+				}`}
+				onClick={right}
+			>
 				&#10095;
 			</span>
 		</div>
