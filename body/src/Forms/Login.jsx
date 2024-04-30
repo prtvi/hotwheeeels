@@ -1,4 +1,5 @@
 import React from 'react';
+import Loader from '../Utils/Loader.jsx';
 
 import {
 	getEngineUrl,
@@ -11,16 +12,23 @@ import {
 export default function Login(props) {
 	const { setAuthentication, setVisitorMode } = props;
 
+	const [responses, setResponses] = React.useState([]);
+	const [formSubmitted, setFormSubmitted] = React.useState(false);
+
 	const postLogin = async function (e) {
 		e.preventDefault();
 		const inputValue = document.querySelector('#login').value;
 		const engineUrl = getEngineUrl();
+
+		setFormSubmitted(true);
 
 		const response = await makeRequest(
 			engineUrl + '/api/login',
 			{},
 			{ input: inputValue }
 		);
+
+		setResponses(() => [response]);
 
 		if (response.status === 200) {
 			const token = response.data;
@@ -32,6 +40,9 @@ export default function Login(props) {
 			showIncorrectPass();
 			removeSessionItem('token');
 			setAuthentication(false);
+
+			setFormSubmitted(false);
+			setResponses(() => []);
 		}
 	};
 
@@ -58,8 +69,12 @@ export default function Login(props) {
 							placeholder="password"
 						/>
 
-						<button className="pf-300 login-btn" type="submit">
-							➡️
+						<button className="btn login-btn pf-300" type="submit">
+							{formSubmitted && responses.length === 0 ? (
+								<Loader width={'6px'} height={'6px'} />
+							) : (
+								<>Login</>
+							)}
 						</button>
 					</div>
 				</div>

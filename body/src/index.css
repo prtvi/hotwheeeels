@@ -149,7 +149,7 @@ input {
 	--toolbar-row-width: 300px;
 	--toolbar-row1-height: 30px;
 	--search-input-width: 200px;
-	--login-form-width: 170px;
+	--login-form-width: 190px;
 
 	--card-width: 100px;
 	--card-height: 150px;
@@ -181,7 +181,7 @@ input {
 		--toolbar-row-width: 350px;
 		--toolbar-row1-height: 35px;
 		--search-input-width: 250px;
-		--login-form-width: 180px;
+		--login-form-width: 200px;
 
 		--card-width: 110px;
 		--card-height: 160px;
@@ -213,7 +213,7 @@ input {
 		--toolbar-row-width: 450px;
 		--toolbar-row1-height: 40px;
 		--search-input-width: 350px;
-		--login-form-width: 200px;
+		--login-form-width: 220px;
 
 		--card-width: 130px;
 		--card-height: 180px;
