@@ -19,6 +19,7 @@ import {
 	getResultsFromFilter,
 	getAuthHeaders,
 	setSessionStorage,
+	sortHandler,
 } from '../functions.js';
 
 export default function Main(props) {
@@ -36,6 +37,12 @@ export default function Main(props) {
 
 	// search input
 	const [searchInput, setSearchInput] = React.useState('');
+
+	// sorting
+	const [sortParams, setSortParams] = React.useState({
+		sortBy: 'acquiredDate',
+		sortOrder: 'asc',
+	});
 
 	// pagination
 	const resultsPerPage = config.resultsPerPage;
@@ -105,6 +112,7 @@ export default function Main(props) {
 				setModalContent={setModalContent}
 				setModalTitle={setModalTitle}
 				visitorMode={visitorMode}
+				setSortParams={setSortParams}
 			/>
 		);
 	}
@@ -117,16 +125,6 @@ export default function Main(props) {
 			</>
 		);
 	}
-
-	if (allResults.length === 0) return getTempComponents(<Skeleton />);
-	if (resultsForView.length === 0)
-		return getTempComponents(<NoResults clearInput={clearInput} />);
-
-	// truncate results for view array and render only a portion of it based on curr page
-	const paginationList = resultsForView.slice(
-		resultsPerPage * (currPage - 1),
-		resultsPerPage * currPage
-	);
 
 	function showCar(index) {
 		// pick car only from pagination list
@@ -152,6 +150,17 @@ export default function Main(props) {
 		);
 		setModalOpen(true);
 	}
+
+	// sort entire list and then truncate results for view array and render only a portion of it based on curr page
+	const sortedList = sortHandler(sortParams, resultsForView);
+	const paginationList = sortedList.slice(
+		resultsPerPage * (currPage - 1),
+		resultsPerPage * currPage
+	);
+
+	if (allResults.length === 0) return getTempComponents(<Skeleton />);
+	if (resultsForView.length === 0)
+		return getTempComponents(<NoResults clearInput={clearInput} />);
 
 	return (
 		<>

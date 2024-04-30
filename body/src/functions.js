@@ -332,6 +332,23 @@ function getSessionItem(key, dataType) {
 	}
 }
 
+function sortHandler(params, list) {
+	if (params.sortBy === 'carName') {
+		if (params.sortOrder === 'asc')
+			return list.sort((a, b) => a.carName.localeCompare(b.carName));
+		else return list.sort((a, b) => b.carName.localeCompare(a.carName));
+	} else {
+		if (params.sortOrder === 'asc')
+			return list.sort(
+				(a, b) => new Date(a.acquiredDate) - new Date(b.acquiredDate)
+			);
+		else
+			return list.sort(
+				(a, b) => new Date(b.acquiredDate) - new Date(a.acquiredDate)
+			);
+	}
+}
+
 export {
 	getEngineUrl,
 	makeRequest,
@@ -352,4 +369,5 @@ export {
 	setSessionStorage,
 	removeSessionItem,
 	getSessionItem,
+	sortHandler,
 };

@@ -13,6 +13,7 @@ export default function Toolbar(props) {
 		setModalTitle,
 		nCars,
 		visitorMode,
+		setSortParams,
 	} = props;
 
 	const nCarsText = nCars === 1 ? `${nCars} car` : `${nCars} cars`;
@@ -45,6 +46,28 @@ export default function Toolbar(props) {
 
 		if (!visitorMode)
 			document.querySelector('.trow.pseudo').classList.toggle('hidden');
+	}
+
+	function toggleSortBtn(sortOrder) {
+		if (sortOrder.dataset.sort === 'asc') {
+			sortOrder.dataset.sort = 'desc';
+			sortOrder.textContent = '⬆';
+		} else {
+			sortOrder.dataset.sort = 'asc';
+			sortOrder.textContent = '⬇';
+		}
+	}
+
+	function handleSort(e) {
+		const sortBy = document.querySelector('#sortBy');
+		const sortOrder = document.querySelector('.sort-btn span');
+
+		if (e.currentTarget !== sortBy) toggleSortBtn(sortOrder);
+
+		setSortParams({
+			sortBy: sortBy.value,
+			sortOrder: sortOrder.dataset.sort,
+		});
 	}
 
 	return (
@@ -126,14 +149,20 @@ export default function Toolbar(props) {
 				</div>
 
 				<div className="trow-child">
-					<select id="sortBy">
+					<select
+						id="sortBy"
+						defaultValue="acquiredDate"
+						onChange={handleSort}
+					>
 						<option value="carName">Car name</option>
 						<option value="acquiredDate">Acquired date</option>
 					</select>
 				</div>
 
-				<div className="trow-child sort-btn">
-					<span className="pf-300">⬇️</span>
+				<div className="trow-child sort-btn" onClick={handleSort}>
+					<span className="pf-300" data-sort="asc">
+						{'⬇'}
+					</span>
 				</div>
 			</div>
 		</div>
