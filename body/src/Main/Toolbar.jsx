@@ -60,7 +60,7 @@ export default function Toolbar(props) {
 
 	function handleSort(e) {
 		const sortBy = document.querySelector('#sortBy');
-		const sortOrder = document.querySelector('.sort-btn span');
+		const sortOrder = document.querySelector('.sort-order span');
 
 		if (e.currentTarget !== sortBy) toggleSortBtn(sortOrder);
 
@@ -154,12 +154,12 @@ export default function Toolbar(props) {
 						defaultValue="acquiredDate"
 						onChange={handleSort}
 					>
-						<option value="carName">Car name</option>
 						<option value="acquiredDate">Acquired date</option>
+						<option value="carName">Car name</option>
 					</select>
 				</div>
 
-				<div className="trow-child sort-btn" onClick={handleSort}>
+				<div className="trow-child sort-order" onClick={handleSort}>
 					<span className="pf-300" data-sort="asc">
 						{'⬇'}
 					</span>

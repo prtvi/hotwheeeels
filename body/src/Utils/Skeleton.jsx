@@ -1,5 +1,6 @@
 import React from 'react';
 import './Utils.css';
+import config from '../config.json';
 
 function SkeletonCard() {
 	return (
@@ -11,7 +12,7 @@ function SkeletonCard() {
 }
 
 export default function Skeleton() {
-	const arr = new Array(8).fill(0);
+	const arr = new Array(config.resultsPerPage).fill(0);
 	return (
 		<div className="skeletal-list">
 			{arr.map((_, i) => (
