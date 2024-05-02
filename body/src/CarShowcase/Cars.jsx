@@ -1,4 +1,3 @@
-import React from 'react';
 import './CarShowcase.css';
 
 function Car(props) {
@@ -11,7 +10,7 @@ function Car(props) {
 				<img src={car.imgs[0]} alt="car" />
 			</div>
 			<div className="card-name-container">
-				<span className="pif-200">{car.carName}</span>
+				<span className="pif-300">{car.carName}</span>
 			</div>
 		</div>
 	);

@@ -1,4 +1,3 @@
-import React from 'react';
 import './Utils.css';
 import config from '../config.json';
 

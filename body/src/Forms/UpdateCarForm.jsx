@@ -1,4 +1,3 @@
-import React from 'react';
 import './Forms.css';
 import config from '../config.json';
 
@@ -9,12 +8,8 @@ export default function UpdateCarForm(props) {
 	const rowsToShow = getFormRowItemsForUpdate(config.formItems, car);
 
 	return (
-		<div className="update-car-form">
-			<form id="update-car-form">
-				<div className="form-content">
-					{getFormContentDom(rowsToShow)}
-				</div>
-			</form>
-		</div>
+		<form id="update-car-form">
+			<div className="form-content">{getFormContentDom(rowsToShow)}</div>
+		</form>
 	);
 }

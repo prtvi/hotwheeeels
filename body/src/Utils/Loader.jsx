@@ -1,4 +1,3 @@
-import React from 'react';
 import './Utils.css';
 
 export default function Loader(props) {

@@ -1,4 +1,3 @@
-import React from 'react';
 import './Main.css';
 import config from '../config.json';
 
@@ -31,7 +30,7 @@ export default function Pagination(props) {
 				&#10094;
 			</span>
 
-			<span className="pf-200 pagination-text">
+			<span className="pf-300 pagination-text">
 				{start} - {end} of {length}
 			</span>
 

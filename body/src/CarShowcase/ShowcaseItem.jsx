@@ -1,4 +1,3 @@
-import React from 'react';
 import './CarShowcase.css';
 
 import { validSpec } from '../functions.js';

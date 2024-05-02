@@ -73,12 +73,8 @@ export default function AddCarForm(props) {
 		return <Loader width={'30px'} height={'30px'} modalHeight={'120px'} />;
 
 	return (
-		<div className="add-car-form">
-			<form onSubmit={handleFormSubmit} id="add-car-form">
-				<div className="form-content">
-					{getFormContentDom(rowsToShow)}
-				</div>
-			</form>
-		</div>
+		<form onSubmit={handleFormSubmit}>
+			<div className="form-content">{getFormContentDom(rowsToShow)}</div>
+		</form>
 	);
 }

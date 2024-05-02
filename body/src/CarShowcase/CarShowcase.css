@@ -61,6 +61,7 @@
 /* CarShowcase.jsx */
 
 .car-showcase {
+	width: var(--modal-child-width);
 	height: var(--modal-child-height);
 	position: relative;
 	display: flex;
@@ -83,6 +84,10 @@
 	justify-content: space-between;
 	width: var(--modal-child-width);
 	margin: 0;
+}
+
+/* no top margin on first row */
+.row:not(:first-child) {
 	margin-top: var(--row-top-margin);
 }
 
@@ -211,6 +216,23 @@
 	}
 	.card {
 		margin: 10px;
+	}
+
+	/* CarShowcase */
+	.car-showcase {
+		flex-direction: row;
+		justify-content: space-between;
+	}
+
+	.car-showcase .details {
+		height: var(--modal-child-height);
+	}
+
+	.car-showcase .details,
+	.slideshow-container,
+	.slides,
+	.row {
+		width: calc(var(--modal-child-width) / 2 - 10px);
 	}
 }
 

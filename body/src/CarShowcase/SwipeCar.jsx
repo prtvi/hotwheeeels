@@ -1,4 +1,3 @@
-import React from 'react';
 import './CarShowcase.css';
 
 import { getSessionItem } from '../functions.js';
@@ -37,7 +36,7 @@ export default function SwipeCar(props) {
 				&#10094;
 			</span>
 
-			<span className="pf-300">{carName}</span>
+			<span className="pif-300">{carName}</span>
 
 			<span
 				className={`arrow-right ${

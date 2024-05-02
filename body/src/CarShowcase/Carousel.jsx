@@ -1,4 +1,3 @@
-import React from 'react';
 import './CarShowcase.css';
 
 export default function Carousel(props) {

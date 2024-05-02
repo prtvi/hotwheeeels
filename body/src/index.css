@@ -1,8 +1,3 @@
-.pf-100 {
-	font-family: 'Poppins', sans-serif;
-	font-weight: 100;
-	font-style: normal;
-}
 .pf-200 {
 	font-family: 'Poppins', sans-serif;
 	font-weight: 200;
@@ -23,16 +18,6 @@
 	font-weight: 500;
 	font-style: normal;
 }
-.pf-600 {
-	font-family: 'Poppins', sans-serif;
-	font-weight: 600;
-	font-style: normal;
-}
-.pif-100 {
-	font-family: 'Poppins', sans-serif;
-	font-weight: 100;
-	font-style: italic;
-}
 .pif-200 {
 	font-family: 'Poppins', sans-serif;
 	font-weight: 200;
@@ -41,21 +26,6 @@
 .pif-300 {
 	font-family: 'Poppins', sans-serif;
 	font-weight: 300;
-	font-style: italic;
-}
-.pif-400 {
-	font-family: 'Poppins', sans-serif;
-	font-weight: 400;
-	font-style: italic;
-}
-.pif-500 {
-	font-family: 'Poppins', sans-serif;
-	font-weight: 500;
-	font-style: italic;
-}
-.pif-600 {
-	font-family: 'Poppins', sans-serif;
-	font-weight: 600;
 	font-style: italic;
 }
 
@@ -74,8 +44,12 @@ body {
 }
 h1 {
 	text-align: center;
-	margin: 40px 20px 30px 20px;
+	margin: 40px 20px 10px 20px;
 	font-size: 22px;
+}
+.subtitle {
+	text-align: center;
+	font-size: var(--btn-fs);
 }
 
 input {
@@ -101,42 +75,6 @@ input {
 	background-color: #2980b9;
 }
 
-@keyframes shake {
-	0% {
-		transform: translate(1px, 1px) rotate(0deg);
-	}
-	10% {
-		transform: translate(-1px, -2px) rotate(-1deg);
-	}
-	20% {
-		transform: translate(-3px, 0px) rotate(1deg);
-	}
-	30% {
-		transform: translate(3px, 2px) rotate(0deg);
-	}
-	40% {
-		transform: translate(1px, -1px) rotate(1deg);
-	}
-	50% {
-		transform: translate(-1px, 2px) rotate(-1deg);
-	}
-	60% {
-		transform: translate(-3px, 1px) rotate(0deg);
-	}
-	70% {
-		transform: translate(3px, 1px) rotate(-1deg);
-	}
-	80% {
-		transform: translate(-1px, -1px) rotate(1deg);
-	}
-	90% {
-		transform: translate(1px, 2px) rotate(0deg);
-	}
-	100% {
-		transform: translate(1px, -2px) rotate(-1deg);
-	}
-}
-
 :root {
 	--bg: #0d1116;
 	--color: #e6edf3;
@@ -146,8 +84,8 @@ input {
 	--btn-padding: 5px 10px;
 
 	--toolbar-width: 360px;
-	--toolbar-row-width: 300px;
-	--toolbar-row1-height: 30px;
+	--trow-width: 300px;
+	--trow-height: 30px;
 	--search-input-width: 200px;
 	--login-form-width: 190px;
 
@@ -163,13 +101,15 @@ input {
 	--modal-child-height: 480px;
 	--modal-child-width: 300px;
 	--modal-header-fs: 17px;
-	--modal-header-height: 30px;
+	--modal-header-height: 60px;
 
 	--carousel-height: 300px;
 	--carousel-img-height: calc(var(--carousel-height) - 20px);
 	--row-top-margin: 6px;
 	--row-height: 40px;
 	--showcase-item-label-fs: 11px;
+
+	--pagination-width: 160px;
 }
 
 @media screen and (min-width: 450px) {
@@ -178,8 +118,8 @@ input {
 		--btn-padding: 6px 12px;
 
 		--toolbar-width: 400px;
-		--toolbar-row-width: 350px;
-		--toolbar-row1-height: 35px;
+		--trow-width: 350px;
+		--trow-height: 35px;
 		--search-input-width: 250px;
 		--login-form-width: 200px;
 
@@ -210,20 +150,20 @@ input {
 		--btn-padding: 7px 14px;
 
 		--toolbar-width: 500px;
-		--toolbar-row-width: 450px;
-		--toolbar-row1-height: 40px;
-		--search-input-width: 350px;
+		--trow-width: 450px;
+		--trow-height: 40px;
+		--search-input-width: 320px;
 		--login-form-width: 220px;
 
 		--card-width: 130px;
 		--card-height: 180px;
 		--card-display-text-height: 35px;
 
-		--modal-header-fs: 22px;
-
 		--row-top-margin: 10px;
 		--row-height: 50px;
 		--showcase-item-label-fs: 15px;
+
+		--pagination-width: 180px;
 	}
 
 	h1 {
@@ -237,35 +177,29 @@ input {
 		--btn-padding: 8px 16px;
 
 		--toolbar-width: 600px;
-		--toolbar-row-width: 500px;
-		--toolbar-row1-height: 45px;
-		--search-input-width: 400px;
+		--trow-width: 500px;
+		--trow-height: 45px;
+		--search-input-width: 360px;
 		--login-form-width: 230px;
 
 		--card-width: 150px;
 		--card-height: 200px;
 		--card-display-text-height: 38px;
 
-		--modal-child-width: 500px;
+		--modal-height: 550px;
+		--modal-child-width: 700px;
+		--modal-child-height: 450px;
 
-		--carousel-height: 350px;
+		--carousel-height: 450px;
 
-		--row-top-margin: 12px;
+		--row-top-margin: 13px;
 		--row-height: 52px;
 		--showcase-item-label-fs: 16px;
+
+		--pagination-width: 200px;
 	}
 
 	h1 {
 		font-size: 30px;
-	}
-}
-
-@media screen and (min-width: 1024px) {
-	:root {
-		--modal-child-width: 525px;
-		--modal-header-fs: 24px;
-
-		--row-top-margin: 14px;
-		--row-height: 54px;
 	}
 }
