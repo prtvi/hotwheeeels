@@ -61,7 +61,7 @@ input {
 	--modal-height: 550px;
 	--modal-child-height: 480px;
 	--modal-child-width: 300px;
-	--modal-header-fs: 17px;
+	--modal-header-fs: 16px;
 	--modal-header-height: 60px;
 
 	--carousel-height: 300px;
@@ -92,12 +92,12 @@ input {
 		--modal-height: 600px;
 		--modal-child-height: 550px;
 		--modal-child-width: 350px;
-		--modal-header-fs: 19px;
+		--modal-header-fs: 17px;
 
 		--carousel-height: 320px;
 		--row-top-margin: 8px;
 		--row-height: 45px;
-		--showcase-item-label-fs: 13px;
+		--showcase-item-label-fs: 12px;
 	}
 }
 
@@ -117,9 +117,9 @@ input {
 		--card-height: 180px;
 		--card-display-text-height: 35px;
 
-		--row-top-margin: 10px;
+		--row-top-margin: 9px;
 		--row-height: 50px;
-		--showcase-item-label-fs: 15px;
+		--showcase-item-label-fs: 13px;
 
 		--pagination-width: 180px;
 	}
@@ -141,15 +141,15 @@ input {
 		--card-height: 200px;
 		--card-display-text-height: 38px;
 
+		--modal-header-fs: 21px;
 		--modal-height: 550px;
 		--modal-child-width: 700px;
 		--modal-child-height: 450px;
 
 		--carousel-height: 450px;
 
-		--row-top-margin: 13px;
-		--row-height: 52px;
-		--showcase-item-label-fs: 16px;
+		--row-top-margin: 10px;
+		--showcase-item-label-fs: 14px;
 
 		--pagination-width: 200px;
 	}
