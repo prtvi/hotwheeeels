@@ -1,3 +1,16 @@
+/* Header */
+
+h1 {
+	text-align: center;
+	margin: 40px 20px 10px 20px;
+	font-size: var(--h1-fs);
+}
+.subtitle {
+	text-align: center;
+	font-size: var(--btn-fs);
+}
+
+/* Toolbar */
 .toolbar {
 	width: var(--toolbar-width);
 	margin: 20px auto;

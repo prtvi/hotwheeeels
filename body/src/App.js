@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Header from './Main/Header.jsx';
 import Main from './Main/Main.jsx';
 import Login from './Forms/Login.jsx';
 
@@ -48,16 +49,7 @@ export default function App() {
 
 	return (
 		<div className="App">
-			<div className="header">
-				<h1 className="pf-500">Hot Wheeeels 🚗</h1>
-				<p
-					className="subtitle pif-200"
-					title="showcase of my hot wheels collection, includes other diecast brands too"
-				>
-					Showcase of my hot wheeeels collection
-				</p>
-			</div>
-
+			<Header />
 			{renderMain()}
 		</div>
 	);
