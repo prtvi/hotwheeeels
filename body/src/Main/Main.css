@@ -15,6 +15,10 @@ h1 {
 	cursor: help;
 }
 
+h1 > a {
+	color: var(--color);
+}
+
 /* Toolbar */
 .toolbar {
 	width: var(--toolbar-width);
