@@ -12,7 +12,6 @@ h1 {
 .subtitle {
 	text-align: center;
 	font-size: var(--btn-fs);
-	cursor: help;
 }
 
 h1 > a {
