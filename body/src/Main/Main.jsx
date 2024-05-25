@@ -10,7 +10,6 @@ import Toolbar from './Toolbar.jsx';
 import Cars from '../CarShowcase/Cars.jsx';
 import SwipeCar from '../CarShowcase/SwipeCar.jsx';
 import Pagination from './Pagination.jsx';
-import config from '../config.json';
 
 import {
 	getEngineUrl,
@@ -20,6 +19,7 @@ import {
 	getAuthHeaders,
 	setSessionStorage,
 	sortHandler,
+	getResultsPerPage,
 } from '../functions.js';
 
 export default function Main(props) {
@@ -45,7 +45,7 @@ export default function Main(props) {
 	});
 
 	// pagination
-	const resultsPerPage = config.resultsPerPage;
+	const resultsPerPage = getResultsPerPage();
 	const [currPage, setCurrPage] = React.useState(1);
 
 	React.useEffect(() => {

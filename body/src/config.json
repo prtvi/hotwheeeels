@@ -4,6 +4,7 @@
 	"engineURLDev": "http://localhost:3001",
 	"maxFileUploadLimit": 5,
 	"resultsPerPage": 12,
+	"resultsPerPageVertical": 9,
 	"formItems": [
 		{
 			"key": "carName",

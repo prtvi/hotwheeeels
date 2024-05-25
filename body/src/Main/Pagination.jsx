@@ -1,11 +1,11 @@
 import './Main.css';
-import config from '../config.json';
+import { getResultsPerPage } from '../functions.js';
 
 export default function Pagination(props) {
 	// length is the result for view array length, after search/filter
 	const { length, currPage, setCurrPage } = props;
 
-	const resultsPerPage = config.resultsPerPage;
+	const resultsPerPage = getResultsPerPage();
 	const nPages = Math.ceil(length / resultsPerPage);
 
 	const left = function () {

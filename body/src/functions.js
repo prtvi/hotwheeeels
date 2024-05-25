@@ -349,6 +349,13 @@ function sortHandler(params, list) {
 	}
 }
 
+function getResultsPerPage() {
+	if (window.screen.height > window.screen.width)
+		return config.resultsPerPageVertical;
+
+	return config.resultsPerPage;
+}
+
 export {
 	getEngineUrl,
 	makeRequest,
@@ -370,4 +377,5 @@ export {
 	removeSessionItem,
 	getSessionItem,
 	sortHandler,
+	getResultsPerPage,
 };
