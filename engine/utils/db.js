@@ -69,4 +69,10 @@ function getSchemaForFormItem(formItems) {
 }
 
 const schema = getSchemaForFormItem(config.get('formItems'));
-exports.Car = new mongoose.model('Car', mongoose.Schema(schema));
+let Car;
+
+if (config.get('ENV') === 'dev')
+	Car = new mongoose.model('cars_dev', mongoose.Schema(schema));
+else Car = new mongoose.model('Car', mongoose.Schema(schema));
+
+exports.Car = Car;

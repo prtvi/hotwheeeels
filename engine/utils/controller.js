@@ -30,13 +30,13 @@ async function getAllMasked(req, res) {
 	const results = await Car.find({}, projection);
 
 	if (results.length > 0) return res.send(results);
-	else return res.status(400).send(err);
+	else return res.status(400).send([]);
 }
 
 async function getAll(req, res) {
 	const results = await Car.find();
 	if (results.length > 0) return res.send(results);
-	else return res.status(400).send(err);
+	else return res.status(400).send([]);
 }
 
 function addCar(req, res) {

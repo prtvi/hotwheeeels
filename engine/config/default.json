@@ -95,6 +95,12 @@
 			"forAuthOnly": false
 		},
 		{
+			"key": "featuredLink",
+			"inputType": "text",
+			"required": false,
+			"forAuthOnly": false
+		},
+		{
 			"key": "imgs",
 			"inputType": "file",
 			"required": true,

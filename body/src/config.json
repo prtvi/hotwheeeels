@@ -165,6 +165,17 @@
 			"defaultValue": "Joy"
 		},
 		{
+			"key": "featuredLink",
+			"label": "Featured link",
+			"inputType": "text",
+			"required": false,
+			"forFormOnly": false,
+			"viewSize": "small",
+			"maxLength": 300,
+			"placeholder": "social link",
+			"defaultValue": ""
+		},
+		{
 			"key": "imgs",
 			"label": "Upload pictures",
 			"inputType": "file",

@@ -14,6 +14,22 @@ export default function ShowcaseItem(props) {
 	if (label === 'Acquired date')
 		valueField = new Date(value).toDateString().slice(3);
 
+	if (label === 'Featured link') {
+		valueField = (
+			<span className="pf-400">
+				🔗{' '}
+				<a
+					className="pf-400"
+					href={value}
+					rel="noreferrer"
+					target="_blank"
+				>
+					{value.slice(12, 26)}...
+				</a>
+			</span>
+		);
+	}
+
 	return (
 		<div className={className}>
 			<span className="label pf-300">{label}</span>
