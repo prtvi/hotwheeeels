@@ -6,7 +6,7 @@ export default function Header(props) {
 			<h1 className="pif-300">
 				<a
 					className="pif-300"
-					href="https://www.instagram.com/prtviv"
+					href="https://www.instagram.com/prtvivs.hotwheeeels"
 					target="_blank"
 					rel="noreferrer"
 				>
