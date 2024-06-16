@@ -68,6 +68,9 @@ function getMaskedCarFields() {
 	const formItems = config.get('formItems');
 	const fields = {};
 
+	// add the carId too
+	fields['carId'] = 1;
+
 	for (let i = 0; i < formItems.length; i++) {
 		const fi = formItems[i];
 

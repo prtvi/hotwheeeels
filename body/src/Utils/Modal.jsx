@@ -4,10 +4,13 @@ import './Utils.css';
 export default function Modal(props) {
 	const { modalTitle, isOpen, setModalOpen, children } = props;
 
-	const closeModal = React.useCallback(
-		() => setModalOpen(false),
-		[setModalOpen]
-	);
+	const closeModal = React.useCallback(() => {
+		// check if url search params have car_id and remove it if it exists
+		const urlParams = new URLSearchParams(window.location.search);
+		if (urlParams.has('car_id')) window.history.pushState(null, '', '/');
+
+		setModalOpen(false);
+	}, [setModalOpen]);
 
 	const handleEscForClosingModal = React.useCallback(
 		e => {

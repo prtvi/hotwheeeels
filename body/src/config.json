@@ -50,6 +50,39 @@
 			"defaultValue": "red"
 		},
 		{
+			"key": "series",
+			"label": "Series",
+			"inputType": "text",
+			"required": false,
+			"forFormOnly": false,
+			"viewSize": "small",
+			"maxLength": 32,
+			"placeholder": "eg: HW Turbo 8/10",
+			"defaultValue": "HW Turbo 8/10"
+		},
+		{
+			"key": "coll",
+			"label": "Collection #",
+			"inputType": "text",
+			"required": false,
+			"forFormOnly": false,
+			"viewSize": "small",
+			"maxLength": 15,
+			"placeholder": "eg: 125/250",
+			"defaultValue": "125/250"
+		},
+		{
+			"key": "baseColorAndType",
+			"label": "Base color / type",
+			"inputType": "text",
+			"required": false,
+			"forFormOnly": false,
+			"viewSize": "small",
+			"maxLength": 32,
+			"placeholder": "eg: black/plastic",
+			"defaultValue": "black/plastic"
+		},
+		{
 			"key": "acquiredDate",
 			"label": "Acquired date",
 			"inputType": "date",
@@ -86,39 +119,6 @@
 			"forFormOnly": false,
 			"viewSize": "small",
 			"defaultValue": "checked"
-		},
-		{
-			"key": "coll",
-			"label": "Collection #",
-			"inputType": "text",
-			"required": false,
-			"forFormOnly": false,
-			"viewSize": "small",
-			"maxLength": 15,
-			"placeholder": "eg: 125/250",
-			"defaultValue": "125/250"
-		},
-		{
-			"key": "series",
-			"label": "Series",
-			"inputType": "text",
-			"required": false,
-			"forFormOnly": false,
-			"viewSize": "small",
-			"maxLength": 32,
-			"placeholder": "eg: HW Turbo 8/10",
-			"defaultValue": "HW Turbo 8/10"
-		},
-		{
-			"key": "baseColorAndType",
-			"label": "Base color / type",
-			"inputType": "text",
-			"required": false,
-			"forFormOnly": false,
-			"viewSize": "small",
-			"maxLength": 32,
-			"placeholder": "eg: black/plastic",
-			"defaultValue": "black/plastic"
 		},
 		{
 			"key": "toy",

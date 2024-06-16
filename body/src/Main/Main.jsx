@@ -131,6 +131,9 @@ export default function Main(props) {
 		const car = paginationList[index];
 		setSessionStorage('carIdx', index);
 
+		// set car id in url
+		window.history.pushState(null, '', `?car_id=${car.carId}`);
+
 		setModalContent(() => (
 			<CarShowcase
 				car={car}
