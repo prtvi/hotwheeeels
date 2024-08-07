@@ -45,7 +45,6 @@ export default function Main(props) {
 	});
 
 	// pagination
-	const resultsPerPage = getResultsPerPage();
 	const [currPage, setCurrPage] = React.useState(1);
 
 	React.useEffect(() => {
@@ -67,11 +66,14 @@ export default function Main(props) {
 			if (res.status === 200) {
 				setAllResults(() => res.data);
 				setResultsForView(() => res.data);
+
+				showRequestedCar(res.data);
 			}
 		}
 
 		fetchData();
 		setSessionStorage('carIdx', 0);
+		// eslint-disable-next-line
 	}, [visitorMode]);
 
 	const fuse = new Fuse(allResults, {
@@ -154,8 +156,35 @@ export default function Main(props) {
 		setModalOpen(true);
 	}
 
+	function showRequestedCar(allCars) {
+		const searchParams = new URLSearchParams(window.location.search);
+		if (!searchParams.has('car_id')) return;
+
+		const carId = searchParams.get('car_id');
+
+		for (let i = 0; i < allCars.length; i++) {
+			const car = allCars[i];
+
+			if (car.carId === carId) {
+				setModalContent(() => (
+					<CarShowcase
+						car={car}
+						setModalOpen={setModalOpen}
+						setModalContent={setModalContent}
+						setModalTitle={setModalTitle}
+						visitorMode={visitorMode}
+					/>
+				));
+
+				setModalTitle(car.carName);
+				setModalOpen(true);
+			}
+		}
+	}
+
 	// sort entire list and then truncate results for view array and render only a portion of it based on curr page
 	const sortedList = sortHandler(sortParams, resultsForView);
+	const resultsPerPage = getResultsPerPage();
 	const paginationList = sortedList.slice(
 		resultsPerPage * (currPage - 1),
 		resultsPerPage * currPage

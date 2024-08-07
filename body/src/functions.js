@@ -356,34 +356,6 @@ function getResultsPerPage() {
 	return config.resultsPerPage;
 }
 
-function getCurrPageIfCarIdIsRequested(resultsForView, resultsPerPage) {
-	const searchParams = new URLSearchParams(window.location.search);
-	const carId = searchParams.get('car_id');
-
-	let currPage = 1;
-	for (let i = 0; i < resultsForView.length; i++) {
-		if (carId === resultsForView[i].carId) {
-			currPage = Math.floor(i / resultsPerPage) + 1;
-			break;
-		}
-	}
-
-	return currPage;
-}
-
-function getCarIndexFromCarIdInPaginationList(paginationList) {
-	const searchParams = new URLSearchParams(window.location.search);
-	const carId = searchParams.get('car_id');
-
-	for (let i = 0; i < paginationList.length; i++) {
-		if (paginationList[i].carId === carId) {
-			return i;
-		}
-	}
-
-	return 0;
-}
-
 export {
 	getEngineUrl,
 	makeRequest,
@@ -406,6 +378,4 @@ export {
 	getSessionItem,
 	sortHandler,
 	getResultsPerPage,
-	getCurrPageIfCarIdIsRequested,
-	getCarIndexFromCarIdInPaginationList,
 };

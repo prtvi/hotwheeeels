@@ -85,7 +85,7 @@ export default function Toolbar(props) {
 						className="pf-300 input-cross hidden"
 						onClick={clearInput}
 					>
-						x
+						✖️
 					</span>
 				</div>
 

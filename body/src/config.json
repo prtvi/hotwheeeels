@@ -13,9 +13,20 @@
 			"required": true,
 			"forFormOnly": false,
 			"viewSize": "small",
-			"maxLength": 32,
+			"maxLength": 48,
 			"placeholder": "as on the car",
 			"defaultValue": "lamborghini"
+		},
+		{
+			"key": "featuredLink",
+			"label": "Featured link",
+			"inputType": "text",
+			"required": false,
+			"forFormOnly": false,
+			"viewSize": "small",
+			"maxLength": 300,
+			"placeholder": "social link",
+			"defaultValue": ""
 		},
 		{
 			"key": "brand",
@@ -163,17 +174,6 @@
 			"maxLength": 32,
 			"placeholder": "friend",
 			"defaultValue": "Joy"
-		},
-		{
-			"key": "featuredLink",
-			"label": "Featured link",
-			"inputType": "text",
-			"required": false,
-			"forFormOnly": false,
-			"viewSize": "small",
-			"maxLength": 300,
-			"placeholder": "social link",
-			"defaultValue": ""
 		},
 		{
 			"key": "imgs",
