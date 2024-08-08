@@ -1,5 +1,6 @@
 {
 	"ENV": "prod",
+	"selfURL": "https://hotwheeeels.netlify.app",
 	"engineURL": "https://hotwheeeelsengine.onrender.com",
 	"engineURLDev": "http://localhost:3001",
 	"maxFileUploadLimit": 5,

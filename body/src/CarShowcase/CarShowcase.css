@@ -175,6 +175,25 @@
 	text-align: right;
 }
 
+.share {
+	position: absolute;
+	top: 0;
+	right: 0;
+	height: 25px;
+	width: 25px;
+	line-height: 25px;
+	border-radius: 25px;
+	cursor: pointer;
+	background-color: #969da281;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.share img {
+	height: 20px;
+	width: 20px;
+}
+
 .dot {
 	height: 6px;
 	width: 6px;

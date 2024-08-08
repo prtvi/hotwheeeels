@@ -16,7 +16,7 @@ export default function CarShowcase(props) {
 
 	return (
 		<div className="car-showcase">
-			<Carousel images={car.imgs} />
+			<Carousel images={car.imgs} carId={car.carId} />
 
 			{!visitorMode ? (
 				<EditCarDetails

@@ -1,7 +1,8 @@
 import './CarShowcase.css';
+import config from '../config.json';
 
 export default function Carousel(props) {
-	const { images } = props;
+	const { images, carId } = props;
 	let slideIndex = 0;
 
 	function left() {
@@ -38,6 +39,16 @@ export default function Carousel(props) {
 		}
 	}
 
+	function copyCarShareLink(e) {
+		navigator.clipboard.writeText(`${config.selfURL}/?car_id=${carId}`);
+		e.currentTarget.querySelector('img.share-icon').src = 'check.png';
+
+		setTimeout(
+			() => (document.querySelector('img.share-icon').src = 'share.png'),
+			2000
+		);
+	}
+
 	return (
 		<div className="carousel" onLoad={showCurrSlide}>
 			<div className="slideshow-container">
@@ -54,6 +65,14 @@ export default function Carousel(props) {
 				</span>
 				<span className="carousel-arrow right" onClick={right}>
 					&#10095;
+				</span>
+
+				<span
+					className="share"
+					title="share car details"
+					onClick={copyCarShareLink}
+				>
+					<img className="share-icon" src="share.png" alt="share" />
 				</span>
 
 				<div className="dot-container">
