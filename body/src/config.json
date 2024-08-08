@@ -62,6 +62,15 @@
 			"defaultValue": "red"
 		},
 		{
+			"key": "acquiredDate",
+			"label": "Acquired date",
+			"inputType": "date",
+			"required": true,
+			"forFormOnly": false,
+			"viewSize": "small",
+			"defaultValue": "2023-09-17"
+		},
+		{
 			"key": "series",
 			"label": "Series",
 			"inputType": "text",
@@ -74,14 +83,13 @@
 		},
 		{
 			"key": "coll",
-			"label": "Collection #",
-			"inputType": "text",
+			"label": "Collection #/250",
+			"inputType": "number",
 			"required": false,
 			"forFormOnly": false,
 			"viewSize": "small",
-			"maxLength": 15,
-			"placeholder": "eg: 125/250",
-			"defaultValue": "125/250"
+			"placeholder": "eg: 125",
+			"defaultValue": "125"
 		},
 		{
 			"key": "baseColorAndType",
@@ -93,15 +101,6 @@
 			"maxLength": 32,
 			"placeholder": "eg: black/plastic",
 			"defaultValue": "black/plastic"
-		},
-		{
-			"key": "acquiredDate",
-			"label": "Acquired date",
-			"inputType": "date",
-			"required": true,
-			"forFormOnly": false,
-			"viewSize": "small",
-			"defaultValue": "2023-09-17"
 		},
 		{
 			"key": "carType",

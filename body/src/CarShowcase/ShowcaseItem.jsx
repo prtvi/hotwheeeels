@@ -30,6 +30,8 @@ export default function ShowcaseItem(props) {
 		);
 	}
 
+	if (label === 'Collection #/250') valueField = `${value}/250`;
+
 	return (
 		<div className={className}>
 			<span className="label pf-300">{label}</span>
