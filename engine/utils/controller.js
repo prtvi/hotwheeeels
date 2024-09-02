@@ -28,6 +28,15 @@ function captureWebsiteVisit(req, res) {
 		.catch(err => res.status(400).send('error capturing log'));
 }
 
+async function getWebsiteVisitStats(req, res) {
+	const results = await Log.aggregate([
+		{ $group: { _id: '$src', count: { $sum: 1 } } },
+		{ $project: { src: '$_id', count: '$count', _id: 0 } },
+	]).exec();
+
+	return res.send(results);
+}
+
 function authMiddleware(req, res, next) {
 	const token = req.headers.token;
 	const jwtSecretKey = process.env.JWT_SECRET_KEY;
@@ -220,6 +229,7 @@ function verifyToken(req, res) {
 exports.r = {
 	logger,
 	captureWebsiteVisit,
+	getWebsiteVisitStats,
 	authMiddleware,
 	getAllMasked,
 	getAll,
