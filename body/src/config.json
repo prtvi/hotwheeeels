@@ -6,6 +6,7 @@
 	"maxFileUploadLimit": 5,
 	"resultsPerPage": 12,
 	"resultsPerPageVertical": 9,
+	"fuseSearchParams": ["carName", "series"],
 	"formItems": [
 		{
 			"key": "carName",
@@ -69,6 +70,15 @@
 			"forFormOnly": false,
 			"viewSize": "small",
 			"defaultValue": "2023-09-17"
+		},
+		{
+			"key": "isSpecial",
+			"label": "Is special?",
+			"inputType": "checkbox",
+			"required": false,
+			"forFormOnly": true,
+			"viewSize": "small",
+			"defaultValue": ""
 		},
 		{
 			"key": "series",

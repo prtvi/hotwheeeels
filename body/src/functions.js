@@ -356,6 +356,17 @@ function getResultsPerPage() {
 	return config.resultsPerPage;
 }
 
+async function logUrl() {
+	await makeRequest(
+		getEngineUrl() + '/api/capture_website_visit',
+		getAuthHeaders(),
+		{
+			url: window.location.href,
+			src: new URLSearchParams(window.location.search).get('src'),
+		}
+	);
+}
+
 export {
 	getEngineUrl,
 	makeRequest,
@@ -378,4 +389,5 @@ export {
 	getSessionItem,
 	sortHandler,
 	getResultsPerPage,
+	logUrl,
 };

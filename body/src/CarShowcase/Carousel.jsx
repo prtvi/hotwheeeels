@@ -40,7 +40,9 @@ export default function Carousel(props) {
 	}
 
 	function copyCarShareLink(e) {
-		navigator.clipboard.writeText(`${config.selfURL}/?car_id=${carId}`);
+		const url = `${config.selfURL}/?car_id=${carId}&src=shareicon`;
+
+		navigator.clipboard.writeText(url);
 		e.currentTarget.querySelector('img.share-icon').src = 'check.png';
 
 		setTimeout(

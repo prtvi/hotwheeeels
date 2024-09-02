@@ -4,9 +4,15 @@ import Header from './Main/Header.jsx';
 import Main from './Main/Main.jsx';
 import Login from './Forms/Login.jsx';
 
-import { makeRequest, getEngineUrl, getSessionItem } from './functions.js';
+import {
+	makeRequest,
+	getEngineUrl,
+	getSessionItem,
+	logUrl,
+} from './functions.js';
 
 export default function App() {
+	logUrl();
 	const authMode = window.location.href.includes('auth');
 
 	const [authenticated, setAuthentication] = React.useState(false);

@@ -35,6 +35,12 @@
 			"forAuthOnly": false
 		},
 		{
+			"key": "isSpecial",
+			"inputType": "checkbox",
+			"required": false,
+			"forAuthOnly": false
+		},
+		{
 			"key": "carType",
 			"inputType": "text",
 			"required": false,

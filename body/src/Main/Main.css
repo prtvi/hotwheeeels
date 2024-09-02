@@ -65,6 +65,7 @@ h1 > a {
 	top: 0px;
 	color: #000;
 	cursor: pointer;
+	user-select: none;
 }
 
 .sort-order {
@@ -89,6 +90,7 @@ h1 > a {
 	animation-name: rotateback90;
 	animation-duration: 0.5s;
 	animation-fill-mode: forwards;
+	user-select: none;
 }
 .toggle-options.active {
 	animation-name: rotate_neg90;
@@ -165,6 +167,7 @@ h1 > a {
 	line-height: 30px;
 	border-radius: 50px;
 	text-align: center;
+	user-select: none;
 }
 .arrow-left:active {
 	transform: translateX(-2px);

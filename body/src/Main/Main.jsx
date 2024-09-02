@@ -10,6 +10,7 @@ import Toolbar from './Toolbar.jsx';
 import Cars from '../CarShowcase/Cars.jsx';
 import SwipeCar from '../CarShowcase/SwipeCar.jsx';
 import Pagination from './Pagination.jsx';
+import config from '../config.json';
 
 import {
 	getEngineUrl,
@@ -77,7 +78,7 @@ export default function Main(props) {
 	}, [visitorMode]);
 
 	const fuse = new Fuse(allResults, {
-		keys: ['carName'],
+		keys: config.fuseSearchParams,
 		includeScore: true,
 	});
 

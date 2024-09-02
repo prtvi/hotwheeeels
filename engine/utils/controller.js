@@ -2,11 +2,30 @@ const jwt = require('jsonwebtoken');
 const cloudinary = require('cloudinary').v2;
 const config = require('config');
 const { u } = require('./util.js');
-const { Car } = require('./db.js');
+const { Car, Log } = require('./db.js');
 
 function logger(req, res, next) {
 	console.log(req.method, req.url);
 	next();
+}
+
+function captureWebsiteVisit(req, res) {
+	const body = req.body;
+	if (body.src === null) body.src = '';
+
+	const now = new Date();
+	const ts = Math.floor(now.getTime() / 1000);
+
+	const log = new Log({
+		url: body.url,
+		src: body.src,
+		createdAt: now,
+		ts: ts,
+	});
+
+	log.save()
+		.then(() => res.send('captured'))
+		.catch(err => res.status(400).send('error capturing log'));
 }
 
 function authMiddleware(req, res, next) {
@@ -200,6 +219,7 @@ function verifyToken(req, res) {
 
 exports.r = {
 	logger,
+	captureWebsiteVisit,
 	authMiddleware,
 	getAllMasked,
 	getAll,

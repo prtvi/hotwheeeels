@@ -21,6 +21,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(r.logger);
 
 app.get('/', (req, res) => res.send('hello world!'));
+app.post('/api/capture_website_visit', r.captureWebsiteVisit);
 app.get('/api/get_all', r.getAllMasked);
 app.post('/api/login', r.login);
 

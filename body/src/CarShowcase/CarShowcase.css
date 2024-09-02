@@ -57,6 +57,9 @@
 	text-overflow: ellipsis;
 	white-space: normal;
 }
+.special {
+	color: rgb(120, 255, 108);
+}
 
 /* CarShowcase.jsx */
 
@@ -164,6 +167,7 @@
 	width: 20px;
 	background-color: #969da281;
 	cursor: pointer;
+	user-select: none;
 }
 .carousel-arrow.left {
 	left: 0;

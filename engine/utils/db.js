@@ -68,10 +68,25 @@ function getSchemaForFormItem(formItems) {
 	return schema;
 }
 
-// let Car;
-// if (config.get('ENV') === 'dev')
-// 	Car = new mongoose.model('car_dev', mongoose.Schema(schema));
-// else Car = new mongoose.model('Car', mongoose.Schema(schema));
-
 const schema = getSchemaForFormItem(config.get('formItems'));
 exports.Car = new mongoose.model('Car', mongoose.Schema(schema));
+
+const logSchema = {
+	url: {
+		type: String,
+		required: true,
+	},
+	ts: {
+		type: Number,
+		required: true,
+	},
+	src: {
+		type: String,
+		required: false,
+	},
+	createdAt: {
+		type: Date,
+	},
+};
+
+exports.Log = new mongoose.model('Log', mongoose.Schema(logSchema));
