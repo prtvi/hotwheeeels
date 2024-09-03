@@ -35,13 +35,13 @@
 			"forAuthOnly": false
 		},
 		{
-			"key": "isSpecial",
-			"inputType": "checkbox",
-			"required": false,
+			"key": "segment",
+			"inputType": "text",
+			"required": true,
 			"forAuthOnly": false
 		},
 		{
-			"key": "carType",
+			"key": "vehicleType",
 			"inputType": "text",
 			"required": false,
 			"forAuthOnly": false

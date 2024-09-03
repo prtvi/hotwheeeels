@@ -32,6 +32,29 @@ export default function FormItem(props) {
 				</div>
 			);
 
+		case 'datalist':
+			return (
+				<div className={className}>
+					<label className="pf-300" htmlFor={spec.key}>
+						{spec.label}
+					</label>
+					<input
+						type="text"
+						name={spec.key}
+						id={spec.key}
+						list={spec.key + '-datalist'}
+						required={spec.required}
+						defaultValue={value}
+						maxLength={spec.maxLength}
+					/>
+					<datalist id={spec.key + '-datalist'}>
+						{spec.list.map((v, i) => (
+							<option value={v} key={i} />
+						))}
+					</datalist>
+				</div>
+			);
+
 		case 'number':
 		case 'date':
 			return (

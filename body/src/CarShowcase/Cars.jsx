@@ -4,16 +4,13 @@ function Car(props) {
 	const { index, car, showCar } = props;
 	const showCarHandler = () => showCar(index);
 
-	let colorClass = '';
-	if (car.isSpecial) colorClass = 'special';
-
 	return (
 		<div className="card" onClick={showCarHandler}>
 			<div className="card-img-container">
 				<img src={car.imgs[0]} alt="car" />
 			</div>
 			<div className="card-name-container">
-				<span className={'pif-300 ' + colorClass}>{car.carName}</span>
+				<span className={'pif-300 ' + car.segment}>{car.carName}</span>
 			</div>
 		</div>
 	);

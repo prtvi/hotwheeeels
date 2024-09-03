@@ -33,7 +33,14 @@
 		{
 			"key": "brand",
 			"label": "Brand",
-			"inputType": "text",
+			"inputType": "datalist",
+			"list": [
+				"Hot Wheels",
+				"Matchbox",
+				"Majorette",
+				"Mini GT",
+				"Maisto"
+			],
 			"required": true,
 			"forFormOnly": false,
 			"viewSize": "small",
@@ -72,13 +79,24 @@
 			"defaultValue": "2023-09-17"
 		},
 		{
-			"key": "isSpecial",
-			"label": "Is special?",
-			"inputType": "checkbox",
-			"required": false,
+			"key": "segment",
+			"label": "Vehicle segment",
+			"inputType": "datalist",
+			"list": [
+				"mainline",
+				"themed",
+				"premium",
+				"special",
+				"th",
+				"sth",
+				"rlc"
+			],
+			"required": true,
 			"forFormOnly": true,
+			"maxLength": 32,
 			"viewSize": "small",
-			"defaultValue": ""
+			"placeholder": "mainline, themed etc",
+			"defaultValue": "mainline"
 		},
 		{
 			"key": "series",
@@ -113,9 +131,10 @@
 			"defaultValue": "black/plastic"
 		},
 		{
-			"key": "carType",
-			"label": "Car type",
-			"inputType": "text",
+			"key": "vehicleType",
+			"label": "Vehicle type",
+			"inputType": "datalist",
+			"list": ["car", "suv", "tooned", "fantasy", "bike"],
 			"required": false,
 			"forFormOnly": false,
 			"viewSize": "small",

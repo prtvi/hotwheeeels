@@ -57,8 +57,27 @@
 	text-overflow: ellipsis;
 	white-space: normal;
 }
+
+.mainline {
+	color: #fffafa;
+}
+.themed {
+	color: #03c988;
+}
+.premium {
+	color: #ffea20;
+}
 .special {
-	color: rgb(120, 255, 108);
+	color: #9bec00;
+}
+.th {
+	color: #ff8225;
+}
+.sth {
+	color: #f6fb7a;
+}
+.rlc {
+	color: #ee202a;
 }
 
 /* CarShowcase.jsx */
