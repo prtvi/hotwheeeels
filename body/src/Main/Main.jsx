@@ -135,7 +135,7 @@ export default function Main(props) {
 		setSessionStorage('carIdx', index);
 
 		// set car id in url
-		window.history.pushState(null, '', `?car_id=${car.carId}`);
+		window.history.pushState(null, '', `?car_id=${car.carId}&src=urlpop`);
 
 		setModalContent(() => (
 			<CarShowcase

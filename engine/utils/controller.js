@@ -11,7 +11,7 @@ function logger(req, res, next) {
 
 function captureWebsiteVisit(req, res) {
 	const body = req.body;
-	if (body.src === null) body.src = '';
+	if (body.src === null) body.src = 'blank';
 
 	const now = new Date();
 	const ts = Math.floor(now.getTime() / 1000);
@@ -34,7 +34,34 @@ async function getWebsiteVisitStats(req, res) {
 		{ $project: { src: '$_id', count: '$count', _id: 0 } },
 	]).exec();
 
-	return res.send(results);
+	const dates = await Log.aggregate([
+		{ $sort: { ts: 1 } },
+		{
+			$group: {
+				_id: null,
+				first: { $first: '$$ROOT' },
+				last: { $last: '$$ROOT' },
+			},
+		},
+		{
+			$project: {
+				from: '$first.createdAt',
+				to: '$last.createdAt',
+				_id: 0,
+			},
+		},
+	]).exec();
+
+	let total = 0;
+	results.forEach(d => (total += d.count));
+
+	const out = {
+		total,
+		log_data: dates[0],
+		log_counts: results,
+	};
+
+	return res.send(out);
 }
 
 function authMiddleware(req, res, next) {

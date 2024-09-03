@@ -357,13 +357,16 @@ function getResultsPerPage() {
 }
 
 async function logUrl() {
+	const sp = new URLSearchParams(window.location.search);
+	if (sp.has('auth')) return;
+
+	const src = sp.get('src');
+	const url = window.location.href;
+
 	await makeRequest(
 		getEngineUrl() + '/api/capture_website_visit',
 		getAuthHeaders(),
-		{
-			url: window.location.href,
-			src: new URLSearchParams(window.location.search).get('src'),
-		}
+		{ url, src }
 	);
 }
 
