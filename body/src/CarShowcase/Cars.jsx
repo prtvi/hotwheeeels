@@ -10,7 +10,9 @@ function Car(props) {
 				<img src={car.imgs[0]} alt="car" />
 			</div>
 			<div className="card-name-container">
-				<span className={'pif-300 ' + car.segment}>{car.carName}</span>
+				<span className={'pif-300 ' + car.segmentClass}>
+					{car.carName}
+				</span>
 			</div>
 		</div>
 	);

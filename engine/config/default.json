@@ -35,7 +35,7 @@
 			"forAuthOnly": false
 		},
 		{
-			"key": "segment",
+			"key": "segmentClass",
 			"inputType": "text",
 			"required": true,
 			"forAuthOnly": false

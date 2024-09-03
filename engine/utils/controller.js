@@ -177,7 +177,7 @@ async function getImageUrl(req, res) {
 	const fnparts = file.originalname.split('.');
 	const fileNameWoExt = fnparts.slice(0, fnparts.length - 1).join('');
 
-	const buffer = await u.compressAndReturnBuffer(file.buffer);
+	const buffer = await u.convertCompressAndReturnImageBuffer(file.buffer);
 	const stream = cloudinary.uploader.upload_stream(
 		{
 			folder: config.get('ENV'),

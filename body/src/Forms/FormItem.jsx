@@ -100,7 +100,7 @@ export default function FormItem(props) {
 						type={spec.inputType}
 						name={spec.key}
 						id={spec.key}
-						accept="image/*"
+						accept=".jpg, .jpeg, .png, .webp, .heic"
 						multiple={true}
 						required={spec.required}
 					/>

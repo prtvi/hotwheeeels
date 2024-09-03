@@ -79,8 +79,8 @@
 			"defaultValue": "2023-09-17"
 		},
 		{
-			"key": "segment",
-			"label": "Vehicle segment",
+			"key": "segmentClass",
+			"label": "Vehicle segment class",
 			"inputType": "datalist",
 			"list": [
 				"mainline",

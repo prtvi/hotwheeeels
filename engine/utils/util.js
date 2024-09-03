@@ -1,6 +1,7 @@
 const axios = require('axios');
 const sharp = require('sharp');
 const cloudinary = require('cloudinary').v2;
+const convert = require('heic-convert');
 const config = require('config');
 const { Readable } = require('stream');
 const { initDb } = require('./db.js');
@@ -107,8 +108,13 @@ async function deletePicturesForCarId(carId) {
 	return msgs;
 }
 
-async function compressAndReturnBuffer(buffer) {
-	const sharpInstance = sharp(buffer);
+async function convertCompressAndReturnImageBuffer(buffer) {
+	const outputBuffer = await convert({
+		buffer: buffer,
+		format: 'PNG',
+	});
+
+	const sharpInstance = sharp(outputBuffer);
 
 	const metadata = await sharpInstance.metadata();
 	if (metadata.width > 1000) {
@@ -118,9 +124,8 @@ async function compressAndReturnBuffer(buffer) {
 			.toBuffer();
 	}
 
-	return sharpInstance.webp({ quality: 20 }).toBuffer();
-
 	// { quality: 20 outta 100, lossless: true }
+	return sharpInstance.webp({ quality: 20 }).toBuffer();
 }
 
 function bufferToStream(buffer) {
@@ -138,7 +143,7 @@ exports.u = {
 	deletePicturesForCarId,
 	newCarObj,
 	getMaskedCarFields,
-	compressAndReturnBuffer,
+	convertCompressAndReturnImageBuffer,
 	bufferToStream,
 	makeRequest,
 };
