@@ -7,6 +7,37 @@
 	"resultsPerPage": 12,
 	"resultsPerPageVertical": 9,
 	"fuseSearchParams": ["carName", "series"],
+	"segmentClassColorRef": {
+		"mainline": "#fffafa",
+		"themed": "#03c988",
+		"premium": "#ffea20",
+		"special": "#9bec00",
+		"th": "#ff8225",
+		"sth:": "#f6fb7a",
+		"rlc": "#ee202a"
+	},
+	"segmentClasses": [
+		{
+			"label": "Mainline",
+			"className": "mainline"
+		},
+		{
+			"label": "Themed assortment",
+			"className": "themed"
+		},
+		{
+			"label": "Premium",
+			"className": "premium"
+		},
+		{
+			"label": "Special feature",
+			"className": "special"
+		},
+		{
+			"label": "Treasure hunt",
+			"className": "th"
+		}
+	],
 	"formItems": [
 		{
 			"key": "carName",

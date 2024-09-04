@@ -58,28 +58,6 @@
 	white-space: normal;
 }
 
-.mainline {
-	color: #fffafa;
-}
-.themed {
-	color: #03c988;
-}
-.premium {
-	color: #ffea20;
-}
-.special {
-	color: #9bec00;
-}
-.th {
-	color: #ff8225;
-}
-.sth {
-	color: #f6fb7a;
-}
-.rlc {
-	color: #ee202a;
-}
-
 /* CarShowcase.jsx */
 
 .car-showcase {

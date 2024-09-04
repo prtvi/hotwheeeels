@@ -31,14 +31,15 @@ async function makeRequest(url, headers, requestBody) {
 }
 
 /**
- * returns results array based on the match using filter method
+ * returns results array based on the match using 'includes' method
  * @param {Array} allItems input array over which the search is applied
+ * @param {String} fieldName field in the car object to look for
  * @param {String} inputText input text to match
  * @returns {Array} results array
  */
-function getResultsFromFilter(allItems, inputText) {
+function getResultsFromFilter(allItems, fieldName, inputText) {
 	return allItems.filter(item =>
-		item.carName.toLowerCase().includes(inputText.toLowerCase())
+		item[fieldName].toLowerCase().includes(inputText.toLowerCase())
 	);
 }
 
@@ -57,6 +58,19 @@ function getResultsFromFuse(fuse, inputText) {
 			return 0;
 		})
 		.map(i => i.item);
+}
+
+/**
+ * returns results array based on the match using === check
+ * @param {Array} allItems input array over which the search is applied
+ * @param {String} fieldName field in the car object to look for
+ * @param {String} inputText input text to match
+ * @returns {Array} results array
+ */
+function getResultsFromFilterStrict(allItems, fieldName, inputText) {
+	return allItems.filter(
+		item => item[fieldName].toLowerCase() === inputText.toLowerCase()
+	);
 }
 
 /**
@@ -375,6 +389,7 @@ export {
 	makeRequest,
 	getResultsFromFuse,
 	getResultsFromFilter,
+	getResultsFromFilterStrict,
 	validSpec,
 	getRowItemsForShowcase,
 	getShowcaseDom,

@@ -7,6 +7,7 @@ import Skeleton from '../Utils/Skeleton.jsx';
 import NoResults from '../Utils/NoResults.jsx';
 import Modal from '../Utils/Modal.jsx';
 import Toolbar from './Toolbar.jsx';
+import Legend from './Legend.jsx';
 import Cars from '../CarShowcase/Cars.jsx';
 import SwipeCar from '../CarShowcase/SwipeCar.jsx';
 import Pagination from './Pagination.jsx';
@@ -17,6 +18,7 @@ import {
 	makeRequest,
 	getResultsFromFuse,
 	getResultsFromFilter,
+	getResultsFromFilterStrict,
 	getAuthHeaders,
 	setSessionStorage,
 	sortHandler,
@@ -87,7 +89,12 @@ export default function Main(props) {
 		setResultsForView(() => {
 			if (e === undefined) return allResults;
 
-			let res = getResultsFromFilter(allResults, e.target.value);
+			let res = getResultsFromFilter(
+				allResults,
+				'carName',
+				e.target.value
+			);
+
 			if (res.length === 0)
 				res = getResultsFromFuse(fuse, e.target.value);
 			if (res.length === 0) res = [];
@@ -183,6 +190,20 @@ export default function Main(props) {
 		}
 	}
 
+	function filterBasedOnSegmentClass(segmentClass) {
+		let res = [];
+		if (segmentClass === '') res = allResults;
+		else
+			res = getResultsFromFilterStrict(
+				allResults,
+				'segmentClass',
+				segmentClass
+			);
+
+		setResultsForView(() => res);
+		setCurrPage(1);
+	}
+
 	// sort entire list and then truncate results for view array and render only a portion of it based on curr page
 	const sortedList = sortHandler(sortParams, resultsForView);
 	const resultsPerPage = getResultsPerPage();
@@ -198,6 +219,8 @@ export default function Main(props) {
 	return (
 		<>
 			{getToolbar()}
+
+			<Legend filter={filterBasedOnSegmentClass} />
 
 			<Cars list={paginationList} showCar={showCar} />
 

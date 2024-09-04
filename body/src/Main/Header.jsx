@@ -1,6 +1,6 @@
 import './Main.css';
 
-export default function Header(props) {
+export default function Header() {
 	return (
 		<div className="header">
 			<h1 className="pif-300">
@@ -12,10 +12,10 @@ export default function Header(props) {
 				>
 					prtviv's
 				</a>{' '}
-				hot wheeeels <span className="pf-300">🏎️</span>
+				hot wheeeels 🏎️
 			</h1>
 			<p className="subtitle pf-300">
-				..includes other diecast brands too
+				Hi there! 👋 <br /> Welcome to my die cast collection showcase!
 			</p>
 		</div>
 	);
