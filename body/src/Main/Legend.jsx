@@ -10,24 +10,37 @@ export default function Legend(props) {
 
 	const handleFilter = function (e) {
 		const ct = e.currentTarget;
+		const clearFilterBtn = document.querySelector('.clear-filter');
 
-		if (ct.classList.contains('active')) {
-			ct.classList.remove('active');
-			filter('');
-			return;
-		}
+		// clear filter on legend item selection
+		if (ct.classList.contains('active')) return clearFilter();
 
+		// filter based on selection
+		// rm active from all legend-items
 		const legendItems = document.querySelectorAll('.legend-item');
 		Array.from(legendItems).forEach(l => l.classList.remove('active'));
 
+		// add active to clear btn and selected legend item
+		clearFilterBtn.classList.add('active');
 		ct.classList.add('active');
-		const segmentClass = ct.getAttribute('title');
 
+		// filter
+		const segmentClass = ct.getAttribute('title');
 		filter(segmentClass);
+	};
+
+	const clearFilter = function () {
+		const legendItems = document.querySelectorAll('.legend-item');
+		Array.from(legendItems).forEach(l => l.classList.remove('active'));
+		filter('');
 	};
 
 	return (
 		<div className="legend-items">
+			<div className="legend-item clear-filter" onClick={clearFilter}>
+				<span>&#9587;</span>
+			</div>
+
 			{segmentClasses.map((sc, i) => (
 				<div
 					className="legend-item"

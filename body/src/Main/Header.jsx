@@ -15,7 +15,7 @@ export default function Header() {
 				hot wheeeels 🏎️
 			</h1>
 			<p className="subtitle pf-300">
-				Hi there! 👋 <br /> Welcome to my die cast collection showcase!
+				Hi there! 👋 <br /> Welcome to my diecast collection showcase!
 			</p>
 		</div>
 	);

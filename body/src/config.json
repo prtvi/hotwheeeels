@@ -22,16 +22,16 @@
 			"className": "mainline"
 		},
 		{
-			"label": "Themed assortment",
+			"label": "Themed",
 			"className": "themed"
-		},
-		{
-			"label": "Premium",
-			"className": "premium"
 		},
 		{
 			"label": "Special feature",
 			"className": "special"
+		},
+		{
+			"label": "Premium",
+			"className": "premium"
 		},
 		{
 			"label": "Treasure hunt",

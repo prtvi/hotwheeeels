@@ -50,10 +50,10 @@ export default function Toolbar(props) {
 	function toggleSortBtn(sortOrder) {
 		if (sortOrder.dataset.sort === 'asc') {
 			sortOrder.dataset.sort = 'desc';
-			sortOrder.textContent = '⬆';
+			sortOrder.innerHTML = '&#11014;';
 		} else {
 			sortOrder.dataset.sort = 'asc';
-			sortOrder.textContent = '⬇';
+			sortOrder.innerHTML = '&#11015;';
 		}
 	}
 
@@ -85,7 +85,7 @@ export default function Toolbar(props) {
 						className="pf-300 input-cross hidden"
 						onClick={clearInput}
 					>
-						✖️
+						&#10006;
 					</span>
 				</div>
 
@@ -160,7 +160,7 @@ export default function Toolbar(props) {
 
 				<div className="trow-child sort-order" onClick={handleSort}>
 					<span className="pf-300" data-sort="asc">
-						{'⬇'}
+						&#11015;
 					</span>
 				</div>
 			</div>

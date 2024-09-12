@@ -41,7 +41,7 @@ export default function Modal(props) {
 						<h3 className="pf-400">{modalTitle}</h3>
 					</div>
 					<div className="modal-close" onClick={closeModal}>
-						<span>✖️</span>
+						<span>&#10006;</span>
 					</div>
 				</div>
 

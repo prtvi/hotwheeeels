@@ -63,7 +63,7 @@ h1 > a {
 	position: absolute;
 	right: 8px;
 	top: 0px;
-	color: #000;
+	color: var(--bg);
 	cursor: pointer;
 	user-select: none;
 }
@@ -157,7 +157,7 @@ h1 > a {
 	flex-wrap: wrap;
 	width: 80%;
 	max-width: 600px;
-	margin: 20px auto;
+	margin: 15px auto;
 }
 .legend-item {
 	display: flex;
@@ -166,11 +166,12 @@ h1 > a {
 	padding: 2px 3px;
 	cursor: pointer;
 	border: 1px solid var(--bg);
+	border-radius: 3px;
 }
 .legend-item.active {
-	border-radius: 3px;
 	border: 1px solid var(--color);
 }
+
 .legend-item .color {
 	height: 10px;
 	width: 10px;
@@ -179,6 +180,21 @@ h1 > a {
 .legend-item .value {
 	margin-left: 4px;
 	font-size: calc(var(--btn-fs) - 2px);
+	user-select: none;
+}
+
+.legend-item.clear-filter {
+	display: none;
+	color: var(--color);
+	font-size: calc(var(--btn-fs) - 2px);
+	line-height: calc(var(--btn-fs) - 2px);
+	padding: 4px;
+
+	transition: all 0.25s;
+	transition-behavior: allow-discrete;
+}
+.legend-item.clear-filter.active {
+	display: flex;
 }
 
 /* Pagination */
