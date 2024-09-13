@@ -13,7 +13,7 @@
 .card {
 	width: var(--card-width);
 	height: var(--card-height);
-	margin: 8px;
+	margin: 6px;
 	cursor: pointer;
 	display: flex;
 	justify-content: space-between;
