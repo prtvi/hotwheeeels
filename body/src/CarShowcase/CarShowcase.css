@@ -52,6 +52,7 @@
 }
 .card-name-container span {
 	font-size: var(--card-text-fs);
+	line-height: calc(var(--card-text-fs) + 3px);
 	padding: 0 2px;
 	overflow: hidden;
 	text-overflow: ellipsis;
