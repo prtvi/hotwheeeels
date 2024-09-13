@@ -8,12 +8,12 @@
 	margin: 10px;
 }
 
-/* Car.jsx */
+/* Cars.jsx */
 
 .card {
 	width: var(--card-width);
 	height: var(--card-height);
-	margin: 5px;
+	margin: 8px;
 	cursor: pointer;
 	display: flex;
 	justify-content: space-between;
@@ -31,7 +31,7 @@
 }
 
 .card img {
-	border-radius: var(--card-border-radius);
+	border-radius: 6px;
 	object-fit: cover;
 	width: inherit;
 	height: inherit;
@@ -43,15 +43,15 @@
 }
 
 .card-name-container {
-	height: calc(var(--card-height) - var(--card-img-height));
-	color: #fffafa;
+	height: var(--card-name-cont-h);
+	color: var(--color);
 	text-align: center;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
 .card-name-container span {
-	font-size: calc(var(--btn-fs) - 3px);
+	font-size: var(--card-text-fs);
 	padding: 0 2px;
 	overflow: hidden;
 	text-overflow: ellipsis;

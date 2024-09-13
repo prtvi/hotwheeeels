@@ -77,20 +77,32 @@ marquee.left {
 
 /* Skeleton.jsx */
 
-.skeletal-list {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-wrap: wrap;
-	margin: 10px;
+/* legend skeleton */
+.legend-items.skeleton {
+	height: 50px;
 }
-.skeleton,
-.skeleton-name {
-	width: var(--card-width);
-	height: var(--card-img-height);
-	margin: 5px;
-	border-radius: 2px;
+.legend-item.skeleton {
+	width: 25%;
+	height: 15px;
+	border: none;
+}
 
+/* car list skeleton */
+.card.skeleton {
+	justify-content: space-around;
+}
+.card-img-container.skeleton {
+	border-radius: 6px;
+}
+.card-name-container.skeleton {
+	height: calc(var(--card-name-cont-h) / 2);
+	border-radius: 6px;
+}
+
+/* attach animation to all skeletons */
+.card-img-container.skeleton,
+.card-name-container.skeleton,
+.legend-item.skeleton {
 	animation-duration: 1.5s;
 	animation-fill-mode: forwards;
 	animation-iteration-count: infinite;
@@ -101,9 +113,7 @@ marquee.left {
 	background-size: 800px 104px;
 	position: relative;
 }
-.skeleton-name {
-	height: calc(var(--card-height) - var(--card-img-height) - 10px);
-}
+
 @keyframes placeHolderShimmer {
 	0% {
 		background-position: -500px 0;
@@ -149,6 +159,13 @@ marquee.left {
 @media screen and (min-width: 768px) {
 	.modal-close {
 		top: -20px;
+	}
+
+	.legend-items.skeleton {
+		height: 30px;
+	}
+	.legend-item.skeleton {
+		width: 18%;
 	}
 }
 

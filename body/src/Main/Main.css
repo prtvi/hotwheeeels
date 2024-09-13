@@ -145,11 +145,6 @@ h1 > a {
 }
 
 /* Legend */
-.legend {
-	font-size: var(--btn-fs);
-	cursor: pointer;
-	text-align: center;
-}
 .legend-items {
 	display: flex;
 	justify-content: space-around;
@@ -179,15 +174,15 @@ h1 > a {
 }
 .legend-item .value {
 	margin-left: 4px;
-	font-size: calc(var(--btn-fs) - 2px);
+	font-size: var(--card-text-fs);
 	user-select: none;
 }
 
 .legend-item.clear-filter {
 	display: none;
 	color: var(--color);
-	font-size: calc(var(--btn-fs) - 2px);
-	line-height: calc(var(--btn-fs) - 2px);
+	font-size: var(--card-text-fs);
+	line-height: var(--card-text-fs);
 	padding: 4px;
 
 	transition: all 0.25s;

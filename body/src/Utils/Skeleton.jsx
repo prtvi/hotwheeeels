@@ -1,22 +1,39 @@
 import './Utils.css';
 import { getResultsPerPage } from '../functions.js';
+import config from '../config.json';
 
-function SkeletonCard() {
+function CarListSkeleton() {
+	const arr = new Array(getResultsPerPage()).fill(0);
+
 	return (
-		<div className="skeleton-card">
-			<div className="skeleton"></div>
-			<div className="skeleton-name"></div>
+		<div className="car-list skeleton">
+			{arr.map((_, i) => (
+				<div className="card skeleton" key={i}>
+					<div className="card-img-container skeleton"></div>
+					<div className="card-name-container skeleton"></div>
+				</div>
+			))}
+		</div>
+	);
+}
+
+function LegendSkeleton() {
+	const scs = config.segmentClasses;
+
+	return (
+		<div className="legend-items skeleton">
+			{scs.map((_, i) => (
+				<div className="legend-item skeleton" key={i}></div>
+			))}
 		</div>
 	);
 }
 
 export default function Skeleton() {
-	const arr = new Array(getResultsPerPage()).fill(0);
 	return (
-		<div className="skeletal-list">
-			{arr.map((_, i) => (
-				<SkeletonCard key={i} />
-			))}
-		</div>
+		<>
+			<LegendSkeleton />
+			<CarListSkeleton />
+		</>
 	);
 }

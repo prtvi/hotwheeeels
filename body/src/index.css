@@ -51,12 +51,10 @@ input {
 	--login-form-width: 190px;
 
 	--card-width: 100px;
-	--card-height: 150px;
-	--card-border-radius: 6px;
-	--card-display-text-height: 30px;
-	--card-img-height: calc(
-		var(--card-height) - var(--card-display-text-height)
-	);
+	--card-height: 170px;
+	--card-text-fs: 12px;
+	--card-name-cont-h: 50px;
+	--card-img-height: calc(var(--card-height) - var(--card-name-cont-h));
 
 	--modal-height: 550px;
 	--modal-child-height: 480px;
@@ -86,8 +84,7 @@ input {
 		--login-form-width: 200px;
 
 		--card-width: 110px;
-		--card-height: 160px;
-		--card-display-text-height: 32px;
+		--card-height: 180px;
 
 		--modal-height: 600px;
 		--modal-child-height: 550px;
@@ -114,8 +111,9 @@ input {
 		--login-form-width: 220px;
 
 		--card-width: 130px;
-		--card-height: 180px;
-		--card-display-text-height: 35px;
+		--card-height: 210px;
+		--card-text-fs: 13px;
+		--card-name-cont-h: 55px;
 
 		--row-top-margin: 9px;
 		--row-height: 50px;
@@ -138,8 +136,8 @@ input {
 		--login-form-width: 230px;
 
 		--card-width: 150px;
-		--card-height: 200px;
-		--card-display-text-height: 38px;
+		--card-height: 230px;
+		--card-text-fs: 14px;
 
 		--modal-header-fs: 21px;
 		--modal-height: 550px;
