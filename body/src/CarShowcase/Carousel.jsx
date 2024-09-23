@@ -40,7 +40,7 @@ export default function Carousel(props) {
 	}
 
 	function copyCarShareLink(e) {
-		const url = `${config.selfURL}/?car_id=${carId}&src=shareicon`;
+		const url = `${config.bodyURL}/?car_id=${carId}&src=shareicon`;
 
 		navigator.clipboard.writeText(url);
 		e.currentTarget.querySelector('img.share-icon').src = 'check.png';
@@ -54,13 +54,11 @@ export default function Carousel(props) {
 	return (
 		<div className="carousel" onLoad={showCurrSlide}>
 			<div className="slideshow-container">
-				{images.map((img, i) => {
-					return (
-						<div className="slides fade" key={i}>
-							<img src={img} alt="car photos" />
-						</div>
-					);
-				})}
+				{images.map((img, i) => (
+					<div className="slides fade" key={i}>
+						<img src={img} alt="car photos" />
+					</div>
+				))}
 
 				<span className="carousel-arrow left" onClick={left}>
 					&#10094;

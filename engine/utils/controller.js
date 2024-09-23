@@ -29,12 +29,9 @@ function captureWebsiteVisit(req, res) {
 }
 
 async function getWebsiteVisitStats(req, res) {
-	const results = await Log.aggregate([
-		{ $group: { _id: '$src', count: { $sum: 1 } } },
-		{ $project: { src: '$_id', count: '$count', _id: 0 } },
-	]).exec();
+	const groupBy = req.query.group_by;
 
-	const dates = await Log.aggregate([
+	const dateExtremes = await Log.aggregate([
 		{ $sort: { ts: 1 } },
 		{
 			$group: {
@@ -45,21 +42,64 @@ async function getWebsiteVisitStats(req, res) {
 		},
 		{
 			$project: {
-				from: '$first.createdAt',
-				to: '$last.createdAt',
+				from: {
+					$dateToString: {
+						format: '%Y-%m-%d %H:%M:%S',
+						date: '$first.createdAt',
+					},
+				},
+				to: {
+					$dateToString: {
+						format: '%Y-%m-%d %H:%M:%S',
+						date: '$last.createdAt',
+					},
+				},
 				_id: 0,
 			},
 		},
 	]).exec();
 
-	let total = 0;
-	results.forEach(d => (total += d.count));
+	const out = { showing_data_for: dateExtremes[0] };
 
-	const out = {
-		total,
-		log_data: dates[0],
-		log_counts: results,
-	};
+	let groupByRes;
+
+	if (groupBy === 'day') {
+		groupByRes = await Log.aggregate([
+			{
+				$group: {
+					_id: {
+						$dateToString: {
+							format: '%Y-%m-%d',
+							date: '$createdAt',
+						},
+					},
+					count: { $sum: 1 },
+				},
+			},
+			{ $sort: { _id: 1 } },
+			{
+				$project: {
+					date: '$_id',
+					count: '$count',
+					_id: 0,
+				},
+			},
+		]).exec();
+
+		out.group_by_day = groupByRes;
+	} else {
+		groupByRes = await Log.aggregate([
+			{ $group: { _id: '$src', count: { $sum: 1 } } },
+			{ $sort: { _id: 1 } },
+			{ $project: { src: '$_id', count: '$count', _id: 0 } },
+		]).exec();
+
+		out.group_by_src = groupByRes;
+	}
+
+	let total = 0;
+	groupByRes.forEach(d => (total += d.count));
+	out.total_count = total;
 
 	return res.send(out);
 }

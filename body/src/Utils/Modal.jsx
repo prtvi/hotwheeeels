@@ -35,7 +35,7 @@ export default function Modal(props) {
 
 	return (
 		<div className="modal-out" onClick={handleClickOutsideModalBody}>
-			<div className="modal-body">
+			<div className="modal-body zoom-in">
 				<div className="modal-header">
 					<div className="modal-title">
 						<h3 className="pf-400">{modalTitle}</h3>
