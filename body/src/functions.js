@@ -371,7 +371,7 @@ function getResultsPerPage() {
 }
 
 async function logUrl() {
-	if (!config.logRequests) return;
+	if (!config.logRequests || config.ENV === 'dev') return;
 
 	const sp = new URLSearchParams(window.location.search);
 	if (sp.has('auth')) return;

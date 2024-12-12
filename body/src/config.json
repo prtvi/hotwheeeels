@@ -14,6 +14,7 @@
 		"premium": "#ffea20",
 		"special": "#9bec00",
 		"th": "#ff8225",
+		"chase": "#fa4032",
 		"sth:": "#f6fb7a",
 		"rlc": "#ee202a"
 	},
@@ -37,6 +38,10 @@
 		{
 			"label": "Treasure hunt",
 			"className": "th"
+		},
+		{
+			"label": "Chase",
+			"className": "chase"
 		}
 	],
 	"formItems": [
@@ -117,9 +122,10 @@
 			"list": [
 				"mainline",
 				"themed",
-				"premium",
 				"special",
+				"premium",
 				"th",
+				"chase",
 				"sth",
 				"rlc"
 			],
@@ -166,13 +172,24 @@
 			"key": "vehicleType",
 			"label": "Vehicle type",
 			"inputType": "datalist",
-			"list": ["car", "suv", "tooned", "fantasy", "bike"],
+			"list": ["car", "suv", "tooned", "fantasy", "bike", "van", "truck"],
 			"required": false,
 			"forFormOnly": false,
 			"viewSize": "small",
 			"maxLength": 32,
 			"placeholder": "car/suv/tooned",
 			"defaultValue": "tooned"
+		},
+		{
+			"key": "toy",
+			"label": "Toy #",
+			"inputType": "text",
+			"required": false,
+			"forFormOnly": false,
+			"viewSize": "small",
+			"maxLength": 10,
+			"defaultValue": "HVT01",
+			"placeholder": "eg: HCT01"
 		},
 		{
 			"key": "cardAvailable",
@@ -191,17 +208,6 @@
 			"forFormOnly": false,
 			"viewSize": "small",
 			"defaultValue": "checked"
-		},
-		{
-			"key": "toy",
-			"label": "Toy #",
-			"inputType": "text",
-			"required": false,
-			"forFormOnly": false,
-			"viewSize": "small",
-			"maxLength": 10,
-			"defaultValue": "HVT01",
-			"placeholder": "eg: HCT01"
 		},
 		{
 			"key": "year",
