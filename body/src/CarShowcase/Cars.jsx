@@ -10,14 +10,14 @@ function Car(props) {
 		<div className="card" onClick={showCarHandler}>
 			<div className="card-img-container">
 				<img src={car.imgs[0]} alt="car" />
+				<div
+					className="segment"
+					style={{ backgroundColor: scColorRef[car.segmentClass] }}
+					title={car.segmentClass}
+				></div>
 			</div>
 			<div className="card-name-container">
-				<span
-					className="pif-300"
-					style={{ color: scColorRef[car.segmentClass] }}
-				>
-					{car.carName}
-				</span>
+				<span className="pif-300">{car.carName}</span>
 			</div>
 		</div>
 	);

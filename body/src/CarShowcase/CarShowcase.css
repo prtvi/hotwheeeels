@@ -28,6 +28,8 @@
 .card-img-container {
 	overflow: hidden;
 	height: var(--card-img-height);
+	display: flex;
+	position: relative;
 }
 
 .card img {
@@ -40,6 +42,21 @@
 }
 .card:hover img {
 	transform: scale(1.1);
+}
+
+.card-img-container .segment {
+	width: 5px;
+	height: var(--card-img-height);
+	position: absolute;
+	right: 0px;
+	border-top-right-radius: 100px;
+	border-bottom-right-radius: 100px;
+	transition: all 0.5s ease;
+	box-shadow: -1.5px 0px 4px #000;
+}
+.card:hover .card-img-container .segment {
+	transform: scale(1.1);
+	box-shadow: none;
 }
 
 .card-name-container {
