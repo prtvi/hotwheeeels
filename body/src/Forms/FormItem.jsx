@@ -55,6 +55,28 @@ export default function FormItem(props) {
 				</div>
 			);
 
+		case 'multioption':
+			return (
+				<div className={className}>
+					<label className="pf-300" htmlFor={spec.key}>
+						{spec.label}
+					</label>
+					<select
+						name={spec.key}
+						id={spec.key}
+						defaultValue={value}
+						required
+						multiple
+					>
+						{spec.list.map((v, i) => (
+							<option value={v} key={i}>
+								{v}
+							</option>
+						))}
+					</select>
+				</div>
+			);
+
 		case 'number':
 		case 'date':
 			return (

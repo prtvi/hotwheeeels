@@ -56,6 +56,13 @@
 	width: calc(var(--modal-child-width) - 6px);
 	resize: none;
 }
+.form-row-item select {
+	display: block;
+	font-family: 'Poppins', sans-serif;
+	width: calc(var(--modal-child-width) / 2 - 5px);
+	height: 29px;
+	padding: 0 3px;
+}
 .form-row-item.button-box {
 	display: flex;
 	justify-content: center;

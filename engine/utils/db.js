@@ -43,6 +43,7 @@ function getSchemaForFormItem(formItems) {
 				break;
 
 			case 'file':
+			case 'array':
 				fieldType = Array;
 				break;
 

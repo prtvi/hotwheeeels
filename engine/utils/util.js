@@ -43,6 +43,7 @@ function newCarObj(reqBody, carId) {
 			case 'text':
 			case 'textarea':
 			case 'date':
+			case 'array':
 				valueToAttach = value;
 				break;
 

@@ -68,9 +68,7 @@ function getResultsFromFuse(fuse, inputText) {
  * @returns {Array} results array
  */
 function getResultsFromFilterStrict(allItems, fieldName, inputText) {
-	return allItems.filter(
-		item => item[fieldName].toLowerCase() === inputText.toLowerCase()
-	);
+	return allItems.filter(item => item[fieldName].includes(inputText));
 }
 
 /**
@@ -96,7 +94,20 @@ function validSpec(value) {
 async function postFormTextData(form, url, headers) {
 	const formData = new FormData(form);
 	const formDataJson = {};
-	formData.forEach((value, key) => (formDataJson[key] = value));
+
+	// parsing multi value keys
+	formData.forEach((value, key) => {
+		if (!Reflect.has(formDataJson, key)) {
+			formDataJson[key] = value;
+			return;
+		}
+
+		if (!Array.isArray(formDataJson[key])) {
+			formDataJson[key] = [formDataJson[key]];
+		}
+
+		formDataJson[key].push(value);
+	});
 
 	const response = await makeRequest(url, headers, formDataJson);
 	return response;
@@ -386,6 +397,13 @@ async function logUrl() {
 	);
 }
 
+function getCssDimension(cssVar) {
+	return +window
+		.getComputedStyle(document.body)
+		.getPropertyValue(cssVar)
+		.replace('px', '');
+}
+
 export {
 	getEngineUrl,
 	makeRequest,
@@ -410,4 +428,5 @@ export {
 	sortHandler,
 	getResultsPerPage,
 	logUrl,
+	getCssDimension,
 };

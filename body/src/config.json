@@ -118,7 +118,7 @@
 		{
 			"key": "segmentClass",
 			"label": "Vehicle segment class",
-			"inputType": "datalist",
+			"inputType": "multioption",
 			"list": [
 				"mainline",
 				"themed",
@@ -134,7 +134,7 @@
 			"maxLength": 32,
 			"viewSize": "small",
 			"placeholder": "mainline, themed etc",
-			"defaultValue": "mainline"
+			"defaultValue": ["mainline"]
 		},
 		{
 			"key": "series",
