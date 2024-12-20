@@ -4,9 +4,7 @@ import './Main.css';
 
 export default function Legend(props) {
 	const { filter } = props;
-
-	const scColorRef = config.segmentClassColorRef;
-	const segmentClasses = config.segmentClasses;
+	const scs = Object.entries(config.segmentClasses).filter(i => i[1].avlbl);
 
 	const handleFilter = function (e) {
 		const ct = e.currentTarget;
@@ -41,20 +39,20 @@ export default function Legend(props) {
 				<span>&#9587;</span>
 			</div>
 
-			{segmentClasses.map((sc, i) => (
+			{scs.map((sc, i) => (
 				<div
 					className="legend-item"
 					key={i}
-					title={sc.className}
+					title={sc[0]}
 					onClick={handleFilter}
 				>
 					<div
 						className="color"
 						style={{
-							backgroundColor: scColorRef[sc.className],
+							backgroundColor: sc[1].color,
 						}}
 					></div>
-					<div className="value pf-200">{sc.label}</div>
+					<div className="value pf-200">{sc[1].label}</div>
 				</div>
 			))}
 		</div>

@@ -4,7 +4,7 @@ import { getCssDimension } from '../functions.js';
 
 function Car(props) {
 	const { index, car, showCar } = props;
-	const scColorRef = config.segmentClassColorRef;
+	const segmentClasses = config.segmentClasses;
 	const showCarHandler = () => showCar(index);
 
 	const imageHeight =
@@ -24,7 +24,7 @@ function Car(props) {
 							className="segment"
 							title={sc}
 							style={{
-								backgroundColor: scColorRef[sc],
+								backgroundColor: segmentClasses[sc].color,
 								height: `${segmentHeight}px`,
 								top: `${i * segmentHeight}px`,
 							}}

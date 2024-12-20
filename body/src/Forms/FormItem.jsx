@@ -56,6 +56,7 @@ export default function FormItem(props) {
 			);
 
 		case 'multioption':
+			const list = Object.entries(config.segmentClasses).map(i => i[0]);
 			return (
 				<div className={className}>
 					<label className="pf-300" htmlFor={spec.key}>
@@ -68,7 +69,7 @@ export default function FormItem(props) {
 						required
 						multiple
 					>
-						{spec.list.map((v, i) => (
+						{list.map((v, i) => (
 							<option value={v} key={i}>
 								{v}
 							</option>

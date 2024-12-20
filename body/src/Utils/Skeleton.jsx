@@ -18,7 +18,7 @@ function CarListSkeleton() {
 }
 
 function LegendSkeleton() {
-	const scs = config.segmentClasses;
+	const scs = Object.entries(config.segmentClasses);
 
 	return (
 		<div className="legend-items skeleton">

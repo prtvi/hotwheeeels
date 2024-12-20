@@ -8,42 +8,48 @@
 	"resultsPerPageVertical": 9,
 	"logRequests": true,
 	"fuseSearchParams": ["carName", "series"],
-	"segmentClassColorRef": {
-		"mainline": "#fffafa",
-		"themed": "#03c988",
-		"premium": "#ffea20",
-		"special": "#9bec00",
-		"th": "#ff8225",
-		"chase": "#fa4032",
-		"sth:": "#f6fb7a",
-		"rlc": "#ee202a"
-	},
-	"segmentClasses": [
-		{
+	"segmentClasses": {
+		"mainline": {
 			"label": "Mainline",
-			"className": "mainline"
+			"color": "#fffafa",
+			"avlbl": true
 		},
-		{
+		"themed": {
 			"label": "Themed",
-			"className": "themed"
+			"color": "#03c988",
+			"avlbl": true
 		},
-		{
+		"special": {
 			"label": "Special feature",
-			"className": "special"
+			"color": "#9bec00",
+			"avlbl": true
 		},
-		{
+		"premium": {
 			"label": "Premium",
-			"className": "premium"
+			"color": "#ffea20",
+			"avlbl": true
 		},
-		{
+		"th": {
 			"label": "Treasure hunt",
-			"className": "th"
+			"color": "#ff8225",
+			"avlbl": true
 		},
-		{
+		"chase": {
 			"label": "Chase",
-			"className": "chase"
+			"color": "#fa4032",
+			"avlbl": true
+		},
+		"sth": {
+			"label": "Super treasure hunt",
+			"color": "#f6fb7a",
+			"avlbl": false
+		},
+		"rlc": {
+			"label": "RLC",
+			"color": "#ee202a",
+			"avlbl": false
 		}
-	],
+	},
 	"formItems": [
 		{
 			"key": "carName",
@@ -119,16 +125,7 @@
 			"key": "segmentClass",
 			"label": "Vehicle segment class",
 			"inputType": "multioption",
-			"list": [
-				"mainline",
-				"themed",
-				"special",
-				"premium",
-				"th",
-				"chase",
-				"sth",
-				"rlc"
-			],
+			"list": ["using segmentClasses from above"],
 			"required": true,
 			"forFormOnly": true,
 			"maxLength": 32,

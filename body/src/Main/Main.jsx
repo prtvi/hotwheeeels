@@ -186,6 +186,7 @@ export default function Main(props) {
 
 				setModalTitle(car.carName);
 				setModalOpen(true);
+				break;
 			}
 		}
 	}
