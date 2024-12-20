@@ -1,6 +1,7 @@
 import React from 'react';
 import SVG from '../Utils/SVG.jsx';
 import config from '../config.json';
+import { getResultsPerPage } from '../functions.js';
 import './Main.css';
 
 export default function Legend(props) {
@@ -9,6 +10,10 @@ export default function Legend(props) {
 
 	const [isLegendOpen, setLegendOpen] = React.useState(false);
 	const [segmentClass, setSegmentClass] = React.useState('');
+
+	let orientation = 'vertical';
+	if (getResultsPerPage() === config.resultsPerPage)
+		orientation = 'horizontal';
 
 	const handleFilter = function (e) {
 		const ct = e.currentTarget;
@@ -30,37 +35,49 @@ export default function Legend(props) {
 
 	const toggleLegend = () => setLegendOpen(curr => !curr);
 
-	return (
-		<>
-			<div className="legend-opener" onClick={toggleLegend}>
-				{isLegendOpen ? <SVG name="cancel" /> : <SVG name="filter" />}
-				<div className={`badge ${segmentClass ? 'active' : ''}`}></div>
-			</div>
-
-			{isLegendOpen ? (
-				<div className="legend-items">
-					{scs.map((sc, i) => (
-						<div
-							key={i}
-							title={sc[0]}
-							className={`legend-item ${
-								sc[0] === segmentClass ? 'active' : ''
-							}`}
-							onClick={handleFilter}
-						>
-							<div
-								className="color"
-								style={{
-									backgroundColor: sc[1].color,
-								}}
-							></div>
-							<div className="value pf-200">{sc[1].label}</div>
-						</div>
-					))}
+	const getLegendItemsDom = () => (
+		<div className="legend-items">
+			{scs.map((sc, i) => (
+				<div
+					key={i}
+					title={sc[0]}
+					className={`legend-item ${
+						sc[0] === segmentClass ? 'active' : ''
+					}`}
+					onClick={handleFilter}
+				>
+					<div
+						className="color"
+						style={{
+							backgroundColor: sc[1].color,
+						}}
+					></div>
+					<div className="value pf-200">{sc[1].label}</div>
 				</div>
-			) : (
-				<></>
-			)}
-		</>
+			))}
+		</div>
 	);
+
+	const getDom = () =>
+		orientation === 'vertical' ? (
+			<>
+				<div className="legend-opener" onClick={toggleLegend}>
+					{isLegendOpen ? (
+						<SVG name="cancel" />
+					) : (
+						<SVG name="filter" />
+					)}
+
+					<div
+						className={`badge ${segmentClass ? 'active' : ''}`}
+					></div>
+				</div>
+
+				{isLegendOpen ? getLegendItemsDom() : <></>}
+			</>
+		) : (
+			getLegendItemsDom()
+		);
+
+	return getDom();
 }

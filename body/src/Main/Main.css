@@ -159,6 +159,7 @@ h1 > a {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	user-select: none;
 }
 .legend-opener .badge.active {
 	position: absolute;
@@ -192,14 +193,14 @@ h1 > a {
 	border-radius: 3px;
 	margin: 5px 10px;
 }
+.legend-item.active {
+	border: 1px solid var(--bg);
+}
 .legend-item:first-child {
 	margin-top: 10px;
 }
 .legend-item:last-child {
 	margin-bottom: 10px;
-}
-.legend-item.active {
-	border: 1px solid var(--bg);
 }
 
 .legend-item .color {
@@ -219,6 +220,39 @@ h1 > a {
 	stroke: #000;
 	stroke-linecap: square;
 	stroke-miterlimit: 10;
+}
+
+@media screen and (min-width: 580px) {
+	.legend-items {
+		position: relative;
+		bottom: 0;
+		right: 0;
+		flex-direction: row;
+		flex-wrap: wrap;
+		align-items: center;
+		width: 80%;
+		max-width: 600px;
+		margin: 15px auto;
+		background: none;
+		color: var(--color);
+	}
+	.legend-item {
+		padding: 2px 3px;
+		border: 1px solid var(--bg);
+	}
+	.legend-item.active {
+		border: 1px solid var(--color);
+	}
+	.legend-item:first-child {
+		margin-top: 5px;
+	}
+	.legend-item:last-child {
+		margin-bottom: 5px;
+	}
+
+	.legend-item .value {
+		color: var(--color);
+	}
 }
 
 /* Pagination */
