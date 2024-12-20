@@ -1,4 +1,5 @@
 import React from 'react';
+import SVG from '../Utils/SVG.jsx';
 import config from '../config.json';
 import './Main.css';
 
@@ -6,55 +7,60 @@ export default function Legend(props) {
 	const { filter } = props;
 	const scs = Object.entries(config.segmentClasses).filter(i => i[1].avlbl);
 
+	const [isLegendOpen, setLegendOpen] = React.useState(false);
+	const [segmentClass, setSegmentClass] = React.useState('');
+
 	const handleFilter = function (e) {
 		const ct = e.currentTarget;
-		const clearFilterBtn = document.querySelector('.clear-filter');
-
-		// clear filter on legend item selection
-		if (ct.classList.contains('active')) return clearFilter();
 
 		// filter based on selection
+		let selectedSegmentClass = ct.getAttribute('title');
+		if (ct.classList.contains('active')) selectedSegmentClass = '';
+
 		// rm active from all legend-items
 		const legendItems = document.querySelectorAll('.legend-item');
 		Array.from(legendItems).forEach(l => l.classList.remove('active'));
 
-		// add active to clear btn and selected legend item
-		clearFilterBtn.classList.add('active');
+		filter(selectedSegmentClass);
+		setSegmentClass(selectedSegmentClass);
+
+		// add active selected legend item
 		ct.classList.add('active');
-
-		// filter
-		const segmentClass = ct.getAttribute('title');
-		filter(segmentClass);
 	};
 
-	const clearFilter = function () {
-		const legendItems = document.querySelectorAll('.legend-item');
-		Array.from(legendItems).forEach(l => l.classList.remove('active'));
-		filter('');
-	};
+	const toggleLegend = () => setLegendOpen(curr => !curr);
 
 	return (
-		<div className="legend-items">
-			<div className="legend-item clear-filter" onClick={clearFilter}>
-				<span>&#9587;</span>
+		<>
+			<div className="legend-opener" onClick={toggleLegend}>
+				{isLegendOpen ? <SVG name="cancel" /> : <SVG name="filter" />}
+				<div className={`badge ${segmentClass ? 'active' : ''}`}></div>
 			</div>
 
-			{scs.map((sc, i) => (
-				<div
-					className="legend-item"
-					key={i}
-					title={sc[0]}
-					onClick={handleFilter}
-				>
-					<div
-						className="color"
-						style={{
-							backgroundColor: sc[1].color,
-						}}
-					></div>
-					<div className="value pf-200">{sc[1].label}</div>
+			{isLegendOpen ? (
+				<div className="legend-items">
+					{scs.map((sc, i) => (
+						<div
+							key={i}
+							title={sc[0]}
+							className={`legend-item ${
+								sc[0] === segmentClass ? 'active' : ''
+							}`}
+							onClick={handleFilter}
+						>
+							<div
+								className="color"
+								style={{
+									backgroundColor: sc[1].color,
+								}}
+							></div>
+							<div className="value pf-200">{sc[1].label}</div>
+						</div>
+					))}
 				</div>
-			))}
-		</div>
+			) : (
+				<></>
+			)}
+		</>
 	);
 }

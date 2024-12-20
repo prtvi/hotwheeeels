@@ -11,7 +11,7 @@
 	"segmentClasses": {
 		"mainline": {
 			"label": "Mainline",
-			"color": "#fffafa",
+			"color": "#3498db",
 			"avlbl": true
 		},
 		"themed": {

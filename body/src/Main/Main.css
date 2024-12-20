@@ -145,26 +145,61 @@ h1 > a {
 }
 
 /* Legend */
-.legend-items {
+
+.legend-opener {
+	position: fixed;
+	bottom: 10px;
+	right: 10px;
+	width: 50px;
+	height: 50px;
+	background: #e6edf3;
+	border-radius: 400px;
+	z-index: 1;
+	cursor: pointer;
 	display: flex;
-	justify-content: space-around;
 	align-items: center;
-	flex-wrap: wrap;
-	width: 80%;
-	max-width: 600px;
-	margin: 15px auto;
+	justify-content: center;
+}
+.legend-opener .badge.active {
+	position: absolute;
+	top: 0;
+	right: 0;
+	height: 10px;
+	width: 10px;
+	border-radius: 50px;
+	background-color: var(--accent-color);
+}
+
+.legend-items {
+	position: fixed;
+	bottom: 65px;
+	right: 10px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: right;
+	background: #e6edf3;
+	z-index: 1;
+	border-radius: 5px;
 }
 .legend-item {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: 2px 3px;
+	padding: 3px;
 	cursor: pointer;
-	border: 1px solid var(--bg);
+	border: 1px solid #a9a9a9;
 	border-radius: 3px;
+	margin: 5px 10px;
+}
+.legend-item:first-child {
+	margin-top: 10px;
+}
+.legend-item:last-child {
+	margin-bottom: 10px;
 }
 .legend-item.active {
-	border: 1px solid var(--color);
+	border: 1px solid var(--bg);
 }
 
 .legend-item .color {
@@ -173,23 +208,17 @@ h1 > a {
 	border-radius: 100px;
 }
 .legend-item .value {
-	margin-left: 4px;
+	margin-left: 8px;
 	font-size: var(--card-text-fs);
 	user-select: none;
+	color: #000;
 }
 
-.legend-item.clear-filter {
-	display: none;
-	color: var(--color);
-	font-size: var(--card-text-fs);
-	line-height: var(--card-text-fs);
-	padding: 4px;
-
-	transition: all 0.25s;
-	transition-behavior: allow-discrete;
-}
-.legend-item.clear-filter.active {
-	display: flex;
+.cls-2 {
+	fill: none;
+	stroke: #000;
+	stroke-linecap: square;
+	stroke-miterlimit: 10;
 }
 
 /* Pagination */
