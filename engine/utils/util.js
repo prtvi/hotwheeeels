@@ -2,6 +2,7 @@ const axios = require('axios');
 const sharp = require('sharp');
 const cloudinary = require('cloudinary').v2;
 const convert = require('heic-convert');
+const { fileTypeFromBuffer } = require('file-type');
 const config = require('config');
 const { Readable } = require('stream');
 const { initDb } = require('./db.js');
@@ -110,12 +111,17 @@ async function deletePicturesForCarId(carId) {
 }
 
 async function convertCompressAndReturnImageBuffer(buffer) {
-	const outputBuffer = await convert({
-		buffer: buffer,
-		format: 'PNG',
-	});
+	let inputBuffer = buffer;
+	const fileType = await fileTypeFromBuffer(buffer);
 
-	const sharpInstance = sharp(outputBuffer);
+	if (fileType && (fileType.ext === 'heic' || fileType.ext === 'heif')) {
+		inputBuffer = await convert({
+			buffer: buffer,
+			format: 'PNG',
+		});
+	}
+
+	const sharpInstance = sharp(inputBuffer);
 
 	const metadata = await sharpInstance.metadata();
 	if (metadata.width > 1000) {
