@@ -94,7 +94,7 @@ async function deletePicturesForCarId(carId) {
 	if (nImages === 0) return 'nothing to delete for carId: ' + carId;
 
 	const msgs = [];
-	const folder = config.get('ENV');
+	const folder = getCloudinaryFolder();
 
 	for (let i = 0; i < nImages; i++) {
 		const img = `${folder}/img_${carId}_${i}`;
@@ -133,6 +133,20 @@ function bufferToStream(buffer) {
 	return readable;
 }
 
+function getEnv() {
+	return config.get('ENV');
+}
+
+function getEngineURL() {
+	return getEnv() === 'prod'
+		? config.get('engineURL')
+		: config.get('engineURLDev');
+}
+
+function getCloudinaryFolder() {
+	return `hotwheeeels/${getEnv()}`;
+}
+
 exports.u = {
 	initApp,
 	deletePicturesForCarId,
@@ -141,4 +155,6 @@ exports.u = {
 	convertCompressAndReturnImageBuffer,
 	bufferToStream,
 	makeRequest,
+	getEngineURL,
+	getCloudinaryFolder,
 };

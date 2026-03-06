@@ -168,11 +168,7 @@ async function uploadImage(req, res) {
 		const fd = new FormData();
 		fd.append('img', new Blob([file.buffer]), file.originalname);
 
-		const baseUrl =
-			config.get('ENV') === 'prod'
-				? config.get('engineURL')
-				: config.get('engineURLDev');
-
+		const baseUrl = u.getEngineURL();
 		const url = baseUrl + '/api/auth/get_img_url';
 
 		const response = await u.makeRequest(url, fd, {
@@ -187,7 +183,7 @@ async function uploadImage(req, res) {
 		const updateRes = await Car.findOneAndUpdate(
 			{ carId: carId },
 			{ imgs: images },
-			{ new: true }
+			{ new: true },
 		);
 
 		if (updateRes.imgs.length > 0) {
@@ -220,7 +216,7 @@ async function getImageUrl(req, res) {
 	const buffer = await u.convertCompressAndReturnImageBuffer(file.buffer);
 	const stream = cloudinary.uploader.upload_stream(
 		{
-			folder: config.get('ENV'),
+			folder: u.getCloudinaryFolder(),
 			public_id: fileNameWoExt,
 			use_filename: true,
 			overwrite: true,
@@ -230,7 +226,7 @@ async function getImageUrl(req, res) {
 
 			console.log(result.secure_url);
 			return res.send(result.secure_url);
-		}
+		},
 	);
 
 	u.bufferToStream(buffer).pipe(stream);
@@ -260,7 +256,7 @@ async function updateCar(req, res) {
 	const updateRes = await Car.findOneAndUpdate(
 		{ carId: carId },
 		u.newCarObj(rBody, carId),
-		{ new: true }
+		{ new: true },
 	);
 
 	if (updateRes.carId) {
