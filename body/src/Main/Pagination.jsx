@@ -22,7 +22,7 @@ export default function Pagination(props) {
 	const end = Math.min(resultsPerPage * currPage, length);
 
 	return (
-		<div className="pagination">
+		<div className="pagination garage-pagination">
 			<span
 				className={`arrow-left ${currPage <= 1 ? 'disabled' : ''}`}
 				onClick={left}

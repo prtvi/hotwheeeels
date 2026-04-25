@@ -1,0 +1,30 @@
+.stats-page {
+	width: 100%;
+	max-width: var(--ds-layout-content-max);
+	margin: 0 auto;
+	padding: var(--ds-space-5) 0 var(--ds-space-10);
+	box-sizing: border-box;
+}
+
+.stats-page__eyebrow {
+	font-family: var(--ds-font-mono);
+	font-size: 9px;
+	letter-spacing: 0.4em;
+	color: var(--ds-palette-orange);
+	margin-bottom: var(--ds-space-2);
+}
+
+.stats-page__title {
+	font-family: var(--ds-font-display);
+	font-size: clamp(1.75rem, 5vw, 3rem);
+	letter-spacing: 0.05em;
+	color: var(--ds-color-text-primary);
+	margin: 0 0 var(--ds-space-4);
+}
+
+.stats-page__placeholder {
+	font-family: var(--ds-font-mono);
+	font-size: var(--ds-type-body-sm);
+	color: var(--ds-palette-dim);
+	letter-spacing: 0.1em;
+}

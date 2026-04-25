@@ -30,3 +30,4 @@ assets/
 *.txt
 .env
 out/
+build/

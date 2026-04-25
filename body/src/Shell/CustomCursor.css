@@ -1,0 +1,69 @@
+/* Ported from nfs-garage.html: skew bar + mix-blend; diamond ring lags (transition on top/left). */
+
+html.ds-custom-cursor,
+html.ds-custom-cursor * {
+	cursor: none !important;
+}
+
+html.ds-custom-cursor input[type='text'],
+html.ds-custom-cursor input[type='search'],
+html.ds-custom-cursor input[type='email'],
+html.ds-custom-cursor input[type='number'],
+html.ds-custom-cursor input[type='password'],
+html.ds-custom-cursor input[type='url'],
+html.ds-custom-cursor input[type='tel'],
+html.ds-custom-cursor input[type='date'],
+html.ds-custom-cursor input[type='time'],
+html.ds-custom-cursor input:not([type]) {
+	cursor: text !important;
+}
+html.ds-custom-cursor textarea,
+html.ds-custom-cursor [contenteditable='true'] {
+	cursor: text !important;
+}
+html.ds-custom-cursor :disabled,
+html.ds-custom-cursor [disabled],
+html.ds-custom-cursor [aria-disabled='true'] {
+	cursor: not-allowed !important;
+}
+
+.ds-cursor {
+	position: fixed;
+	width: 6px;
+	height: 20px;
+	background: var(--ds-color-accent);
+	pointer-events: none;
+	z-index: var(--ds-z-cursor, 9000);
+	transform: translate(-50%, -50%) skewX(-15deg);
+	transition: width 0.15s, height 0.15s, background 0.2s;
+	mix-blend-mode: difference;
+}
+
+.ds-cursor-ring {
+	position: fixed;
+	width: 28px;
+	height: 28px;
+	border: 1px solid color-mix(in srgb, var(--ds-color-accent) 50%, transparent);
+	pointer-events: none;
+	z-index: calc(var(--ds-z-cursor, 9000) - 1);
+	transform: translate(-50%, -50%) rotate(45deg);
+	transition: left 0.08s, top 0.08s, width 0.2s, height 0.2s, border-color 0.2s;
+}
+
+/* nfs: body:has(.card:hover) — we use .garage-card and primary hero CTAs */
+html.ds-custom-cursor:has(.garage-card:hover) .ds-cursor,
+html.ds-custom-cursor:has(.home-hero a:hover) .ds-cursor,
+html.ds-custom-cursor:has(.home-hero button:hover) .ds-cursor,
+html.ds-custom-cursor:has(.app-shell__link:hover) .ds-cursor {
+	width: 4px;
+	height: 32px;
+	background: var(--ds-color-accent-secondary);
+}
+html.ds-custom-cursor:has(.garage-card:hover) .ds-cursor-ring,
+html.ds-custom-cursor:has(.home-hero a:hover) .ds-cursor-ring,
+html.ds-custom-cursor:has(.home-hero button:hover) .ds-cursor-ring,
+html.ds-custom-cursor:has(.app-shell__link:hover) .ds-cursor-ring {
+	width: 50px;
+	height: 50px;
+	border-color: var(--ds-color-accent-secondary);
+}

@@ -1,5 +1,5 @@
-import './Main.css';
 import AddCarForm from '../Forms/AddCarForm.jsx';
+import './Main.css';
 
 export default function Toolbar(props) {
 	const {
@@ -15,7 +15,7 @@ export default function Toolbar(props) {
 		setSortParams,
 	} = props;
 
-	const nCarsText = nCars === 1 ? `${nCars} car` : `${nCars} cars`;
+	const nCarsText = nCars === 1 ? `car` : `cars`;
 
 	const onSearchHandler = function (e) {
 		const ele = document.querySelector('.input-cross');
@@ -40,11 +40,8 @@ export default function Toolbar(props) {
 	};
 
 	function toggleOptions(e) {
-		document.querySelector('.trow2').classList.toggle('hidden');
+		document.querySelector('.trow2')?.classList.toggle('hidden');
 		e.currentTarget.classList.toggle('active');
-
-		if (!visitorMode)
-			document.querySelector('.trow.pseudo').classList.toggle('hidden');
 	}
 
 	function toggleSortBtn(sortOrder) {
@@ -70,76 +67,70 @@ export default function Toolbar(props) {
 	}
 
 	return (
-		<div className="toolbar">
-			<div className="trow trow1">
-				<div className="trow-child input-child">
-					<input
-						className="pf-300"
-						type="text"
-						name="search"
-						value={searchInput}
-						placeholder="🔍  Search"
-						onChange={onSearchHandler}
-					/>
-					<span
-						className="pf-300 input-cross hidden"
-						onClick={clearInput}
-					>
-						&#10006;
-					</span>
+		<div className="garage-toolbar">
+			<div className="garage-topbar">
+				<div className="garage-topbar-left">
+					<div className="page-label">{'// GARAGE'}</div>
+					<h2 className="garage-title">COLLECTION</h2>
+					<p className="garage-sub">
+						Showing <b>{nCars}</b> {nCarsText}
+					</p>
 				</div>
-
-				{visitorMode ? (
-					<>
-						<div className="trow-child">
-							<span className="pf-200">{nCarsText}</span>
-						</div>
-						<div
-							className="trow-child toggle-options"
-							onClick={toggleOptions}
+				<div className="garage-topbar-right">
+					<div className="search-box">
+						<span className="search-icon" aria-hidden="true">
+							⌕
+						</span>
+						<input
+							className="garage-search-input pf-300"
+							type="text"
+							name="search"
+							value={searchInput}
+							placeholder="SEARCH COLLECTION..."
+							onChange={onSearchHandler}
+						/>
+						<span
+							className="pf-300 input-cross hidden"
+							onClick={clearInput}
+							role="button"
+							tabIndex={0}
+							onKeyDown={e => {
+								if (e.key === 'Enter' || e.key === ' ') clearInput();
+							}}
 						>
-							<span>&#10094;</span>
-						</div>
-					</>
-				) : (
-					<>
-						<div className="trow-child">
+							&#10006;
+						</span>
+					</div>
+					<div className="garage-topbar-actions">
+						{!visitorMode ? (
 							<button
-								className="btn pf-300"
+								type="button"
+								className="ds-btn ds-btn--sm garage-add-btn"
 								onClick={setModalContentForForm}
 							>
 								+ 🚘
 							</button>
-						</div>
-						<div
-							className="trow-child toggle-options"
+						) : null}
+						<button
+							type="button"
+							className="garage-chevron toggle-options"
 							onClick={toggleOptions}
+							aria-label="Show sort and filter options"
 						>
-							<span>&#10094;</span>
-						</div>
-					</>
-				)}
-			</div>
-
-			{/* show pseudo trow in auth mode, hide this when options are toggled and show ncars text in trow2 */}
-			{visitorMode ? (
-				<></>
-			) : (
-				<div className="trow pseudo">
-					<div className="trow-child">
-						<span className="pf-200">{nCarsText}</span>
+							<span className="pf-300" aria-hidden="true">
+								&#10094;
+							</span>
+						</button>
 					</div>
 				</div>
-			)}
+			</div>
 
-			<div className="trow trow2 hidden">
-				{visitorMode ? (
-					<></>
-				) : (
+			<div className="trow trow2 hidden garage-sort-row">
+				{!visitorMode ? (
 					<div className="trow-child keep-left">
 						<span className="pf-200">{nCarsText}</span>
 					</div>
-				)}
+				) : null}
 
 				<div className="trow-child">
 					<label htmlFor="sortBy" className="pf-200 sort-by-label">
@@ -158,7 +149,11 @@ export default function Toolbar(props) {
 					</select>
 				</div>
 
-				<div className="trow-child sort-order" onClick={handleSort}>
+				<div
+					className="trow-child sort-order"
+					onClick={handleSort}
+					role="presentation"
+				>
 					<span className="pf-300" data-sort="asc">
 						&#11015;
 					</span>

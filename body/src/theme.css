@@ -1,0 +1,4 @@
+/* App design system — import order: tokens → typography → components */
+@import url('./theme/tokens.css');
+@import url('./theme/typography.css');
+@import url('./theme/components.css');

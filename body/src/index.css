@@ -1,3 +1,7 @@
+/*
+ * App shell: reset, legacy :root, and Poppins utility classes.
+ * New work: use `theme.css` — CSS variables --ds-* and .ds-* classes.
+ */
 * {
 	margin: 0;
 	padding: 0;
@@ -7,9 +11,20 @@
 	display: none;
 }
 
+html,
+body,
+#root {
+	min-height: 100%;
+}
 body {
-	background-color: var(--bg);
-	color: var(--color);
+	background-color: var(--ds-color-bg, var(--bg));
+	color: var(--ds-color-text-primary, var(--color));
+}
+
+:disabled,
+[disabled],
+[aria-disabled='true'] {
+	cursor: not-allowed;
 }
 
 input {

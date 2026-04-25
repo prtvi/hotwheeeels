@@ -1,0 +1,340 @@
+/* Design system — shared interactive & surface components (namespace: .ds-*) */
+
+/* ── Button ── */
+.ds-btn {
+	--_ds-btn-bg: transparent;
+	--_ds-btn-fg: var(--ds-color-text-primary);
+	--_ds-btn-border: var(--ds-hairline) solid var(--ds-color-border);
+	--_ds-btn-clip: var(--ds-clip-chamfer-lg);
+	--_ds-btn-pad-y: 0.875rem;
+	--_ds-btn-pad-x: var(--ds-space-8);
+	--_ds-btn-fs: 11px;
+
+	font-family: var(--ds-font-mono);
+	font-size: var(--_ds-btn-fs);
+	letter-spacing: 0.25em;
+	text-transform: uppercase;
+	color: var(--_ds-btn-fg);
+	background: var(--_ds-btn-bg);
+	border: var(--_ds-btn-border);
+	padding: var(--_ds-btn-pad-y) var(--_ds-btn-pad-x);
+	clip-path: var(--_ds-btn-clip);
+	cursor: pointer;
+	position: relative;
+	overflow: hidden;
+	transition:
+		color var(--ds-duration),
+		background var(--ds-duration),
+		border-color var(--ds-duration),
+		box-shadow var(--ds-duration);
+}
+
+.ds-btn:disabled,
+.ds-btn[aria-disabled='true'] {
+	opacity: 0.5;
+	pointer-events: none;
+}
+
+.ds-btn:focus-visible {
+	outline: none;
+	box-shadow: var(--ds-shadow-focus);
+}
+
+.ds-btn--sm {
+	--_ds-btn-pad-y: var(--ds-space-1-5);
+	--_ds-btn-pad-x: var(--ds-space-3);
+	--_ds-btn-fs: 10px;
+	--_ds-btn-clip: var(--ds-clip-chamfer-sm);
+}
+
+.ds-btn--md {
+	/* default */
+}
+
+.ds-btn--lg {
+	--_ds-btn-pad-y: var(--ds-space-3-5);
+	--_ds-btn-pad-x: 2rem;
+	--_ds-btn-fs: 12px;
+}
+
+/* Primary: solid orange; label stacks above sheen (::before) */
+.ds-btn--primary {
+	--_ds-btn-fg: var(--ds-color-on-accent);
+	--_ds-btn-bg: var(--ds-palette-orange);
+	--_ds-btn-border: none;
+	clip-path: var(--ds-clip-chamfer-xl);
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--ds-space-1);
+}
+
+.ds-btn--primary::before {
+	content: '';
+	position: absolute;
+	z-index: 0;
+	inset: 0;
+	background: var(--ds-palette-orange-bright);
+	transform: translateX(-100%);
+	transition: transform 0.3s var(--ds-ease-out);
+}
+
+.ds-btn--primary:hover::before {
+	transform: translateX(0);
+}
+.ds-btn--primary:hover {
+	box-shadow: var(--ds-shadow-glow-orange);
+}
+.ds-btn--primary:hover,
+.ds-btn--primary:focus-visible {
+	--_ds-btn-bg: var(--ds-palette-orange);
+}
+
+/* Secondary: outline cyan */
+.ds-btn--secondary {
+	--_ds-btn-fg: var(--ds-palette-cyan);
+	--_ds-btn-border: var(--ds-hairline) solid var(--ds-palette-cyan);
+	clip-path: var(--ds-clip-chamfer-xl);
+}
+.ds-btn--secondary::before {
+	display: none;
+}
+.ds-btn--secondary:hover {
+	background: var(--ds-color-cyan-muted);
+	box-shadow: var(--ds-shadow-glow-cyan);
+}
+
+/* Ghost / nav: minimal, dim → accent */
+.ds-btn--ghost {
+	--_ds-btn-fg: var(--ds-color-text-muted);
+	--_ds-btn-border: none;
+	--_ds-btn-clip: var(--ds-clip-chamfer-md);
+	padding: var(--ds-space-2) var(--ds-space-4);
+}
+.ds-btn--ghost::before {
+	display: none;
+}
+.ds-btn--ghost:hover,
+.ds-btn--ghost[aria-pressed='true'] {
+	color: var(--ds-color-accent);
+	background: var(--ds-color-accent-muted);
+}
+
+.ds-btn--ghost[aria-pressed='true']::after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: var(--ds-chamfer-md);
+	right: var(--ds-chamfer-md);
+	height: 2px;
+	background: var(--ds-color-accent);
+	box-shadow: var(--ds-shadow-glow-orange);
+}
+
+/* Danger: outline */
+.ds-btn--danger {
+	--_ds-btn-fg: var(--ds-color-danger);
+	--_ds-btn-border: var(--ds-hairline) solid var(--ds-color-danger);
+}
+.ds-btn--danger::before {
+	display: none;
+}
+.ds-btn--danger:hover {
+	background: rgba(255, 23, 68, 0.08);
+}
+
+/* ── Input (text) ── */
+.ds-input {
+	--_ds-in-pad: var(--ds-space-2-5) var(--ds-space-3) var(--ds-space-2-5)
+		var(--ds-space-2);
+
+	font-family: var(--ds-font-mono);
+	font-size: var(--ds-type-body);
+	letter-spacing: 0.05em;
+	color: var(--ds-color-text-primary);
+	background: var(--ds-palette-surface-2);
+	border: var(--ds-hairline) solid var(--ds-color-border);
+	padding: var(--_ds-in-pad);
+	outline: none;
+	width: 100%;
+	max-width: 100%;
+	box-sizing: border-box;
+	clip-path: var(--ds-clip-chamfer-md);
+	min-height: 2.5rem;
+	transition: border-color var(--ds-duration);
+}
+.ds-input::placeholder {
+	color: var(--ds-color-text-muted);
+}
+.ds-input:hover {
+	border-color: var(--ds-palette-dim);
+}
+.ds-input:focus-visible {
+	border-color: var(--ds-color-accent);
+	box-shadow: none;
+}
+
+/* Size variants */
+.ds-input--sm {
+	font-size: var(--ds-type-caption);
+	min-height: 2.125rem;
+	--_ds-in-pad: var(--ds-space-2) var(--ds-space-2-5);
+	clip-path: var(--ds-clip-chamfer-sm);
+}
+.ds-input--nav {
+	/* larger horizontal padding for icon+input composition — icon added by parent */
+	--_ds-in-pad: var(--ds-space-2-5) var(--ds-space-3) var(--ds-space-2-5) 2.25rem;
+	max-width: 16rem;
+}
+
+/* Native select aligned to DS (optional) */
+.ds-input--select {
+	appearance: none;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%235a5a7a'%3E%3Cpath d='M2 4l4 4 4-4'/%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: right 10px center;
+	padding-right: var(--ds-space-6);
+}
+
+/* Textarea: rounded slightly for readability, not full chamfer cut */
+.ds-textarea {
+	font-family: var(--ds-font-condensed);
+	font-size: var(--ds-type-body);
+	color: var(--ds-color-text-primary);
+	background: var(--ds-palette-surface-2);
+	border: var(--ds-hairline) solid var(--ds-color-border);
+	border-radius: var(--ds-radius-4);
+	padding: var(--ds-space-3);
+	outline: none;
+	min-height: 6rem;
+	resize: vertical;
+	transition: border-color var(--ds-duration);
+}
+.ds-textarea:hover {
+	border-color: var(--ds-palette-dim);
+}
+.ds-textarea:focus-visible {
+	border-color: var(--ds-color-accent);
+	box-shadow: var(--ds-shadow-focus);
+}
+
+/* Toggle / chip (chamfered) */
+.ds-chip {
+	font-family: var(--ds-font-mono);
+	font-size: var(--ds-type-micro-2);
+	letter-spacing: 0.2em;
+	text-transform: uppercase;
+	color: var(--ds-color-text-muted);
+	background: var(--ds-palette-surface-1);
+	border: var(--ds-hairline) solid var(--ds-color-border);
+	padding: var(--ds-space-1-5) var(--ds-space-4);
+	clip-path: var(--ds-clip-chamfer-sm);
+	cursor: pointer;
+	transition: all var(--ds-duration);
+	white-space: nowrap;
+}
+.ds-chip:hover,
+.ds-chip[aria-pressed='true'] {
+	color: var(--ds-color-accent);
+	border-color: var(--ds-color-accent-ring);
+	background: var(--ds-color-accent-muted);
+}
+.ds-chip[aria-pressed='true'] {
+	box-shadow: var(--ds-shadow-inset-gutter);
+}
+
+/* ── Card (surface) ── */
+.ds-card {
+	background: var(--ds-palette-surface-card);
+	border: var(--ds-hairline) solid var(--ds-color-border);
+	color: var(--ds-color-text-primary);
+	box-sizing: border-box;
+	overflow: hidden;
+	/* no border-radius: reference uses hard edges; optional use --ds-radius-4 in variants */
+}
+
+.ds-card--tight {
+	padding: 0;
+}
+
+.ds-card--padded {
+	padding: var(--ds-space-3) var(--ds-space-3-5);
+}
+
+.ds-card--padded-lg {
+	padding: var(--ds-space-6) var(--ds-space-7);
+}
+
+.ds-card--interactive {
+	cursor: pointer;
+	transition:
+		border-color 0.25s var(--ds-ease-in-out),
+		transform 0.3s var(--ds-ease-in-out);
+}
+.ds-card--interactive:hover {
+	border-color: var(--ds-color-accent);
+	transform: translateY(calc(-1 * var(--ds-space-0-5)));
+}
+
+/* Hairline “gutter” grid: wrap cards in a container with these two classes if needed */
+.ds-gutter-wrap {
+	--_g: 3px;
+	background: var(--ds-color-border);
+	gap: var(--_g);
+	padding: var(--_g);
+	display: grid;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+/* Top accent (type/rarity) — height token only, color set per instance */
+.ds-card__accent {
+	height: var(--ds-bar-accent);
+	width: 100%;
+}
+.ds-card__img {
+	aspect-ratio: 16 / 10;
+	overflow: hidden;
+	background: var(--ds-palette-void);
+}
+.ds-card__img img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}
+.ds-card__body {
+	padding: var(--ds-space-3) var(--ds-space-3-5) var(--ds-space-3-5);
+	background: linear-gradient(
+		to bottom,
+		var(--ds-palette-surface-card),
+		var(--ds-palette-surface-1)
+	);
+	border-top: var(--ds-hairline) solid var(--ds-color-border);
+}
+.ds-card__title {
+	font-family: var(--ds-font-display);
+	font-size: 1.125rem;
+	letter-spacing: 0.04em;
+	line-height: var(--ds-leading-snug);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.ds-card__meta {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--ds-space-2);
+	margin-top: var(--ds-space-1-5);
+}
+.ds-card__meta-text {
+	font-family: var(--ds-font-mono);
+	font-size: var(--ds-type-micro-2);
+	letter-spacing: 0.08em;
+	color: var(--ds-color-text-muted);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	flex: 1;
+}

@@ -159,11 +159,50 @@
 
 /* Carousel.jsx */
 
+.carousel {
+	width: var(--modal-child-width);
+	display: flex;
+	flex-direction: column;
+	min-height: 0;
+	align-items: stretch;
+}
+.carousel-filmstrip {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px;
+	flex: 0 0 auto;
+	padding: 0;
+	box-sizing: border-box;
+}
+.filmstrip__edge {
+	flex: 0 0 auto;
+	display: flex;
+	align-items: center;
+}
+.carousel-filmstrip .dot-container {
+	flex: 1 1 auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 0;
+}
+.carousel-filmstrip .carousel-arrow {
+	position: static;
+	top: auto;
+	left: auto;
+	right: auto;
+	transform: none;
+	width: 36px;
+}
+
 .slideshow-container {
 	width: var(--modal-child-width);
 	height: var(--carousel-height);
 	position: relative;
-	margin: auto;
+	margin: 0;
+	flex: 1 1 auto;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
@@ -222,14 +261,26 @@
 	align-items: center;
 }
 
-.dot {
-	height: 6px;
-	width: 6px;
+.dot,
+button.dot {
 	margin: 0 2px;
 	background-color: #c2c2c2;
 	border-radius: 50%;
+	border: 0;
+	appearance: none;
+	box-sizing: content-box;
+	height: 6px;
+	width: 6px;
 	display: inline-block;
 	transition: background-color 0.6s ease;
+}
+button.dot {
+	padding: 0;
+	display: block;
+	min-width: 0;
+	min-height: 0;
+	cursor: pointer;
+	flex-shrink: 0;
 }
 .dot.active {
 	background-color: var(--accent-color);
@@ -275,6 +326,7 @@
 		height: var(--modal-child-height);
 	}
 
+	.car-showcase .carousel,
 	.car-showcase .details,
 	.slideshow-container,
 	.slides,

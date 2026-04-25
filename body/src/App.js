@@ -1,8 +1,11 @@
 import React from 'react';
 
-import Header from './Main/Header.jsx';
+import AppShell from './Shell/AppShell.jsx';
+import CustomCursor from './Shell/CustomCursor.jsx';
+import HomeHero from './Home/HomeHero.jsx';
 import Main from './Main/Main.jsx';
 import Login from './Forms/Login.jsx';
+import StatsPage from './Stats/StatsPage.jsx';
 
 import {
 	makeRequest,
@@ -11,12 +14,24 @@ import {
 	logUrl,
 } from './functions.js';
 
+function getAppViewFromUrl() {
+	if (typeof window === 'undefined') return 'hero';
+	const s = new URLSearchParams(window.location.search);
+	if (s.get('stats') === '1') return 'stats';
+	if (s.get('garage') === '1' || s.has('car_id')) return 'garage';
+	return 'hero';
+}
+
 export default function App() {
 	logUrl();
 	const authMode = window.location.href.includes('auth');
 
 	const [authenticated, setAuthentication] = React.useState(false);
 	const [visitorMode, setVisitorMode] = React.useState(!authMode);
+	const [appView, setAppView] = React.useState(getAppViewFromUrl);
+	const [collectionCars, setCollectionCars] = React.useState([]);
+
+	const showHero = appView === 'hero';
 
 	if (authMode) {
 		(async function () {
@@ -38,11 +53,79 @@ export default function App() {
 		})();
 	}
 
+	React.useEffect(() => {
+		const onPop = () => setAppView(getAppViewFromUrl());
+		window.addEventListener('popstate', onPop);
+		return () => window.removeEventListener('popstate', onPop);
+	}, []);
+
+	const applyUrl = React.useCallback(u => {
+		window.history.pushState({}, '', u);
+		setAppView(getAppViewFromUrl());
+	}, []);
+
+	const navToHome = React.useCallback(
+		e => {
+			if (e) e.preventDefault();
+			const u = new URL(window.location.href);
+			u.searchParams.delete('garage');
+			u.searchParams.delete('car_id');
+			u.searchParams.delete('stats');
+			const q = u.searchParams.toString();
+			applyUrl(u.pathname + (q ? '?' + q : ''));
+			window.scrollTo(0, 0);
+		},
+		[applyUrl]
+	);
+
+	const navToGarage = React.useCallback(
+		e => {
+			if (e) e.preventDefault();
+			const u = new URL(window.location.href);
+			u.searchParams.delete('stats');
+			u.searchParams.set('garage', '1');
+			applyUrl(u);
+			window.scrollTo(0, 0);
+		},
+		[applyUrl]
+	);
+
+	const navToStats = React.useCallback(
+		e => {
+			if (e) e.preventDefault();
+			const u = new URL(window.location.href);
+			u.searchParams.delete('garage');
+			u.searchParams.delete('car_id');
+			u.searchParams.set('stats', '1');
+			applyUrl(u);
+			window.scrollTo(0, 0);
+		},
+		[applyUrl]
+	);
+
+	const onSkipToContent = React.useCallback(
+		e => {
+			if (showHero) {
+				navToGarage(e);
+			}
+			setTimeout(() => {
+				document.getElementById('main-content')?.focus();
+			}, showHero ? 100 : 0);
+		},
+		[showHero, navToGarage]
+	);
+
 	const renderMain = function () {
 		if (authenticated) {
-			return <Main visitorMode={false} />;
+			if (appView === 'stats') {
+				return <StatsPage />;
+			}
+			return <Main visitorMode={false} onCollectionMeta={setCollectionCars} />;
 		} else if (!authenticated && visitorMode) {
-			return <Main visitorMode={true} />;
+			if (appView === 'stats') {
+				return <StatsPage />;
+			}
+			return <Main visitorMode={true} onCollectionMeta={setCollectionCars} />;
 		} else if (!authenticated && !visitorMode) {
 			return (
 				<Login
@@ -53,10 +136,35 @@ export default function App() {
 		}
 	};
 
+	const view = !authenticated && !visitorMode ? 'login' : 'main';
+	const isLogin = view === 'login';
+
 	return (
-		<div className="App">
-			<Header />
+		<>
+			<CustomCursor />
+		<AppShell
+			view={view}
+			carCount={collectionCars.length}
+			preMain={
+				!isLogin && showHero ? (
+					<HomeHero
+						onEnterGarage={navToGarage}
+						onViewStats={navToStats}
+						metaSourceCars={collectionCars}
+					/>
+				) : null
+			}
+			mainHidden={!isLogin && showHero}
+			onNavHome={!isLogin ? navToHome : undefined}
+			onNavGarage={!isLogin ? navToGarage : undefined}
+			onNavStats={!isLogin ? navToStats : undefined}
+			homeNavActive={!isLogin && appView === 'hero'}
+			garageNavActive={!isLogin && appView === 'garage'}
+			statsNavActive={!isLogin && appView === 'stats'}
+			onSkipToContent={!isLogin ? onSkipToContent : undefined}
+		>
 			{renderMain()}
-		</div>
+		</AppShell>
+		</>
 	);
 }
