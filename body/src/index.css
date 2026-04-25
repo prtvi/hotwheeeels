@@ -11,14 +11,23 @@
 	display: none;
 }
 
-html,
-body,
-#root {
-	min-height: 100%;
+/* One vertical scroll on the document (avoids html+body “double” scroll jank) */
+html {
+	height: 100%;
+	overflow-x: hidden;
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
 }
 body {
+	min-height: 100%;
+	overflow-x: hidden;
 	background-color: var(--ds-color-bg, var(--bg));
 	color: var(--ds-color-text-primary, var(--color));
+}
+#root {
+	min-height: 100%;
+	display: flex;
+	flex-direction: column;
 }
 
 :disabled,

@@ -2,7 +2,7 @@
 	width: 100%;
 	max-width: var(--ds-layout-content-max);
 	margin: 0 auto;
-	padding: var(--ds-space-5) 0 var(--ds-space-10);
+	padding: var(--ds-space-7) 0 var(--ds-space-10);
 	box-sizing: border-box;
 }
 

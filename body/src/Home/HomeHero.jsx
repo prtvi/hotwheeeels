@@ -8,7 +8,7 @@ import './HomeHero.css';
  * Receives live collection for speedo + preview; does not own data fetching.
  */
 export default function HomeHero(props) {
-	const { onEnterGarage, onViewStats, metaSourceCars } = props;
+	const { onEnterGarage, onViewStats, onOpenCarId, metaSourceCars } = props;
 	const m = React.useMemo(
 		() => computeHeroMeta(metaSourceCars),
 		[metaSourceCars]
@@ -135,7 +135,13 @@ export default function HomeHero(props) {
 									type="button"
 									key={car.carId || i}
 									className="home-hero__prev-card"
-									onClick={onEnterGarage}
+									onClick={() => {
+										if (car.carId && typeof onOpenCarId === 'function') {
+											onOpenCarId(car.carId);
+											return;
+										}
+										if (typeof onEnterGarage === 'function') onEnterGarage();
+									}}
 									role="listitem"
 									aria-label={`Open collection — ${car.carName || 'car'}`}
 								>

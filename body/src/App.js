@@ -90,6 +90,21 @@ export default function App() {
 		[applyUrl]
 	);
 
+	const openCarFromHomePreview = React.useCallback(
+		carId => {
+			if (!carId) return;
+			const u = new URL(window.location.href);
+			u.searchParams.delete('stats');
+			u.searchParams.set('garage', '1');
+			u.searchParams.set('car_id', carId);
+			window.history.pushState({}, '', u);
+			// keep App + Main in sync (Main listens to popstate for car_id opens)
+			window.dispatchEvent(new PopStateEvent('popstate'));
+			window.scrollTo(0, 0);
+		},
+		[]
+	);
+
 	const navToStats = React.useCallback(
 		e => {
 			if (e) e.preventDefault();
@@ -150,6 +165,7 @@ export default function App() {
 					<HomeHero
 						onEnterGarage={navToGarage}
 						onViewStats={navToStats}
+						onOpenCarId={openCarFromHomePreview}
 						metaSourceCars={collectionCars}
 					/>
 				) : null

@@ -2,6 +2,8 @@
 
 .app-shell {
 	--_nav-h: var(--ds-layout-header-height);
+	flex: 1 0 auto;
+	width: 100%;
 	background: var(--ds-color-bg);
 	color: var(--ds-color-text-primary);
 	min-height: 100vh;
@@ -206,18 +208,28 @@
 .app-shell__content {
 	flex: 1 0 auto;
 	width: 100%;
+	min-height: 0; /* let flex not pin a nested overflow chain */
 	padding-top: var(--_nav-h);
 	/* Match navbar bar horizontal padding */
 	padding-left: var(--ds-inset-nav-x);
 	padding-right: var(--ds-inset-nav-x);
-	padding-bottom: 0;
+	padding-bottom: var(--ds-space-6);
 	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	gap: var(--ds-space-7);
 }
 
 .app-main {
 	width: 100%;
 	max-width: var(--ds-layout-content-max);
 	margin: 0 auto;
+	padding-top: var(--ds-space-1);
+}
+@media (min-width: 768px) {
+	.app-main {
+		padding-top: var(--ds-space-2);
+	}
 }
 
 .app-shell__footer {

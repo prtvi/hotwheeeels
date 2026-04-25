@@ -82,6 +82,16 @@ export default function Main(props) {
 		// eslint-disable-next-line
 	}, [visitorMode]);
 
+	// Open car modal when URL changes (e.g. HomeHero preview click sets ?car_id=...)
+	React.useEffect(() => {
+		const onLocation = () => {
+			if (allResults.length) showRequestedCar(allResults);
+		};
+		window.addEventListener('popstate', onLocation);
+		return () => window.removeEventListener('popstate', onLocation);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [allResults]);
+
 	React.useEffect(() => {
 		if (typeof onCollectionMeta === 'function') {
 			onCollectionMeta(allResults);
@@ -258,6 +268,14 @@ export default function Main(props) {
 
 			<div className="garage-grid-wrap">
 				<Cars list={paginationList} showCar={showCar} />
+			</div>
+
+			<div className="garage-pagination-bottom" aria-label="Pagination">
+				<Pagination
+					length={resultsForView.length}
+					currPage={currPage}
+					setCurrPage={setCurrPage}
+				/>
 			</div>
 
 			<Modal

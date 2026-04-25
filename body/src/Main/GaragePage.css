@@ -2,12 +2,12 @@
 
 .garage-page {
 	--garage-pad-x: var(--ds-inset-nav-x);
-	--garage-pad-y: var(--ds-space-5);
+	--garage-pad-y: var(--ds-space-7);
 	font-family: var(--ds-font-condensed), var(--ds-font-body-legacy);
 	color: var(--ds-color-text-primary);
 	background: var(--ds-color-bg);
 	min-height: min(70vh, 100%);
-	padding-bottom: var(--ds-space-8);
+	padding-bottom: var(--ds-space-6);
 }
 
 /* —— Toolbar (topbar + sort) —— */
@@ -25,7 +25,7 @@
 	align-items: flex-end;
 	justify-content: space-between;
 	gap: var(--ds-space-4);
-	padding: var(--ds-space-5) var(--garage-pad-x) var(--ds-space-3);
+	padding: var(--garage-pad-y) var(--garage-pad-x) var(--ds-space-3);
 	border-bottom: var(--ds-hairline) solid var(--ds-color-border);
 	flex-wrap: wrap;
 	background: var(--ds-palette-surface-1);
@@ -194,6 +194,14 @@
 	background: var(--ds-palette-surface-0);
 	border-bottom: var(--ds-hairline) solid var(--ds-color-border);
 }
+
+/* When the sort row lives inside the topbar-right, don't use page gutters */
+.garage-topbar-right .garage-sort-row {
+	padding: var(--ds-space-2) 0 0;
+	background: transparent;
+	border-bottom: 0;
+	justify-content: flex-start;
+}
 .garage-page .trow2 .trow-child {
 	height: auto;
 	line-height: normal;
@@ -246,6 +254,12 @@
 .garage-filters-row__paging {
 	flex: 0 0 auto;
 	margin-left: auto;
+}
+
+/* Second pagination instance (mobile-only) */
+.garage-pagination-bottom {
+	display: none;
+	padding: var(--ds-space-2) var(--garage-pad-x) 0;
 }
 
 /* —— Segment filter tabs —— */
@@ -317,6 +331,30 @@
 	margin: 0;
 	/* Match app shell / page (avoid grey mat from --ds-color-border) */
 	background: var(--ds-color-bg);
+}
+
+@media (max-width: 640px) {
+	/* Mobile: always show 2 cards per row */
+	.garage-cards-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 6px;
+		padding: 6px;
+	}
+
+	/* Mobile: smaller card typography */
+	.garage-page .garage-card__body {
+		padding: var(--ds-space-2-5) 10px var(--ds-space-3);
+	}
+	.garage-page .garage-card__name {
+		font-size: 0.85rem;
+		letter-spacing: 0.03em;
+	}
+	.garage-page .garage-card__series {
+		font-size: 8px;
+	}
+	.garage-page .garage-card__year {
+		font-size: 9px;
+	}
 }
 
 .garage-card {
@@ -524,6 +562,11 @@
 	padding: 0;
 }
 
+/* Pagination (below listing on mobile) — override Main.css default margins */
+.garage-page .garage-pagination-bottom .garage-pagination {
+	margin: 0;
+}
+
 .garage-page .garage-pagination .arrow-left,
 .garage-page .garage-pagination .arrow-right {
 	background: var(--ds-palette-surface-1);
@@ -609,19 +652,71 @@
 	}
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
 	.garage-topbar {
 		align-items: flex-start;
 	}
 	.garage-topbar-right {
 		width: 100%;
+		flex-wrap: wrap;
+		justify-content: flex-start;
+		gap: var(--ds-space-2);
 	}
-	.garage-topbar .search-box,
+	/* Compact search (was full-bleed at 640px) */
+	.garage-topbar .search-box {
+		flex: 1 1 50%;
+		width: 50%;
+		max-width: 50%;
+	}
 	.garage-topbar .search-box input,
 	.garage-search-input {
 		width: 100%;
+		max-width: none;
+		min-height: 34px;
+		font-size: 10px;
+		letter-spacing: 0.06em;
+		padding: var(--ds-space-1-5) var(--ds-space-2) var(--ds-space-1-5)
+			var(--ds-space-6);
 	}
+	.garage-topbar .search-icon {
+		left: 8px;
+		font-size: 11px;
+	}
+	.garage-topbar .input-cross {
+		right: 6px;
+	}
+
+	/* Segment tabs wrap to multiple lines; pagination on its own row */
 	.garage-filters-row {
-		gap: var(--ds-space-2);
+		flex-wrap: wrap;
+		align-items: flex-start;
+		gap: var(--ds-space-2) var(--ds-space-3);
+	}
+	.garage-filters-row__tabs {
+		flex: 1 1 100%;
+		min-width: 0;
+		overflow-x: visible;
+	}
+	.garage-filters-row .garage-filter-tabs {
+		flex-wrap: wrap;
+		overflow-x: visible;
+		row-gap: var(--ds-space-2);
+	}
+	.garage-filters-row__paging {
+		display: none;
+	}
+
+	.garage-pagination-bottom {
+		display: flex;
+		justify-content: center;
+	}
+
+	/* Sort dropdown opens to the right of the 50% search */
+	.garage-topbar-right .garage-sort-row {
+		flex: 0 0 50%;
+		margin-left: auto;
+		width: 50% !important;
+		padding-top: var(--ds-space-1-5);
+		justify-content: flex-start;
 	}
 }

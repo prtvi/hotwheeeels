@@ -12,7 +12,6 @@ export default function Toolbar(props) {
 		setModalTitle,
 		nCars,
 		visitorMode,
-		setSortParams,
 	} = props;
 
 	const nCarsText = nCars === 1 ? `car` : `cars`;
@@ -39,32 +38,7 @@ export default function Toolbar(props) {
 		setModalOpen(true);
 	};
 
-	function toggleOptions(e) {
-		document.querySelector('.trow2')?.classList.toggle('hidden');
-		e.currentTarget.classList.toggle('active');
-	}
-
-	function toggleSortBtn(sortOrder) {
-		if (sortOrder.dataset.sort === 'asc') {
-			sortOrder.dataset.sort = 'desc';
-			sortOrder.innerHTML = '&#11014;';
-		} else {
-			sortOrder.dataset.sort = 'asc';
-			sortOrder.innerHTML = '&#11015;';
-		}
-	}
-
-	function handleSort(e) {
-		const sortBy = document.querySelector('#sortBy');
-		const sortOrder = document.querySelector('.sort-order span');
-
-		if (e.currentTarget !== sortBy) toggleSortBtn(sortOrder);
-
-		setSortParams({
-			sortBy: sortBy.value,
-			sortOrder: sortOrder.dataset.sort,
-		});
-	}
+	// Sort UI disabled (search-only)
 
 	return (
 		<div className="garage-toolbar">
@@ -111,52 +85,7 @@ export default function Toolbar(props) {
 								+ 🚘
 							</button>
 						) : null}
-						<button
-							type="button"
-							className="garage-chevron toggle-options"
-							onClick={toggleOptions}
-							aria-label="Show sort and filter options"
-						>
-							<span className="pf-300" aria-hidden="true">
-								&#10094;
-							</span>
-						</button>
 					</div>
-				</div>
-			</div>
-
-			<div className="trow trow2 hidden garage-sort-row">
-				{!visitorMode ? (
-					<div className="trow-child keep-left">
-						<span className="pf-200">{nCarsText}</span>
-					</div>
-				) : null}
-
-				<div className="trow-child">
-					<label htmlFor="sortBy" className="pf-200 sort-by-label">
-						Sort by
-					</label>
-				</div>
-
-				<div className="trow-child">
-					<select
-						id="sortBy"
-						defaultValue="acquiredDate"
-						onChange={handleSort}
-					>
-						<option value="acquiredDate">Acquired date</option>
-						<option value="carName">Car name</option>
-					</select>
-				</div>
-
-				<div
-					className="trow-child sort-order"
-					onClick={handleSort}
-					role="presentation"
-				>
-					<span className="pf-300" data-sort="asc">
-						&#11015;
-					</span>
 				</div>
 			</div>
 		</div>

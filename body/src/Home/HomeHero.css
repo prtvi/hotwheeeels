@@ -1,5 +1,6 @@
 /* Reference: nfs-garage hero. Uses design tokens only. */
 
+/* nfs #view-hero: flex column, min-height, overflow hidden — one page scroll, no inner column */
 .home-hero {
 	--_nav: var(--ds-layout-header-height);
 	position: relative;
@@ -7,8 +8,15 @@
 	background: var(--ds-color-bg);
 	display: flex;
 	flex-direction: column;
-	min-height: calc(100dvh - var(--_nav));
-	overflow-x: hidden;
+	gap: var(--ds-space-7);
+	/* svh: stable on mobile; avoids 100dvh + chrome UI double-measure wobble */
+	min-height: calc(100svh - var(--_nav));
+	overflow: hidden;
+}
+@media (min-width: 768px) {
+	.home-hero {
+		gap: var(--ds-space-8);
+	}
 }
 
 .home-hero__speed-bg {
@@ -44,13 +52,30 @@
 	align-items: center;
 	justify-content: center;
 	position: relative;
-	padding: var(--ds-space-6) 0 var(--ds-space-5);
+	padding: var(--ds-space-6) 0 var(--ds-space-7);
 	min-height: 52vh;
+	/* In-flow children only (absolutely positioned items don’t get gaps) */
+	row-gap: var(--ds-space-7);
+}
+@media (min-width: 600px) {
+	.home-hero__main {
+		padding-bottom: var(--ds-space-10);
+		row-gap: var(--ds-space-8);
+	}
 }
 
 @media (min-width: 450px) {
 	.home-hero__main {
 		padding: 60px 0 var(--ds-space-10);
+	}
+}
+
+/* Narrow screens: don’t vertical-center the stack (it rides up into absolute corners) */
+@media (max-width: 768px) {
+	.home-hero__main {
+		justify-content: flex-start;
+		/* Space below corner readouts (they’re position:absolute; in-flow text was overlapping) */
+		padding-top: clamp(4.75rem, 20vw, 6.25rem);
 	}
 }
 
@@ -120,10 +145,16 @@
 	letter-spacing: 0.5em;
 	color: var(--ds-palette-orange);
 	text-transform: uppercase;
-	margin-bottom: var(--ds-space-4);
 	display: flex;
 	align-items: center;
 	gap: var(--ds-space-3);
+	margin-top: var(--ds-space-7);
+}
+@media (max-width: 768px) {
+	/* Extra under corner readouts (see __main padding-top) */
+	.home-hero__eyebrow {
+		margin-top: var(--ds-space-8);
+	}
 }
 @media (prefers-reduced-motion: no-preference) {
 	.home-hero__eyebrow {
@@ -173,6 +204,10 @@
 	line-height: 0.82;
 	text-align: center;
 	letter-spacing: 0.01em;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: clamp(0.08em, 1.2vw, 0.16em);
 }
 .home-hero__line1 {
 	display: block;
@@ -240,12 +275,11 @@
 
 .home-hero__tagline {
 	font-family: var(--ds-font-condensed);
-	font-size: 18px;
+	font-size: 16px;
 	font-weight: 300;
 	letter-spacing: 0.4em;
 	color: var(--ds-palette-dim);
 	text-transform: uppercase;
-	margin-top: var(--ds-space-5);
 	text-align: center;
 }
 @media (prefers-reduced-motion: no-preference) {
@@ -254,18 +288,23 @@
 	}
 }
 
-/* Speedometer */
+/* Speedometer — four equal boxes in a row */
 .home-hero__speedo {
-	display: flex;
-	align-items: stretch;
-	flex-wrap: wrap;
-	justify-content: center;
-	gap: 0;
-	margin: var(--ds-space-8) auto 0;
-	border: var(--ds-hairline) solid var(--ds-color-border);
+	display: grid;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	gap: var(--ds-space-2) var(--ds-space-2);
+	margin: 0 auto;
+	border: 0;
 	position: relative;
-	overflow: hidden;
-	max-width: 100%;
+	overflow: visible;
+	width: 100%;
+	max-width: 720px;
+	padding-top: 4px;
+}
+@media (min-width: 480px) {
+	.home-hero__speedo {
+		gap: var(--ds-space-3) var(--ds-space-3);
+	}
 }
 @media (prefers-reduced-motion: no-preference) {
 	.home-hero__speedo {
@@ -285,37 +324,38 @@
 		var(--ds-palette-cyan),
 		var(--ds-palette-orange)
 	);
+	pointer-events: none;
 }
 
 .home-hero__spd {
-	padding: var(--ds-space-5) var(--ds-space-7);
+	padding: var(--ds-space-4) var(--ds-space-1);
 	text-align: center;
-	border-right: 1px solid var(--ds-color-border);
+	border: var(--ds-hairline) solid var(--ds-color-border);
 	background: var(--ds-palette-surface-1);
 	position: relative;
+	min-width: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 }
-.home-hero__spd:last-child {
-	border-right: none;
-}
-@media (max-width: 520px) {
+
+@media (min-width: 400px) {
 	.home-hero__spd {
-		flex: 1 1 42%;
-		border: 0;
-		border-bottom: 1px solid var(--ds-color-border);
+		padding: var(--ds-space-5) var(--ds-space-3);
 	}
-	.home-hero__spd:nth-child(2n) {
-		border-left: 1px solid var(--ds-color-border);
-	}
-	.home-hero__spd:last-child,
-	.home-hero__spd:nth-last-child(2) {
-		border-bottom: 0;
+}
+
+@media (min-width: 600px) {
+	.home-hero__spd {
+		padding: var(--ds-space-5) var(--ds-space-5);
 	}
 }
 
 .home-hero__spd-n {
 	font-family: var(--ds-font-display);
-	font-size: 44px;
-	line-height: 1;
+	font-size: clamp(1.5rem, 4.2vw, 2.75rem);
+	line-height: 1.05;
 	display: block;
 }
 .home-hero__spd-n--orange {
@@ -346,7 +386,6 @@
 	flex-wrap: wrap;
 	gap: var(--ds-space-3);
 	justify-content: center;
-	margin-top: var(--ds-space-5);
 }
 @media (prefers-reduced-motion: no-preference) {
 	.home-hero__cta {
@@ -356,11 +395,16 @@
 
 /* Preview: full width of content column; no second horizontal inset */
 .home-hero__preview {
-	padding: 0 0 var(--ds-space-10);
+	padding: var(--ds-space-5) 0 var(--ds-space-10);
 	width: 100%;
 	max-width: none;
 	margin: 0;
 	box-sizing: border-box;
+}
+@media (min-width: 600px) {
+	.home-hero__preview {
+		padding: var(--ds-space-6) 0 var(--ds-space-12);
+	}
 }
 @media (prefers-reduced-motion: no-preference) {
 	.home-hero__preview {
@@ -373,7 +417,7 @@
 	letter-spacing: 0.4em;
 	text-transform: uppercase;
 	color: var(--ds-palette-dim);
-	margin-bottom: var(--ds-space-4);
+	margin-bottom: var(--ds-space-5);
 	display: flex;
 	align-items: center;
 	gap: 10px;

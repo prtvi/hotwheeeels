@@ -31,3 +31,4 @@ assets/
 .env
 out/
 build/
+*.html

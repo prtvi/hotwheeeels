@@ -42,6 +42,23 @@
 	animation: csModalIn 0.4s var(--ds-ease-out) both;
 }
 
+.cs-modal__topbar {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	right: 10px;
+	z-index: 12;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	pointer-events: none;
+}
+.cs-modal__topbar-right {
+	display: flex;
+	gap: 8px;
+	pointer-events: auto;
+}
+
 .cs-modal__box::before {
 	content: '';
 	position: absolute;
@@ -338,9 +355,7 @@
 }
 
 .cs-close {
-	position: absolute;
-	top: 12px;
-	right: 12px;
+	position: static;
 	width: 32px;
 	height: 32px;
 	margin: 0;
@@ -368,9 +383,7 @@
 
 /* Share button (moved from image overlay into info header) */
 .cs-share {
-	position: absolute;
-	top: 12px;
-	right: 52px;
+	position: static;
 	width: 32px;
 	height: 32px;
 	margin: 0;
@@ -525,7 +538,7 @@
 .cs-modal .row-item .value,
 .cs-field-value {
 	font-family: var(--ds-font-condensed) !important;
-	font-size: 0.9rem;
+	font-size: 1.02rem;
 	font-weight: 600;
 	letter-spacing: 0.04em;
 	color: var(--ds-color-text-primary) !important;
@@ -576,12 +589,17 @@
 	padding-top: var(--ds-space-5);
 	border-top: 1px solid var(--ds-color-border);
 }
+.cs-nav--footer {
+	display: none;
+}
 .cs-nav .swipe-car {
 	display: flex;
 	gap: 6px;
 	width: 100% !important;
 	align-items: stretch;
-	justify-content: flex-start;
+	justify-content: center;
+	max-width: 520px;
+	margin: 0 auto;
 }
 .cs-nav .mnav-btn {
 	flex: 1;
@@ -615,14 +633,73 @@
 @media (max-width: 768px) {
 	.cs-modal__box {
 		grid-template-columns: 1fr;
+		/* Make the modal a 2-row layout: image 45%, info 55% */
+		height: 95vh;
 		max-height: 95vh;
+		grid-template-rows: 50% 1fr auto;
+	}
+	.cs-modal__image {
+		min-height: 0;
+	}
+	.cs-modal__image .slideshow-container {
+		/* Fill the 45% image row */
+		height: 100% !important;
+		max-height: none;
+		min-height: 0;
+	}
+	.cs-modal__info {
+		/* Confine scrolling to the info pane */
+		min-height: 0;
 	}
 	.cs-modal-fields {
-		grid-template-columns: 1fr;
+		grid-template-columns: 1fr 1fr;
+		gap: 10px 12px;
 	}
 	.cs-head-slot,
 	.cs-type-label,
 	.cs-title {
 		padding-right: 0;
+	}
+
+	/* Bottom footer nav (full-width, below info) */
+	.cs-nav--footer {
+		display: block;
+	}
+	.cs-nav--ininfo {
+		display: none;
+	}
+
+	.cs-nav--footer {
+		grid-column: 1 / -1;
+		padding: 0;
+	}
+
+	/* Full-width bar behind the buttons (masks scrolling content) */
+	.cs-nav__bar {
+		width: 100%;
+		/* Pull nav up a bit from the very bottom */
+		padding: var(--ds-space-2) 0 calc(var(--ds-space-2) + env(safe-area-inset-bottom, 0px));
+		background: var(--ds-palette-surface-1);
+		border-top: 1px solid var(--ds-color-border);
+		box-shadow: 0 -10px 24px rgba(0, 0, 0, 0.35);
+		backdrop-filter: blur(10px);
+		-webkit-backdrop-filter: blur(10px);
+		position: relative;
+	}
+	.cs-nav__bar::before {
+		content: '';
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: -18px;
+		height: 18px;
+		background: linear-gradient(180deg, transparent 0%, var(--ds-palette-surface-1) 100%);
+		pointer-events: none;
+	}
+}
+
+@media (max-width: 420px) {
+	.cs-modal-fields {
+		grid-template-columns: 1fr;
 	}
 }

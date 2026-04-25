@@ -72,6 +72,30 @@ function CarShowcase(props) {
 	return (
 		<div className="cs-modal car-showcase">
 			<div className="cs-modal__box">
+				<div className="cs-modal__topbar" aria-label="Modal actions">
+					<div className="cs-modal__topbar-left" aria-hidden="true" />
+					<div className="cs-modal__topbar-right">
+						<button
+							type="button"
+							className="cs-share"
+							aria-label={shareCopied ? 'Link copied' : 'Copy share link'}
+							title={shareCopied ? 'Copied' : 'Copy share link'}
+							onClick={copyCarShareLink}
+						>
+							{shareCopied ? '✓' : '↗'}
+						</button>
+						{typeof onClose === 'function' ? (
+							<button
+								type="button"
+								className="cs-close"
+								aria-label="Close"
+								onClick={onClose}
+							>
+								×
+							</button>
+						) : null}
+					</div>
+				</div>
 				<div className="cs-modal__image">
 					<Carousel images={car.imgs} carId={car.carId} />
 					{slotText ? (
@@ -86,26 +110,6 @@ function CarShowcase(props) {
 				</div>
 
 				<div className="cs-modal__info">
-					{typeof onClose === 'function' ? (
-						<button
-							type="button"
-							className="cs-close"
-							aria-label="Close"
-							onClick={onClose}
-						>
-							×
-						</button>
-					) : null}
-					<button
-						type="button"
-						className="cs-share"
-						aria-label={shareCopied ? 'Link copied' : 'Copy share link'}
-						title={shareCopied ? 'Copied' : 'Copy share link'}
-						onClick={copyCarShareLink}
-					>
-						{shareCopied ? '✓' : '↗'}
-					</button>
-
 					{!visitorMode ? (
 						<EditCarDetails
 							carId={car.carId}
@@ -135,10 +139,20 @@ function CarShowcase(props) {
 						</div>
 					)}
 
+					{/* Desktop/tablet: keep nav in the info column (original layout) */}
 					{showNav && mode !== 'edit' ? (
-						<div className="cs-nav">{headSlot}</div>
+						<div className="cs-nav cs-nav--ininfo" aria-label="Car navigation">
+							<div className="cs-nav__bar">{headSlot}</div>
+						</div>
 					) : null}
 				</div>
+
+				{showNav && mode !== 'edit' ? (
+					/* Mobile: footer nav row */
+					<div className="cs-nav cs-nav--footer" aria-label="Car navigation">
+						<div className="cs-nav__bar">{headSlot}</div>
+					</div>
+				) : null}
 			</div>
 		</div>
 	);
