@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const cloudinary = require('cloudinary').v2;
 const config = require('config');
 const { u } = require('./util.js');
-const { Car, Log } = require('./db.js');
+const { Car, Log, Settings } = require('./db.js');
 
 function logger(req, res, next) {
 	console.log(req.method, req.url);
@@ -289,6 +289,86 @@ function verifyToken(req, res) {
 	return res.send('authenticated!');
 }
 
+const LDSTKey = 'last_deployment_success_time';
+const since = 'Apr 2024';
+const first_car_date = '2012';
+
+async function netlifyDeploymentWebhook(req, res) {
+	try {
+		const payload = req.body ?? {};
+
+		const event = payload.event ? String(payload.event) : undefined;
+		const state = payload.state ? String(payload.state) : undefined;
+		const incomingStatus = payload.status ?? payload.result ?? payload.outcome;
+		const status =
+			incomingStatus !== undefined && incomingStatus !== null
+				? String(incomingStatus)
+				: event ?? state ?? 'unknown';
+
+		// Netlify deploy notifications send a "deploy object" body. For a "Deploy succeeded"
+		// notification, common shapes include event=deploy_succeeded and/or state=ready.
+		const looksSuccessful =
+			event === 'deploy_succeeded' ||
+			event === 'previously_failed_deploy_succeeded' ||
+			state === 'ready' ||
+			status === 'success' ||
+			status === 'succeeded';
+
+		const timeFromPayload =
+			payload.created_at ??
+			payload.published_at ??
+			payload.updated_at ??
+			payload.deploy_time ??
+			payload.time;
+
+		const time = timeFromPayload ? new Date(timeFromPayload) : new Date();
+		const ts = Math.floor(time.getTime() / 1000);
+
+		// Only update the "last deployment success time" key when this looks like a success.
+		// Still store the payload on success so you can inspect it later.
+		if (!looksSuccessful) return res.send({ ok: true, ignored: true, status, event, state });
+
+		const doc = await Settings.findOneAndUpdate(
+			{ key: LDSTKey },
+			{
+				key: LDSTKey,
+				status,
+				time,
+				ts,
+				payload,
+			},
+			{ upsert: true, new: true },
+		);
+
+		return res.send({ ok: true, settings: doc });
+	} catch (err) {
+		console.log('netlifyDeploymentWebhook error', err);
+		return res.status(400).send({ ok: false });
+	}
+}
+
+async function getHomepageStats(req, res) {
+	try {
+		let lastDeploy = null;
+		try {
+			lastDeploy = await Settings.findOne({
+				key: LDSTKey,
+			}).lean();
+		} catch (err) {
+			// If DB is down/unreachable, keep endpoint functional.
+			console.log('getHomepageStats db read error', err?.message ?? err);
+		}
+
+		const time = lastDeploy?.time ?? lastDeploy?.payload?.created_at ?? null;
+		const uptime = time ? u.formatUptime(time, new Date()) : null;
+
+		return res.send({ uptime, since, first_car_date });
+	} catch (err) {
+		console.log('getHomepageStats error', err);
+		return res.send({ uptime: null, since, first_car_date });
+	}
+}
+
 exports.r = {
 	logger,
 	captureWebsiteVisit,
@@ -303,4 +383,6 @@ exports.r = {
 	updateCar,
 	login,
 	verifyToken,
+	netlifyDeploymentWebhook,
+	getHomepageStats,
 };

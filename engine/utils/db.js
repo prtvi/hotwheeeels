@@ -7,8 +7,14 @@ exports.initDb = function () {
 			? process.env.DB_URL
 			: process.env.DB_URL_DEV;
 
-	console.log('db connecting to', dbUrl);
-	mongoose.connect(dbUrl);
+	if (!dbUrl) {
+		console.log('db url missing; skipping db connect');
+		return mongoose.connection;
+	}
+
+	mongoose
+		.connect(dbUrl)
+		.catch(err => console.error('db connection failed:', err?.message ?? err));
 
 	const conn = mongoose.connection;
 	conn.on('connected', () => console.log('db connected'));
@@ -91,3 +97,29 @@ const logSchema = {
 };
 
 exports.Log = new mongoose.model('Log', mongoose.Schema(logSchema));
+
+const settingsSchema = {
+	key: {
+		type: String,
+		required: true,
+		unique: true,
+	},
+	status: {
+		type: String,
+		required: false,
+	},
+	time: {
+		type: Date,
+		required: false,
+	},
+	ts: {
+		type: Number,
+		required: false,
+	},
+	payload: {
+		type: mongoose.Schema.Types.Mixed,
+		required: false,
+	},
+};
+
+exports.Settings = new mongoose.model('Settings', mongoose.Schema(settingsSchema));

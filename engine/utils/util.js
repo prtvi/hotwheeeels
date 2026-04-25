@@ -147,6 +147,43 @@ function getCloudinaryFolder() {
 	return `hotwheeeels/${getEnv()}`;
 }
 
+function formatUptime(fromDate, toDate) {
+	const from = new Date(fromDate);
+	const to = new Date(toDate);
+	if (Number.isNaN(from.getTime()) || Number.isNaN(to.getTime())) return null;
+	if (to.getTime() < from.getTime()) return '0d';
+
+	let totalMonths =
+		(to.getFullYear() - from.getFullYear()) * 12 + (to.getMonth() - from.getMonth());
+
+	// If we haven't reached the day-of-month yet, subtract a month.
+	if (to.getDate() < from.getDate()) totalMonths -= 1;
+	if (totalMonths < 0) totalMonths = 0;
+
+	// < 1 month: show days only.
+	if (totalMonths < 1) {
+		const ms = to.getTime() - from.getTime();
+		const days = Math.max(0, Math.floor(ms / (1000 * 60 * 60 * 24)));
+		return `${days}d`;
+	}
+
+	// < 1 year: show months + days.
+	if (totalMonths < 12) {
+		const monthAnchor = new Date(from);
+		monthAnchor.setMonth(monthAnchor.getMonth() + totalMonths);
+		const msRemainder = to.getTime() - monthAnchor.getTime();
+		const daysRemainder = Math.max(
+			0,
+			Math.floor(msRemainder / (1000 * 60 * 60 * 24)),
+		);
+		return `${totalMonths}m ${daysRemainder}d`;
+	}
+
+	const years = Math.floor(totalMonths / 12);
+	const months = totalMonths % 12;
+	return `${years}y ${months}m`;
+}
+
 exports.u = {
 	initApp,
 	deletePicturesForCarId,
@@ -157,4 +194,5 @@ exports.u = {
 	makeRequest,
 	getEngineURL,
 	getCloudinaryFolder,
+	formatUptime,
 };

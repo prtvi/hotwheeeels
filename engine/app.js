@@ -21,9 +21,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(r.logger);
 
 app.get('/', (req, res) => res.send('hello world!'));
+app.get('/api/get_all', r.getAllMasked);
+
 app.post('/api/capture_website_visit', r.captureWebsiteVisit);
 app.get('/api/get_website_visit_stats', r.getWebsiteVisitStats);
-app.get('/api/get_all', r.getAllMasked);
+
+app.get('/api/stats/homepage', r.getHomepageStats);
+app.post('/api/netlify/deployment_webhook', r.netlifyDeploymentWebhook);
+
 app.post('/api/login', r.login);
 
 app.use('/api/auth', r.authMiddleware);
