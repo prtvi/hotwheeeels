@@ -71,7 +71,11 @@ export default function AppShell(props) {
 			>
 				Skip to collection
 			</a>
-			<header className="app-shell__header" role="navigation" aria-label="Main">
+			<header
+				className="app-shell__header"
+				role="navigation"
+				aria-label="Main"
+			>
 				<div className="app-shell__bar">
 					<a
 						className="app-shell__logo"
@@ -79,11 +83,17 @@ export default function AppShell(props) {
 						target="_blank"
 						rel="noreferrer"
 					>
-						<span className="app-shell__logo-slash" aria-hidden="true">
+						<span
+							className="app-shell__logo-slash"
+							aria-hidden="true"
+						>
 							▶▶
 						</span>
 						<span className="app-shell__logo-name">PRTVIV</span>
-						<span className="app-shell__logo-tag" aria-hidden="true">
+						<span
+							className="app-shell__logo-tag"
+							aria-hidden="true"
+						>
 							HOT WHEEEELS
 						</span>
 					</a>
@@ -98,9 +108,13 @@ export default function AppShell(props) {
 									type="button"
 									className={
 										'ds-btn ds-btn--sm ds-btn--ghost app-shell__link' +
-										(homeNavActive ? ' app-shell__link--active' : '')
+										(homeNavActive
+											? ' app-shell__link--active'
+											: '')
 									}
-									aria-current={homeNavActive ? 'page' : undefined}
+									aria-current={
+										homeNavActive ? 'page' : undefined
+									}
 									onClick={onNavHome}
 								>
 									Home
@@ -109,9 +123,13 @@ export default function AppShell(props) {
 									type="button"
 									className={
 										'ds-btn ds-btn--sm ds-btn--ghost app-shell__link' +
-										(garageNavActive ? ' app-shell__link--active' : '')
+										(garageNavActive
+											? ' app-shell__link--active'
+											: '')
 									}
-									aria-current={garageNavActive ? 'page' : undefined}
+									aria-current={
+										garageNavActive ? 'page' : undefined
+									}
 									onClick={onNavGarage}
 								>
 									Garage
@@ -120,9 +138,13 @@ export default function AppShell(props) {
 									type="button"
 									className={
 										'ds-btn ds-btn--sm ds-btn--ghost app-shell__link' +
-										(statsNavActive ? ' app-shell__link--active' : '')
+										(statsNavActive
+											? ' app-shell__link--active'
+											: '')
 									}
-									aria-current={statsNavActive ? 'page' : undefined}
+									aria-current={
+										statsNavActive ? 'page' : undefined
+									}
 									onClick={onNavStats}
 								>
 									Stats
@@ -151,8 +173,14 @@ export default function AppShell(props) {
 							</>
 						)}
 					</div>
-					<div className="app-shell__status" aria-label="Cars logged in collection">
-						<span className="app-shell__status-dot" aria-hidden="true" />
+					<div
+						className="app-shell__status"
+						aria-label="Cars logged in collection"
+					>
+						<span
+							className="app-shell__status-dot"
+							aria-hidden="true"
+						/>
 						<span className="app-shell__status-txt app-shell__mono">
 							{rightLabel}
 						</span>
@@ -173,7 +201,11 @@ export default function AppShell(props) {
 				</main>
 			</div>
 
-			<footer className="app-shell__footer" role="contentinfo" aria-label="Colophon">
+			<footer
+				className="app-shell__footer"
+				role="contentinfo"
+				aria-label="Colophon"
+			>
 				<div className="app-shell__footer-inner">
 					<a
 						href={IG}
@@ -184,11 +216,13 @@ export default function AppShell(props) {
 						@prtvivs.hotwheeeels
 					</a>
 					<span className="app-shell__footer-sep" aria-hidden="true">
-						//
+						{'//'}
 					</span>
-					<span className="app-shell__footer-meta app-shell__mono">1:64</span>
+					<span className="app-shell__footer-meta app-shell__mono">
+						1:64
+					</span>
 					<span className="app-shell__footer-sep" aria-hidden="true">
-						//
+						{'//'}
 					</span>
 					<span className="app-shell__footer-meta">Est. 2013</span>
 				</div>
