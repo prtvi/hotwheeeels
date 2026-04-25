@@ -48,13 +48,13 @@ export default function Login(props) {
 
 	return (
 		<div className="login">
-			<form onSubmit={postLogin}>
-				<div className="login-form">
+			<form onSubmit={postLogin} className="login-form" aria-label="Authentication">
+				<div className="login-card">
 					<div className="login-form-component">
-						<label htmlFor="login" className="pf-300 login-label">
+						<label htmlFor="login" className="login-label">
 							Authenticate:
 						</label>
-						<span className="pf-300 login-message hidden">
+						<span className="login-message hidden" aria-live="polite">
 							incorrect pass
 						</span>
 					</div>
@@ -62,14 +62,15 @@ export default function Login(props) {
 					<div className="login-form-component c2">
 						<input
 							type="password"
-							className="pf-300"
+							className="login-input"
 							id="login"
 							name="input"
 							required={true}
+							autoComplete="current-password"
 							placeholder="password"
 						/>
 
-						<button className="btn login-btn pf-300" type="submit">
+						<button className="ds-btn ds-btn--primary login-btn" type="submit">
 							{formSubmitted && responses.length === 0 ? (
 								<Loader width={'6px'} height={'6px'} />
 							) : (

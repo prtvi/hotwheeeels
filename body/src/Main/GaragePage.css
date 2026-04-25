@@ -137,101 +137,7 @@
 	white-space: nowrap;
 }
 
-.garage-chevron {
-	font-family: var(--ds-font-mono);
-	font-size: var(--ds-type-micro);
-	letter-spacing: 0.15em;
-	color: var(--ds-color-text-muted);
-	background: var(--ds-palette-surface-2);
-	border: var(--ds-hairline) solid var(--ds-color-border);
-	padding: var(--ds-space-2) var(--ds-space-3-5);
-	cursor: pointer;
-	clip-path: var(--ds-clip-chamfer-sm);
-	transition: color var(--ds-duration) var(--ds-ease-out),
-		border-color var(--ds-duration) var(--ds-ease-out),
-		background var(--ds-duration) var(--ds-ease-out);
-	animation: none;
-}
-.garage-chevron:hover,
-.garage-chevron.active {
-	color: var(--ds-color-accent);
-	background: var(--ds-color-accent-muted);
-	border-color: var(--ds-color-accent-ring);
-}
-/* Override Main.css rotate animation on the chevron */
-.garage-page .garage-chevron.toggle-options,
-.garage-page .garage-chevron.toggle-options.active {
-	animation: none;
-}
-.garage-page .garage-chevron.toggle-options.active {
-	transform: rotate(-90deg);
-}
-
-/* Sort / extra row (legacy class hooks for JS) */
-.garage-page .trow.pseudo {
-	background: var(--ds-palette-surface-0);
-	margin: 0;
-	padding: var(--ds-space-1) var(--garage-pad-x);
-}
-
-.garage-page .trow.pseudo .trow-child span {
-	color: var(--ds-color-text-muted);
-	font-size: var(--ds-type-body-sm);
-}
-
-.garage-sort-row,
-.garage-page .trow2 {
-	width: 100% !important;
-	height: auto !important;
-	margin-bottom: 0 !important;
-	line-height: normal;
-	align-items: center;
-	justify-content: flex-end;
-	flex-wrap: wrap;
-	gap: var(--ds-space-2);
-	margin: 0;
-	padding: var(--ds-space-2-5) var(--garage-pad-x) var(--ds-space-3);
-	background: var(--ds-palette-surface-0);
-	border-bottom: var(--ds-hairline) solid var(--ds-color-border);
-}
-
-/* When the sort row lives inside the topbar-right, don't use page gutters */
-.garage-topbar-right .garage-sort-row {
-	padding: var(--ds-space-2) 0 0;
-	background: transparent;
-	border-bottom: 0;
-	justify-content: flex-start;
-}
-.garage-page .trow2 .trow-child {
-	height: auto;
-	line-height: normal;
-	min-height: 36px;
-}
-
-.garage-page .trow2 .keep-left {
-	position: static;
-	margin: 0 auto 0 0;
-}
-
-.garage-page .trow2 > .trow-child {
-	margin-left: 0;
-}
-
-.garage-page .sort-by-label {
-	color: var(--ds-color-text-muted);
-	font-size: var(--ds-type-body-sm);
-}
-
-.garage-page #sortBy {
-	margin: 0;
-	padding: var(--ds-space-1) var(--ds-space-2);
-	background: var(--ds-palette-surface-2);
-	color: var(--ds-color-text-primary);
-	border: var(--ds-hairline) solid var(--ds-color-border);
-	border-radius: var(--ds-radius-3);
-	font-size: var(--ds-type-body-sm);
-	font-family: var(--ds-font-condensed);
-}
+/* Sort UI removed (search-only toolbar) */
 
 /* —— Filters + pagination (one row) —— */
 .garage-filters-row {
@@ -256,9 +162,8 @@
 	margin-left: auto;
 }
 
-/* Second pagination instance (mobile-only) */
+/* Pagination below listing (mobile only; DOM is conditional now) */
 .garage-pagination-bottom {
-	display: none;
 	padding: var(--ds-space-2) var(--garage-pad-x) 0;
 }
 
@@ -562,7 +467,7 @@
 	padding: 0;
 }
 
-/* Pagination (below listing on mobile) — override Main.css default margins */
+/* Pagination (below listing) — override Main.css default margins */
 .garage-page .garage-pagination-bottom .garage-pagination {
 	margin: 0;
 }
@@ -711,12 +616,5 @@
 		justify-content: center;
 	}
 
-	/* Sort dropdown opens to the right of the 50% search */
-	.garage-topbar-right .garage-sort-row {
-		flex: 0 0 50%;
-		margin-left: auto;
-		width: 50% !important;
-		padding-top: var(--ds-space-1-5);
-		justify-content: flex-start;
-	}
+	/* Sort UI removed */
 }

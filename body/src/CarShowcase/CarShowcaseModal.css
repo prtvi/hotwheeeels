@@ -589,9 +589,7 @@
 	padding-top: var(--ds-space-5);
 	border-top: 1px solid var(--ds-color-border);
 }
-.cs-nav--footer {
-	display: none;
-}
+/* Nav placement is now conditional in JSX (no duplicate DOM) */
 .cs-nav .swipe-car {
 	display: flex;
 	gap: 6px;
@@ -662,14 +660,7 @@
 	}
 
 	/* Bottom footer nav (full-width, below info) */
-	.cs-nav--footer {
-		display: block;
-	}
-	.cs-nav--ininfo {
-		display: none;
-	}
-
-	.cs-nav--footer {
+	.cs-nav {
 		grid-column: 1 / -1;
 		padding: 0;
 	}

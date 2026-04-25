@@ -133,13 +133,24 @@
 /* Login.jsx */
 
 .login {
-	width: var(--login-form-width);
-	margin: 40px auto;
+	width: 100%;
+	max-width: 420px;
+	margin: 0 auto;
+	padding: var(--ds-space-8) 0;
+	box-sizing: border-box;
 }
 .login-form {
+	width: 100%;
+}
+.login-card {
+	background: var(--ds-palette-surface-1);
+	border: var(--ds-hairline) solid var(--ds-color-border);
+	padding: var(--ds-space-6);
+	clip-path: var(--ds-clip-chamfer-md);
+	box-shadow: var(--ds-shadow-elev-1);
 	display: flex;
 	flex-direction: column;
-	justify-content: space-around;
+	gap: var(--ds-space-4);
 }
 .login-form-component {
 	display: flex;
@@ -147,19 +158,60 @@
 	justify-content: space-between;
 }
 .login-form-component.c2 {
-	width: var(--login-form-width);
+	width: 100%;
 	display: flex;
 	justify-content: space-between;
+	gap: var(--ds-space-3);
 }
 .login-label,
 .login-message {
-	font-size: var(--btn-fs);
-	margin-bottom: 4px;
+	font-family: var(--ds-font-mono);
+	font-size: var(--ds-type-micro-2);
+	letter-spacing: 0.35em;
+	text-transform: uppercase;
+	color: var(--ds-color-text-muted);
 }
 .login-message {
 	animation: shake 0.5s;
 	animation-iteration-count: 1s;
-	font-size: calc(var(--btn-fs) - 2px);
+	font-size: var(--ds-type-micro-2);
+	color: var(--ds-palette-orange);
+}
+.login-input {
+	flex: 1 1 auto;
+	min-width: 0;
+	background: var(--ds-palette-surface-2);
+	border: var(--ds-hairline) solid var(--ds-color-border);
+	color: var(--ds-color-text-primary);
+	font-family: var(--ds-font-mono);
+	font-size: var(--ds-type-body-sm);
+	letter-spacing: 0.05em;
+	padding: var(--ds-space-2-5) var(--ds-space-3);
+	min-height: 40px;
+	outline: none;
+	clip-path: var(--ds-clip-chamfer-sm);
+	box-sizing: border-box;
+}
+.login-input:focus {
+	border-color: var(--ds-color-accent);
+	box-shadow: var(--ds-shadow-focus);
+}
+.login-btn {
+	white-space: nowrap;
+}
+
+@media (max-width: 420px) {
+	.login-card {
+		padding: var(--ds-space-5);
+	}
+	.login-form-component.c2 {
+		flex-direction: column;
+		align-items: stretch;
+	}
+	.login-btn {
+		width: 100%;
+		justify-content: center;
+	}
 }
 
 @media screen and (min-width: 580px) {

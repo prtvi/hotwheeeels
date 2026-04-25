@@ -49,6 +49,22 @@ function CarShowcase(props) {
 
 	const [mode, setMode] = React.useState('');
 	const [shareCopied, setShareCopied] = React.useState(false);
+	const [isMobile, setIsMobile] = React.useState(() => {
+		if (typeof window === 'undefined') return false;
+		return window.matchMedia?.('(max-width: 768px)')?.matches ?? false;
+	});
+
+	React.useEffect(() => {
+		if (typeof window === 'undefined' || !window.matchMedia) return;
+		const mq = window.matchMedia('(max-width: 768px)');
+		const onChange = e => setIsMobile(Boolean(e.matches));
+		if (mq.addEventListener) mq.addEventListener('change', onChange);
+		else mq.addListener(onChange);
+		return () => {
+			if (mq.removeEventListener) mq.removeEventListener('change', onChange);
+			else mq.removeListener(onChange);
+		};
+	}, []);
 
 	const showNav = isHeadSwipe(headSlot);
 	const slotText = (() => {
@@ -140,16 +156,15 @@ function CarShowcase(props) {
 					)}
 
 					{/* Desktop/tablet: keep nav in the info column (original layout) */}
-					{showNav && mode !== 'edit' ? (
-						<div className="cs-nav cs-nav--ininfo" aria-label="Car navigation">
+					{showNav && mode !== 'edit' && !isMobile ? (
+						<div className="cs-nav" aria-label="Car navigation">
 							<div className="cs-nav__bar">{headSlot}</div>
 						</div>
 					) : null}
 				</div>
 
-				{showNav && mode !== 'edit' ? (
-					/* Mobile: footer nav row */
-					<div className="cs-nav cs-nav--footer" aria-label="Car navigation">
+				{showNav && mode !== 'edit' && isMobile ? (
+					<div className="cs-nav" aria-label="Car navigation">
 						<div className="cs-nav__bar">{headSlot}</div>
 					</div>
 				) : null}

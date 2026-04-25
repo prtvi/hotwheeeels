@@ -48,80 +48,8 @@
 	user-select: none;
 }
 
-.sort-order {
-	cursor: pointer;
-}
-.sort-order:active {
-	animation-name: rotate180;
-	animation-duration: 0.5s;
-	animation-fill-mode: forwards;
-}
-@keyframes rotate180 {
-	from {
-		transform: rotate(0deg);
-	}
-	to {
-		transform: rotate(-180deg);
-	}
-}
-
-.toggle-options {
-	cursor: pointer;
-	animation-name: rotateback90;
-	animation-duration: 0.5s;
-	animation-fill-mode: forwards;
-	user-select: none;
-}
-.toggle-options.active {
-	animation-name: rotate_neg90;
-	animation-duration: 0.5s;
-	animation-fill-mode: forwards;
-}
-@keyframes rotate_neg90 {
-	from {
-		transform: rotate(0deg);
-	}
-	to {
-		transform: rotate(-90deg);
-	}
-}
-@keyframes rotateback90 {
-	from {
-		transform: rotate(-90deg);
-	}
-	to {
-		transform: rotate(0deg);
-	}
-}
-
-.trow2 {
-	justify-content: right;
-	position: relative;
-	animation-name: fade;
-	animation-duration: 0.5s;
-}
-.trow2 > .trow-child {
-	margin-left: 10px;
-}
-
-.trow-child.keep-left {
-	position: absolute;
-	left: 0;
-	margin-left: 0;
-}
-
-.trow2.hidden,
 .pseudo.hidden {
 	display: none;
-}
-
-.sort-by-label {
-	font-size: var(--btn-fs);
-}
-#sortBy {
-	padding: 2px;
-	border-radius: 6px;
-	font-size: var(--btn-fs);
 }
 
 /* Legend */

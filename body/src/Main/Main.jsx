@@ -22,12 +22,28 @@ import {
 	getResultsFromFilterStrict,
 	getAuthHeaders,
 	setSessionStorage,
-	sortHandler,
 	getResultsPerPage,
 } from '../functions.js';
 
 export default function Main(props) {
 	const { visitorMode, onCollectionMeta } = props;
+	const [isMobile, setIsMobile] = React.useState(() => {
+		if (typeof window === 'undefined') return false;
+		return window.matchMedia?.('(max-width: 768px)')?.matches ?? false;
+	});
+
+	React.useEffect(() => {
+		if (typeof window === 'undefined' || !window.matchMedia) return;
+		const mq = window.matchMedia('(max-width: 768px)');
+		const onChange = e => setIsMobile(Boolean(e.matches));
+		// Some browsers use addEventListener; older Safari uses addListener
+		if (mq.addEventListener) mq.addEventListener('change', onChange);
+		else mq.addListener(onChange);
+		return () => {
+			if (mq.removeEventListener) mq.removeEventListener('change', onChange);
+			else mq.removeListener(onChange);
+		};
+	}, []);
 
 	// modal
 	const [isModalOpen, setModalOpen] = React.useState(false);
@@ -42,11 +58,7 @@ export default function Main(props) {
 	// search input
 	const [searchInput, setSearchInput] = React.useState('');
 
-	// sorting
-	const [sortParams, setSortParams] = React.useState({
-		sortBy: 'acquiredDate',
-		sortOrder: 'asc',
-	});
+	// sorting UI removed; keep stable default ordering
 
 	// pagination
 	const [currPage, setCurrPage] = React.useState(1);
@@ -141,7 +153,6 @@ export default function Main(props) {
 				setModalContent={setModalContent}
 				setModalTitle={setModalTitle}
 				visitorMode={visitorMode}
-				setSortParams={setSortParams}
 			/>
 		);
 	}
@@ -224,8 +235,8 @@ export default function Main(props) {
 		setCurrPage(1);
 	}
 
-	// sort entire list and then truncate results for view array and render only a portion of it based on curr page
-	const sortedList = sortHandler(sortParams, resultsForView);
+	// paginate results (sorting UI removed)
+	const sortedList = resultsForView;
 	const resultsPerPage = getResultsPerPage();
 	const paginationList = sortedList.slice(
 		resultsPerPage * (currPage - 1),
@@ -257,26 +268,30 @@ export default function Main(props) {
 						activeSegment={segmentFilter}
 					/>
 				</div>
-				<div className="garage-filters-row__paging">
-					<Pagination
-						length={resultsForView.length}
-						currPage={currPage}
-						setCurrPage={setCurrPage}
-					/>
-				</div>
+				{!isMobile ? (
+					<div className="garage-filters-row__paging">
+						<Pagination
+							length={resultsForView.length}
+							currPage={currPage}
+							setCurrPage={setCurrPage}
+						/>
+					</div>
+				) : null}
 			</div>
 
 			<div className="garage-grid-wrap">
 				<Cars list={paginationList} showCar={showCar} />
 			</div>
 
-			<div className="garage-pagination-bottom" aria-label="Pagination">
-				<Pagination
-					length={resultsForView.length}
-					currPage={currPage}
-					setCurrPage={setCurrPage}
-				/>
-			</div>
+			{isMobile ? (
+				<div className="garage-pagination-bottom" aria-label="Pagination">
+					<Pagination
+						length={resultsForView.length}
+						currPage={currPage}
+						setCurrPage={setCurrPage}
+					/>
+				</div>
+			) : null}
 
 			<Modal
 				modalTitle={modalTitle}

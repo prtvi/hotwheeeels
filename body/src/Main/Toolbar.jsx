@@ -67,6 +67,7 @@ export default function Toolbar(props) {
 							className="pf-300 input-cross hidden"
 							onClick={clearInput}
 							role="button"
+							aria-label="Clear search"
 							tabIndex={0}
 							onKeyDown={e => {
 								if (e.key === 'Enter' || e.key === ' ') clearInput();
