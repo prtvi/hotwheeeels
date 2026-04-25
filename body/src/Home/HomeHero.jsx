@@ -11,11 +11,11 @@ export default function HomeHero(props) {
 	const { onEnterGarage, onViewStats, onOpenCarId, metaSourceCars } = props;
 	const m = React.useMemo(
 		() => computeHeroMeta(metaSourceCars),
-		[metaSourceCars]
+		[metaSourceCars],
 	);
 	const previews = React.useMemo(
 		() => pickPreviewCars(metaSourceCars, config.heroPreviewCarCount),
-		[metaSourceCars]
+		[metaSourceCars],
 	);
 
 	const viewStats = React.useCallback(
@@ -23,7 +23,7 @@ export default function HomeHero(props) {
 			if (e) e.preventDefault();
 			if (onViewStats) onViewStats();
 		},
-		[onViewStats]
+		[onViewStats],
 	);
 
 	return (
@@ -32,7 +32,7 @@ export default function HomeHero(props) {
 			<div className="home-hero__main">
 				<div className="home-hero__stripe" aria-hidden="true" />
 				<div className="home-hero__corner home-hero__corner--l">
-					SYS // COLLECTION OS v2.6
+					{'SYS // COLLECTION OS v2.6'}
 					<br />
 					STATUS: ONLINE
 					<br />
@@ -46,15 +46,14 @@ export default function HomeHero(props) {
 					{/* PARIS, FR */}
 				</div>
 
-				<div className="home-hero__eyebrow">personal diecast archive</div>
+				<div className="home-hero__eyebrow">
+					personal diecast archive
+				</div>
 
 				<div className="home-hero__title-wrap">
 					<h1 className="home-hero__title">
 						<span className="home-hero__line1">HOT</span>
-						<span
-							className="home-hero__line2"
-							data-text="WHEEEELS"
-						>
+						<span className="home-hero__line2" data-text="WHEEEELS">
 							WHEEEELS
 						</span>
 					</h1>
@@ -64,9 +63,16 @@ export default function HomeHero(props) {
 					by prithvi &nbsp;·&nbsp; est. 2013 &nbsp;·&nbsp; 1:64 scale
 				</p>
 
-				<div className="home-hero__speedo" role="group" aria-label="Collection stats">
+				<div
+					className="home-hero__speedo"
+					role="group"
+					aria-label="Collection stats"
+				>
 					<div className="home-hero__spd">
-						<span className="home-hero__spd-n home-hero__spd-n--orange" aria-live="polite">
+						<span
+							className="home-hero__spd-n home-hero__spd-n--orange"
+							aria-live="polite"
+						>
 							{m.total}
 						</span>
 						<span className="home-hero__spd-l">Cars</span>
@@ -119,7 +125,9 @@ export default function HomeHero(props) {
 			</div>
 
 			<div className="home-hero__preview" id="home-hero-preview">
-				<div className="home-hero__preview-label">Top of the collection</div>
+				<div className="home-hero__preview-label">
+					Top of the collection
+				</div>
 				<div
 					className="home-hero__strip"
 					role="list"
@@ -129,29 +137,43 @@ export default function HomeHero(props) {
 						<p className="home-hero__strip-empty">Loading picks…</p>
 					) : (
 						previews.map((car, i) => {
-							const img = car.imgs && car.imgs[0] ? car.imgs[0] : '';
+							const img =
+								car.imgs && car.imgs[0] ? car.imgs[0] : '';
 							return (
 								<button
 									type="button"
 									key={car.carId || i}
 									className="home-hero__prev-card"
 									onClick={() => {
-										if (car.carId && typeof onOpenCarId === 'function') {
+										if (
+											car.carId &&
+											typeof onOpenCarId === 'function'
+										) {
 											onOpenCarId(car.carId);
 											return;
 										}
-										if (typeof onEnterGarage === 'function') onEnterGarage();
+										if (typeof onEnterGarage === 'function')
+											onEnterGarage();
 									}}
 									role="listitem"
 									aria-label={`Open collection — ${car.carName || 'car'}`}
 								>
 									{img ? (
-										<img src={img} alt="" className="home-hero__prev-img" />
+										<img
+											src={img}
+											alt=""
+											className="home-hero__prev-img"
+										/>
 									) : (
 										<div className="home-hero__prev-ph" />
 									)}
-									<div className="home-hero__prev-bar" aria-hidden="true" />
-									<div className="home-hero__prev-name">{car.carName}</div>
+									<div
+										className="home-hero__prev-bar"
+										aria-hidden="true"
+									/>
+									<div className="home-hero__prev-name">
+										{car.carName}
+									</div>
 								</button>
 							);
 						})
