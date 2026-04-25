@@ -1,8 +1,9 @@
-import config from '../config.json';
+import { getConfigValue } from '../functions.js';
 
 export default function Legend(props) {
 	const { filter, activeSegment = '' } = props;
-	const scs = Object.entries(config.segmentClasses).filter(i => i[1].avlbl);
+	const segments = getConfigValue('segments', {});
+	const scs = Object.entries(segments).filter(i => i[1].avlbl);
 
 	const onFtab = key => {
 		if (key === '') {

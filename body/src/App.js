@@ -12,6 +12,7 @@ import {
 	getEngineUrl,
 	getSessionItem,
 	logUrl,
+	setRuntimeConfig,
 } from './functions.js';
 
 function getAppViewFromUrl() {
@@ -31,6 +32,7 @@ export default function App() {
 	const [appView, setAppView] = React.useState(getAppViewFromUrl);
 	const [collectionCars, setCollectionCars] = React.useState([]);
 	const [homepageStats, setHomepageStats] = React.useState(null);
+	const [runtimeCfg, setRuntimeCfg] = React.useState(null);
 
 	const showHero = appView === 'hero';
 
@@ -42,7 +44,7 @@ export default function App() {
 			const response = await makeRequest(
 				getEngineUrl() + '/api/auth/verify_token',
 				{ headers: { token: token } },
-				{ token: token }
+				{ token: token },
 			);
 
 			if (response.status === 200) {
@@ -62,13 +64,25 @@ export default function App() {
 
 	React.useEffect(() => {
 		(async function () {
+			// Bootstrap runtime config first (no file-based config).
+			const cfgRes = await makeRequest(
+				getEngineUrl() + '/api/config/runtime',
+				undefined,
+				undefined,
+			);
+			if (cfgRes && cfgRes.status === 200 && cfgRes.data?.config) {
+				setRuntimeConfig(cfgRes.data.env, cfgRes.data.config);
+				setRuntimeCfg(cfgRes.data.config);
+			}
+
 			const res = await makeRequest(
 				getEngineUrl() + '/api/stats/homepage',
 				undefined,
-				undefined
+				undefined,
 			);
 
-			if (res && res.status === 200 && res.data) setHomepageStats(res.data);
+			if (res && res.status === 200 && res.data)
+				setHomepageStats(res.data);
 		})();
 	}, []);
 
@@ -88,7 +102,7 @@ export default function App() {
 			applyUrl(u.pathname + (q ? '?' + q : ''));
 			window.scrollTo(0, 0);
 		},
-		[applyUrl]
+		[applyUrl],
 	);
 
 	const navToGarage = React.useCallback(
@@ -100,23 +114,20 @@ export default function App() {
 			applyUrl(u);
 			window.scrollTo(0, 0);
 		},
-		[applyUrl]
+		[applyUrl],
 	);
 
-	const openCarFromHomePreview = React.useCallback(
-		carId => {
-			if (!carId) return;
-			const u = new URL(window.location.href);
-			u.searchParams.delete('stats');
-			u.searchParams.set('garage', '1');
-			u.searchParams.set('car_id', carId);
-			window.history.pushState({}, '', u);
-			// keep App + Main in sync (Main listens to popstate for car_id opens)
-			window.dispatchEvent(new PopStateEvent('popstate'));
-			window.scrollTo(0, 0);
-		},
-		[]
-	);
+	const openCarFromHomePreview = React.useCallback(carId => {
+		if (!carId) return;
+		const u = new URL(window.location.href);
+		u.searchParams.delete('stats');
+		u.searchParams.set('garage', '1');
+		u.searchParams.set('car_id', carId);
+		window.history.pushState({}, '', u);
+		// keep App + Main in sync (Main listens to popstate for car_id opens)
+		window.dispatchEvent(new PopStateEvent('popstate'));
+		window.scrollTo(0, 0);
+	}, []);
 
 	const navToStats = React.useCallback(
 		e => {
@@ -128,7 +139,7 @@ export default function App() {
 			applyUrl(u);
 			window.scrollTo(0, 0);
 		},
-		[applyUrl]
+		[applyUrl],
 	);
 
 	const onSkipToContent = React.useCallback(
@@ -136,11 +147,14 @@ export default function App() {
 			if (showHero) {
 				navToGarage(e);
 			}
-			setTimeout(() => {
-				document.getElementById('main-content')?.focus();
-			}, showHero ? 100 : 0);
+			setTimeout(
+				() => {
+					document.getElementById('main-content')?.focus();
+				},
+				showHero ? 100 : 0,
+			);
 		},
-		[showHero, navToGarage]
+		[showHero, navToGarage],
 	);
 
 	const renderMain = function () {
@@ -148,12 +162,19 @@ export default function App() {
 			if (appView === 'stats') {
 				return <StatsPage />;
 			}
-			return <Main visitorMode={false} onCollectionMeta={setCollectionCars} />;
+			return (
+				<Main
+					visitorMode={false}
+					onCollectionMeta={setCollectionCars}
+				/>
+			);
 		} else if (!authenticated && visitorMode) {
 			if (appView === 'stats') {
 				return <StatsPage />;
 			}
-			return <Main visitorMode={true} onCollectionMeta={setCollectionCars} />;
+			return (
+				<Main visitorMode={true} onCollectionMeta={setCollectionCars} />
+			);
 		} else if (!authenticated && !visitorMode) {
 			return (
 				<Login
@@ -170,34 +191,42 @@ export default function App() {
 	return (
 		<>
 			<CustomCursor />
-		<AppShell
-			view={view}
-			carCount={collectionCars.length}
-			since={homepageStats?.since ?? null}
-			preMain={
-				!isLogin && showHero ? (
-					<HomeHero
-						onEnterGarage={navToGarage}
-						onViewStats={navToStats}
-						onOpenCarId={openCarFromHomePreview}
-						metaSourceCars={collectionCars}
-						uptime={homepageStats?.uptime ?? null}
-						since={homepageStats?.since ?? null}
-						firstCarDate={homepageStats?.first_car_date ?? null}
-					/>
-				) : null
-			}
-			mainHidden={!isLogin && showHero}
-			onNavHome={!isLogin ? navToHome : undefined}
-			onNavGarage={!isLogin ? navToGarage : undefined}
-			onNavStats={!isLogin ? navToStats : undefined}
-			homeNavActive={!isLogin && appView === 'hero'}
-			garageNavActive={!isLogin && appView === 'garage'}
-			statsNavActive={!isLogin && appView === 'stats'}
-			onSkipToContent={!isLogin ? onSkipToContent : undefined}
-		>
-			{renderMain()}
-		</AppShell>
+			<AppShell
+				view={view}
+				carCount={collectionCars.length}
+				since={homepageStats?.since ?? null}
+				preMain={
+					!isLogin && showHero ? (
+						<HomeHero
+							onEnterGarage={navToGarage}
+							onViewStats={navToStats}
+							onOpenCarId={openCarFromHomePreview}
+							metaSourceCars={collectionCars}
+							uptime={homepageStats?.uptime ?? null}
+							since={homepageStats?.since ?? null}
+							firstCarDate={homepageStats?.first_car_date ?? null}
+							totalCars={homepageStats?.total_cars ?? null}
+							totalSeries={homepageStats?.total_series ?? null}
+							totalSegments={
+								homepageStats?.total_segments ?? null
+							}
+							heroPreviewCarCount={
+								runtimeCfg?.heroPreviewCarCount ?? null
+							}
+						/>
+					) : null
+				}
+				mainHidden={!isLogin && showHero}
+				onNavHome={!isLogin ? navToHome : undefined}
+				onNavGarage={!isLogin ? navToGarage : undefined}
+				onNavStats={!isLogin ? navToStats : undefined}
+				homeNavActive={!isLogin && appView === 'hero'}
+				garageNavActive={!isLogin && appView === 'garage'}
+				statsNavActive={!isLogin && appView === 'stats'}
+				onSkipToContent={!isLogin ? onSkipToContent : undefined}
+			>
+				{renderMain()}
+			</AppShell>
 		</>
 	);
 }

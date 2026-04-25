@@ -3,14 +3,35 @@ import axios from 'axios';
 import ShowcaseItem from './CarShowcase/ShowcaseItem.jsx';
 import FormItem from './Forms/FormItem.jsx';
 
-import config from './config.json';
+let runtimeConfig = null;
+let runtimeEnv = null;
+
+function setRuntimeConfig(env, cfg) {
+	runtimeEnv = env;
+	runtimeConfig = cfg;
+}
+
+function getRuntimeConfig() {
+	return runtimeConfig;
+}
+
+function getEnv() {
+	return runtimeEnv;
+}
+
+function getConfigValue(key, fallback) {
+	if (!runtimeConfig) return fallback;
+	if (Object.prototype.hasOwnProperty.call(runtimeConfig, key))
+		return runtimeConfig[key];
+	return fallback;
+}
 
 /**
  * return the engine url based on the env
  * @returns {String} engine url
  */
 function getEngineUrl() {
-	return config.ENV === 'prod' ? config.engineURL : config.engineURLDev;
+	return getConfigValue('engineURL', 'https://hotwheeeelsengine.onrender.com');
 }
 
 /**
@@ -39,7 +60,7 @@ async function makeRequest(url, headers, requestBody) {
  */
 function getResultsFromFilter(allItems, fieldName, inputText) {
 	return allItems.filter(item =>
-		item[fieldName].toLowerCase().includes(inputText.toLowerCase())
+		item[fieldName].toLowerCase().includes(inputText.toLowerCase()),
 	);
 }
 
@@ -303,7 +324,7 @@ function showEditComponents(show) {
 		editCarContainer.classList.add('edit');
 	} else {
 		Array.from(editComponentGroups).forEach(c =>
-			c.classList.remove('active')
+			c.classList.remove('active'),
 		);
 		editCarContainer.classList.remove('edit');
 
@@ -365,24 +386,24 @@ function sortHandler(params, list) {
 	} else {
 		if (params.sortOrder === 'asc')
 			return list.sort(
-				(a, b) => new Date(a.acquiredDate) - new Date(b.acquiredDate)
+				(a, b) => new Date(a.acquiredDate) - new Date(b.acquiredDate),
 			);
 		else
 			return list.sort(
-				(a, b) => new Date(b.acquiredDate) - new Date(a.acquiredDate)
+				(a, b) => new Date(b.acquiredDate) - new Date(a.acquiredDate),
 			);
 	}
 }
 
 function getResultsPerPage() {
 	if (window.screen.height > window.screen.width)
-		return config.resultsPerPageVertical;
+		return getConfigValue('resultsPerPageVertical', 10);
 
-	return config.resultsPerPage;
+	return getConfigValue('resultsPerPage', 15);
 }
 
 async function logUrl() {
-	if (!config.logRequests || config.ENV === 'dev') return;
+	if (!getConfigValue('logRequests', false) || getEnv() === 'dev') return;
 
 	const sp = new URLSearchParams(window.location.search);
 	if (sp.has('auth')) return;
@@ -393,7 +414,7 @@ async function logUrl() {
 	await makeRequest(
 		getEngineUrl() + '/api/capture_website_visit',
 		getAuthHeaders(),
-		{ url, src }
+		{ url, src },
 	);
 }
 
@@ -405,6 +426,10 @@ function getCssDimension(cssVar) {
 }
 
 export {
+	setRuntimeConfig,
+	getRuntimeConfig,
+	getConfigValue,
+	getEnv,
 	getEngineUrl,
 	makeRequest,
 	getResultsFromFuse,

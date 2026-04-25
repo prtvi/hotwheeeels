@@ -1,6 +1,5 @@
 import React from 'react';
-import config from '../config.json';
-import { computeHeroMeta, pickPreviewCars } from './homeHeroUtils.js';
+import { pickPreviewCars } from './homeHeroUtils.js';
 import './HomeHero.css';
 
 /**
@@ -16,14 +15,14 @@ export default function HomeHero(props) {
 		uptime,
 		since,
 		firstCarDate,
+		totalCars,
+		totalSeries,
+		totalSegments,
+		heroPreviewCarCount,
 	} = props;
-	const m = React.useMemo(
-		() => computeHeroMeta(metaSourceCars),
-		[metaSourceCars],
-	);
 	const previews = React.useMemo(
-		() => pickPreviewCars(metaSourceCars, config.heroPreviewCarCount),
-		[metaSourceCars],
+		() => pickPreviewCars(metaSourceCars, heroPreviewCarCount || 8),
+		[metaSourceCars, heroPreviewCarCount],
 	);
 
 	const viewStats = React.useCallback(
@@ -82,7 +81,7 @@ export default function HomeHero(props) {
 							className="home-hero__spd-n home-hero__spd-n--orange"
 							aria-live="polite"
 						>
-							{m.total}
+							{totalCars ?? '—'}
 						</span>
 						<span className="home-hero__spd-l">Cars</span>
 					</div>
@@ -91,7 +90,7 @@ export default function HomeHero(props) {
 							className="home-hero__spd-n home-hero__spd-n--cyan"
 							aria-live="polite"
 						>
-							{m.nSeries}
+							{totalSeries ?? '—'}
 						</span>
 						<span className="home-hero__spd-l">Series</span>
 					</div>
@@ -100,16 +99,16 @@ export default function HomeHero(props) {
 							className="home-hero__spd-n home-hero__spd-n--yellow"
 							aria-live="polite"
 						>
-							{m.nTypes}
+							{totalSegments ?? '—'}
 						</span>
-						<span className="home-hero__spd-l">Types</span>
+						<span className="home-hero__spd-l">Segments</span>
 					</div>
 					<div className="home-hero__spd">
 						<span
 							className="home-hero__spd-n home-hero__spd-n--orange"
 							aria-live="polite"
 						>
-							{firstCarDate ?? since ?? m.since}
+							{firstCarDate ?? since ?? '—'}
 						</span>
 						<span className="home-hero__spd-l">Collecting since</span>
 					</div>

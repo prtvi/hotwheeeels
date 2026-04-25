@@ -1,14 +1,14 @@
 import './CarShowcase.css';
-import config from '../config.json';
+import { getConfigValue } from '../functions.js';
 
 function Car(props) {
 	const { index, car, showCar } = props;
-	const segmentClasses = config.segmentClasses;
+	const segments = getConfigValue('segments', {});
 	const showCarHandler = () => showCar(index);
 
-	const firstKey = car.segmentClass[0];
-	const topColor = segmentClasses[firstKey]?.color
-		? String(segmentClasses[firstKey].color)
+	const firstKey = car.segment[0];
+	const topColor = segments[firstKey]?.color
+		? String(segments[firstKey].color)
 		: 'var(--ds-palette-dim-2)';
 
 	return (

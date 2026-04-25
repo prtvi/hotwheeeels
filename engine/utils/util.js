@@ -1,10 +1,58 @@
 const axios = require('axios');
 const sharp = require('sharp');
 const cloudinary = require('cloudinary').v2;
-const config = require('config');
 const { Readable } = require('stream');
-const { initDb } = require('./db.js');
-const { Car } = require('./db.js');
+const { initDb, initCarModel, getCarModel, Settings } = require('./db.js');
+
+let dbConfig = null;
+let dbConfigLoadedForEnv = null;
+
+async function initApp() {
+	console.log('engine env', getRuntimeEnv());
+
+	cloudinary.config({
+		cloud_name: process.env.CLOUD_NAME,
+		api_key: process.env.CLOUD_API_KEY,
+		api_secret: process.env.CLOUD_API_SECRET,
+	});
+
+	initDb();
+	await loadDbConfig();
+
+	// Build Car model after DB config is available.
+	initCarModel(getConfigValue('formItems', []));
+}
+
+function getRuntimeEnv() {
+	return process.env.ENV || 'prod';
+}
+
+async function loadDbConfig() {
+	const env = getRuntimeEnv();
+	if (dbConfigLoadedForEnv === env) return dbConfig;
+
+	try {
+		const doc = await Settings.findOne({ key: `config_${env}` }).lean();
+		dbConfig = doc?.payload ?? null;
+		dbConfigLoadedForEnv = env;
+		return dbConfig;
+	} catch (err) {
+		console.log('loadDbConfig error', err?.message ?? err);
+		dbConfig = null;
+		dbConfigLoadedForEnv = env;
+		return null;
+	}
+}
+
+function getConfigValue(k, fallback) {
+	if (dbConfig && Object.prototype.hasOwnProperty.call(dbConfig, k))
+		return dbConfig[k];
+	return fallback;
+}
+
+function getDbConfig() {
+	return dbConfig;
+}
 
 async function makeRequest(url, requestBody, headers) {
 	try {
@@ -15,22 +63,12 @@ async function makeRequest(url, requestBody, headers) {
 	}
 }
 
-async function initApp() {
-	cloudinary.config({
-		cloud_name: process.env.CLOUD_NAME,
-		api_key: process.env.CLOUD_API_KEY,
-		api_secret: process.env.CLOUD_API_SECRET,
-	});
-
-	initDb();
-}
-
 function newCarObj(reqBody, carId) {
-	const formItems = config.get('formItems');
+	const formItems = getConfigValue('formItems', []);
 	const carObj = {};
 	carObj['carId'] = carId;
 
-	for (let i = 0; i < formItems.length; i++) {
+	for (let i = 0; i < formItems.length-1; i++) { // -1 to exclude the btn component
 		const fi = formItems[i];
 		const key = fi.key;
 		const value = reqBody[key];
@@ -66,13 +104,13 @@ function newCarObj(reqBody, carId) {
 }
 
 function getMaskedCarFields() {
-	const formItems = config.get('formItems');
+	const formItems = getConfigValue('formItems', []);
 	const fields = {};
 
 	// add the carId too
 	fields['carId'] = 1;
 
-	for (let i = 0; i < formItems.length; i++) {
+	for (let i = 0; i < formItems.length-1; i++) { // -1 to exclude the btn component
 		const fi = formItems[i];
 
 		if (fi.forAuthOnly) continue;
@@ -83,6 +121,7 @@ function getMaskedCarFields() {
 }
 
 async function deletePicturesForCarId(carId) {
+	const Car = getCarModel();
 	const results = await Car.aggregate([
 		{ $match: { carId: carId } },
 		{ $project: { _id: 0, n: { $size: '$imgs' } } },
@@ -133,28 +172,23 @@ function bufferToStream(buffer) {
 	return readable;
 }
 
-function getEnv() {
-	return config.get('ENV');
-}
-
 function getEngineURL() {
-	return getEnv() === 'prod'
-		? config.get('engineURL')
-		: config.get('engineURLDev');
+	return getConfigValue('engineURL', 'https://hotwheeeelsengine.onrender.com');
 }
 
 function getCloudinaryFolder() {
-	return `hotwheeeels/${getEnv()}`;
+	return `hotwheeeels/${getRuntimeEnv()}`;
 }
 
 function formatUptime(fromDate, toDate) {
 	const from = new Date(fromDate);
 	const to = new Date(toDate);
 	if (Number.isNaN(from.getTime()) || Number.isNaN(to.getTime())) return null;
-	if (to.getTime() < from.getTime()) return '0d';
+	if (to.getTime() < from.getTime()) return '-';
 
 	let totalMonths =
-		(to.getFullYear() - from.getFullYear()) * 12 + (to.getMonth() - from.getMonth());
+		(to.getFullYear() - from.getFullYear()) * 12 +
+		(to.getMonth() - from.getMonth());
 
 	// If we haven't reached the day-of-month yet, subtract a month.
 	if (to.getDate() < from.getDate()) totalMonths -= 1;
@@ -195,4 +229,7 @@ exports.u = {
 	getEngineURL,
 	getCloudinaryFolder,
 	formatUptime,
+	loadDbConfig,
+	getConfigValue,
+	getDbConfig,
 };

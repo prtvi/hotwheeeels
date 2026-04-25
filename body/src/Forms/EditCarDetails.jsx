@@ -2,7 +2,6 @@ import React from 'react';
 import Message from '../Utils/Message.jsx';
 import Loader from '../Utils/Loader.jsx';
 import './Forms.css';
-import config from '../config.json';
 
 import {
 	showCurrentMode,
@@ -12,6 +11,7 @@ import {
 	postFormTextData,
 	postImageData,
 	getAuthHeaders,
+	getConfigValue,
 } from '../functions.js';
 
 export default function EditCarDetails(props) {
@@ -58,8 +58,9 @@ export default function EditCarDetails(props) {
 		const form = document.getElementById('update-car-form');
 		const fileInput = document.getElementsByName('imgs')[0];
 
-		if (fileInput.files.length > config.maxFileUploadLimit) {
-			alert(`You can upload only ${config.maxFileUploadLimit} pictures`);
+		const max = getConfigValue('maxFileUploadLimit', 5);
+		if (fileInput.files.length > max) {
+			alert(`You can upload only ${max} pictures`);
 			return;
 		}
 

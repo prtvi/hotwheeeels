@@ -1,11 +1,14 @@
 import './Forms.css';
-import config from '../config.json';
 
-import { getFormContentDom, getFormRowItemsForUpdate } from '../functions.js';
+import {
+	getFormContentDom,
+	getFormRowItemsForUpdate,
+	getConfigValue,
+} from '../functions.js';
 
 export default function UpdateCarForm(props) {
 	const { car } = props;
-	const rowsToShow = getFormRowItemsForUpdate(config.formItems, car);
+	const rowsToShow = getFormRowItemsForUpdate(getConfigValue('formItems', []), car);
 
 	return (
 		<form id="update-car-form">

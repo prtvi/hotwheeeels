@@ -1,9 +1,8 @@
 const mongoose = require('mongoose');
-const config = require('config');
 
 exports.initDb = function () {
 	const dbUrl =
-		config.get('ENV') === 'prod'
+		process.env.ENV === 'prod'
 			? process.env.DB_URL
 			: process.env.DB_URL_DEV;
 
@@ -14,7 +13,9 @@ exports.initDb = function () {
 
 	mongoose
 		.connect(dbUrl)
-		.catch(err => console.error('db connection failed:', err?.message ?? err));
+		.catch(err =>
+			console.error('db connection failed:', err?.message ?? err),
+		);
 
 	const conn = mongoose.connection;
 	conn.on('connected', () => console.log('db connected'));
@@ -27,7 +28,7 @@ exports.initDb = function () {
 function getSchemaForFormItem(formItems) {
 	const schema = {};
 
-	for (let i = 0; i < formItems.length; i++) {
+	for (let i = 0; i < formItems.length-1; i++) { // -1 to exclude the btn component
 		const fi = formItems[i];
 
 		let fieldType = '';
@@ -75,8 +76,19 @@ function getSchemaForFormItem(formItems) {
 	return schema;
 }
 
-const schema = getSchemaForFormItem(config.get('formItems'));
-exports.Car = new mongoose.model('Car', mongoose.Schema(schema));
+let CarModel = null;
+
+function initCarModel(formItems) {
+	if (CarModel) return CarModel;
+	const schema = getSchemaForFormItem(formItems || []);
+	CarModel = mongoose.model('Car', mongoose.Schema(schema));
+	return CarModel;
+}
+
+function getCarModel() {
+	if (!CarModel) throw new Error('Car model not initialised');
+	return CarModel;
+}
 
 const logSchema = {
 	url: {
@@ -122,4 +134,10 @@ const settingsSchema = {
 	},
 };
 
-exports.Settings = new mongoose.model('Settings', mongoose.Schema(settingsSchema));
+exports.Settings = new mongoose.model(
+	'Settings',
+	mongoose.Schema(settingsSchema),
+);
+
+exports.initCarModel = initCarModel;
+exports.getCarModel = getCarModel;

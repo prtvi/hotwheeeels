@@ -30,7 +30,7 @@ export default function ShowcaseItem(props) {
 		);
 	}
 
-	if (label === 'Collection #/250') valueField = `${value}/250`;
+	if (label === 'Mainline index') valueField = `${value}/250`;
 
 	return (
 		<div className={className}>

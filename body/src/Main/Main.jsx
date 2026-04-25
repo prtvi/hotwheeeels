@@ -12,7 +12,6 @@ import Legend from './Legend.jsx';
 import Cars from '../CarShowcase/Cars.jsx';
 import SwipeCar from '../CarShowcase/SwipeCar.jsx';
 import Pagination from './Pagination.jsx';
-import config from '../config.json';
 
 import {
 	getEngineUrl,
@@ -23,6 +22,7 @@ import {
 	getAuthHeaders,
 	setSessionStorage,
 	getResultsPerPage,
+	getConfigValue,
 } from '../functions.js';
 
 export default function Main(props) {
@@ -111,7 +111,7 @@ export default function Main(props) {
 	}, [allResults, onCollectionMeta]);
 
 	const fuse = new Fuse(allResults, {
-		keys: config.fuseSearchParams,
+		keys: getConfigValue('fuseSearchParams', ['carName', 'series']),
 		includeScore: true,
 	});
 
@@ -220,18 +220,18 @@ export default function Main(props) {
 		}
 	}
 
-	function filterBasedOnSegmentClass(segmentClass) {
+	function filterBasedOnSegment(segment) {
 		let res = [];
-		if (segmentClass === '') res = allResults;
+		if (segment === '') res = allResults;
 		else
 			res = getResultsFromFilterStrict(
 				allResults,
-				'segmentClass',
-				segmentClass
+				'segment',
+				segment
 			);
 
 		setResultsForView(() => res);
-		setSegmentFilter(segmentClass);
+		setSegmentFilter(segment);
 		setCurrPage(1);
 	}
 
@@ -264,7 +264,7 @@ export default function Main(props) {
 			<div className="garage-filters-row">
 				<div className="garage-filters-row__tabs">
 					<Legend
-						filter={filterBasedOnSegmentClass}
+						filter={filterBasedOnSegment}
 						activeSegment={segmentFilter}
 					/>
 				</div>

@@ -4,18 +4,18 @@ import './CarShowcaseModal.css';
 import Carousel from './Carousel.jsx';
 import EditCarDetails from '../Forms/EditCarDetails.jsx';
 import UpdateCarForm from '../Forms/UpdateCarForm.jsx';
-import config from '../config.json';
 
 import {
 	getRowItemsForShowcase,
 	getShowcaseDom,
 	getSessionItem,
+	getConfigValue,
 } from '../functions.js';
 
-function segmentTypeLabel(segmentClass) {
-	if (!Array.isArray(segmentClass) || !segmentClass.length) return 'COLLECTION';
-	const segs = config.segmentClasses;
-	const labels = segmentClass
+function segmentTypeLabel(segment) {
+	if (!Array.isArray(segment) || !segment.length) return 'COLLECTION';
+	const segs = getConfigValue('segments', {});
+	const labels = segment
 		.map(s => segs[s]?.label)
 		.filter(Boolean);
 	return labels.length
@@ -23,10 +23,10 @@ function segmentTypeLabel(segmentClass) {
 		: 'COLLECTION';
 }
 
-function firstTagLabel(segmentClass) {
-	if (!Array.isArray(segmentClass) || !segmentClass.length) return '1:64';
-	const k = segmentClass[0];
-	return (config.segmentClasses[k]?.label || k || '1:64').toUpperCase();
+function firstTagLabel(segment) {
+	if (!Array.isArray(segment) || !segment.length) return '1:64';
+	const k = segment[0];
+	return (getConfigValue('segments', {})[k]?.label || k || '1:64').toUpperCase();
 }
 
 function isHeadSwipe(el) {
@@ -45,7 +45,7 @@ function CarShowcase(props) {
 		onClose,
 		headSlot,
 	} = props;
-	const rowsForView = getRowItemsForShowcase(config.formItems, car);
+	const rowsForView = getRowItemsForShowcase(getConfigValue('formItems', []), car);
 
 	const [mode, setMode] = React.useState('');
 	const [shareCopied, setShareCopied] = React.useState(false);
@@ -74,7 +74,7 @@ function CarShowcase(props) {
 	})();
 
 	const copyCarShareLink = React.useCallback(async () => {
-		const url = `${config.bodyURL}/?car_id=${car.carId}&src=shareicon`;
+		const url = `${getConfigValue('bodyURL', window.location.origin)}/?car_id=${car.carId}&src=shareicon`;
 		try {
 			await navigator.clipboard.writeText(url);
 			setShareCopied(true);
@@ -119,9 +119,9 @@ function CarShowcase(props) {
 					) : null}
 					<div
 						className="cs-seg-tag"
-						title={firstTagLabel(car.segmentClass)}
+						title={firstTagLabel(car.segment)}
 					>
-						{firstTagLabel(car.segmentClass)}
+						{firstTagLabel(car.segment)}
 					</div>
 				</div>
 
@@ -137,7 +137,7 @@ function CarShowcase(props) {
 						/>
 					) : null}
 
-					<p className="cs-type-label">{segmentTypeLabel(car.segmentClass)}</p>
+					<p className="cs-type-label">{segmentTypeLabel(car.segment)}</p>
 					<h2 className="cs-title">{car.carName}</h2>
 					{car.brand ? (
 						<p className="cs-brand">

@@ -2,7 +2,6 @@ import React from 'react';
 import './Forms.css';
 import Message from '../Utils/Message.jsx';
 import Loader from '../Utils/Loader.jsx';
-import config from '../config.json';
 
 import {
 	getEngineUrl,
@@ -11,11 +10,12 @@ import {
 	getFormRowItems,
 	getFormContentDom,
 	getAuthHeaders,
+	getConfigValue,
 } from '../functions.js';
 
 export default function AddCarForm(props) {
 	const { setModalContent, setModalTitle, setModalOpen } = props;
-	const rowsToShow = getFormRowItems(config.formItems);
+	const rowsToShow = getFormRowItems(getConfigValue('formItems', []));
 
 	const closeModal = () => setModalOpen(false);
 	const setModalContentForMessage = function (msg) {
@@ -31,8 +31,9 @@ export default function AddCarForm(props) {
 		const carId = Date.now();
 		const fileInput = document.getElementsByName('imgs')[0];
 
-		if (fileInput.files.length > config.maxFileUploadLimit) {
-			alert(`You can upload only ${config.maxFileUploadLimit} pictures`);
+		const max = getConfigValue('maxFileUploadLimit', 5);
+		if (fileInput.files.length > max) {
+			alert(`You can upload only ${max} pictures`);
 			return;
 		}
 

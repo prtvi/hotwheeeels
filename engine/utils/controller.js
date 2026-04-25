@@ -1,8 +1,7 @@
 const jwt = require('jsonwebtoken');
 const cloudinary = require('cloudinary').v2;
-const config = require('config');
 const { u } = require('./util.js');
-const { Car, Log, Settings } = require('./db.js');
+const { getCarModel, Log, Settings } = require('./db.js');
 
 function logger(req, res, next) {
 	console.log(req.method, req.url);
@@ -121,6 +120,7 @@ function authMiddleware(req, res, next) {
 }
 
 async function getAllMasked(req, res) {
+	const Car = getCarModel();
 	const projection = u.getMaskedCarFields();
 	const results = await Car.find({}, projection);
 
@@ -129,12 +129,14 @@ async function getAllMasked(req, res) {
 }
 
 async function getAll(req, res) {
+	const Car = getCarModel();
 	const results = await Car.find();
 	if (results.length > 0) return res.send(results);
 	else return res.status(400).send([]);
 }
 
 function addCar(req, res) {
+	const Car = getCarModel();
 	const rBody = req.body;
 	const carId = req.query.car_id;
 
@@ -151,6 +153,7 @@ function addCar(req, res) {
 }
 
 async function uploadImage(req, res) {
+	const Car = getCarModel();
 	const fileInput = req.files;
 	const carId = req.query.car_id;
 
@@ -233,6 +236,7 @@ async function getImageUrl(req, res) {
 }
 
 async function deleteCar(req, res) {
+	const Car = getCarModel();
 	const carId = req.body.car_id;
 
 	const deleteImgSuccess = await u.deletePicturesForCarId(carId);
@@ -250,6 +254,7 @@ async function deleteCar(req, res) {
 }
 
 async function updateCar(req, res) {
+	const Car = getCarModel();
 	const rBody = req.body;
 	const carId = req.query.car_id;
 
@@ -349,6 +354,7 @@ async function netlifyDeploymentWebhook(req, res) {
 
 async function getHomepageStats(req, res) {
 	try {
+		const Car = getCarModel();
 		let lastDeploy = null;
 		try {
 			lastDeploy = await Settings.findOne({
@@ -359,13 +365,90 @@ async function getHomepageStats(req, res) {
 			console.log('getHomepageStats db read error', err?.message ?? err);
 		}
 
+		let total_cars = null;
+		let total_series = null;
+		let total_segments = null;
+		try {
+			const agg = await Car.aggregate([
+				{
+					$facet: {
+						totalCars: [{ $count: 'n' }],
+						series: [
+							{
+								$match: {
+									series: { $exists: true, $ne: null, $ne: '' },
+								},
+							},
+							{ $group: { _id: '$series' } },
+							{ $count: 'n' },
+						],
+						segments: [
+							{
+								$unwind: {
+									path: '$segment',
+									preserveNullAndEmptyArrays: false,
+								},
+							},
+							{
+								$match: {
+									segment: { $ne: null, $ne: '' },
+								},
+							},
+							{ $group: { _id: '$segment' } },
+							{ $count: 'n' },
+						],
+					},
+				},
+			]).exec();
+
+			const out = agg && agg[0] ? agg[0] : {};
+			total_cars = out.totalCars?.[0]?.n ?? 0;
+			total_series = out.series?.[0]?.n ?? 0;
+			total_segments = out.segments?.[0]?.n ?? 0;
+		} catch (err) {
+			console.log('getHomepageStats car stats error', err?.message ?? err);
+			// Keep endpoint functional if DB is down/unreachable.
+		}
+
 		const time = lastDeploy?.time ?? lastDeploy?.payload?.created_at ?? null;
 		const uptime = time ? u.formatUptime(time, new Date()) : null;
 
-		return res.send({ uptime, since, first_car_date });
+		return res.send({
+			uptime,
+			since,
+			first_car_date,
+			total_cars,
+			total_series,
+			total_segments,
+		});
 	} catch (err) {
 		console.log('getHomepageStats error', err);
-		return res.send({ uptime: null, since, first_car_date });
+		return res.send({
+			uptime: null,
+			since,
+			first_car_date,
+			total_cars: null,
+			total_series: null,
+			total_segments: null,
+		});
+	}
+}
+
+async function getRuntimeConfig(req, res) {
+	try {
+		// Ensure we have the latest cached DB config for current ENV.
+		await u.loadDbConfig();
+		const env = process.env.ENV || 'prod';
+		const cfg = u.getDbConfig();
+		return res.send({
+			env,
+			key: `config_${env}`,
+			config: cfg,
+		});
+	} catch (err) {
+		console.log('getRuntimeConfig error', err);
+		const env = process.env.ENV || 'prod';
+		return res.status(400).send({ env, key: `config_${env}`, config: null });
 	}
 }
 
@@ -385,4 +468,5 @@ exports.r = {
 	verifyToken,
 	netlifyDeploymentWebhook,
 	getHomepageStats,
+	getRuntimeConfig,
 };

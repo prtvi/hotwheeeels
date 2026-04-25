@@ -1,43 +1,4 @@
 /**
- * Derive reference-style hero metrics from API car objects (read-only)
- */
-
-/**
- * @param {Array<Record<string, unknown>>} cars
- */
-function computeHeroMeta(cars) {
-	if (!Array.isArray(cars) || cars.length === 0) {
-		return {
-			total: 0,
-			nSeries: 0,
-			nTypes: 0,
-			since: '—',
-		};
-	}
-	const series = new Set();
-	const seg = new Set();
-	cars.forEach(c => {
-		if (c.series) series.add(String(c.series));
-		if (Array.isArray(c.segmentClass)) {
-			c.segmentClass.forEach(s => s && seg.add(String(s)));
-		}
-	});
-	const years = cars
-		.map(c => c.acquiredDate)
-		.filter(Boolean)
-		.map(d => new Date(d).getFullYear())
-		.filter(y => !isNaN(y) && y > 1900);
-	const since = years.length > 0 ? String(Math.min(...years)) : '—';
-
-	return {
-		total: cars.length,
-		nSeries: series.size,
-		nTypes: seg.size || 0,
-		since: since,
-	};
-}
-
-/**
  * Picks a small strip for the hero; prefers recent by acquiredDate when available.
  * @param {Array<Record<string, unknown>>} cars
  * @param {number} n
@@ -56,4 +17,4 @@ function pickPreviewCars(cars, n) {
 	return cars.slice(0, n);
 }
 
-export { computeHeroMeta, pickPreviewCars };
+export { pickPreviewCars };

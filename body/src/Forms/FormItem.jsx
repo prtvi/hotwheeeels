@@ -1,5 +1,5 @@
 import './Forms.css';
-import config from '../config.json';
+import { getConfigValue, getEnv } from '../functions.js';
 
 export default function FormItem(props) {
 	const { spec, viewSize } = props;
@@ -7,7 +7,7 @@ export default function FormItem(props) {
 
 	let value;
 
-	if (config.ENV === 'prod') value = '';
+	if (getEnv() === 'prod') value = '';
 	else value = spec.defaultValue;
 
 	// set the current value for update car form
@@ -56,7 +56,7 @@ export default function FormItem(props) {
 			);
 
 		case 'multioption':
-			const list = Object.entries(config.segmentClasses).map(i => i[0]);
+			const list = Object.entries(getConfigValue('segments', {})).map(i => i[0]);
 			return (
 				<div className={className}>
 					<label className="pf-300" htmlFor={spec.key}>
