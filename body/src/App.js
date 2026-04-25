@@ -30,6 +30,7 @@ export default function App() {
 	const [visitorMode, setVisitorMode] = React.useState(!authMode);
 	const [appView, setAppView] = React.useState(getAppViewFromUrl);
 	const [collectionCars, setCollectionCars] = React.useState([]);
+	const [homepageStats, setHomepageStats] = React.useState(null);
 
 	const showHero = appView === 'hero';
 
@@ -57,6 +58,18 @@ export default function App() {
 		const onPop = () => setAppView(getAppViewFromUrl());
 		window.addEventListener('popstate', onPop);
 		return () => window.removeEventListener('popstate', onPop);
+	}, []);
+
+	React.useEffect(() => {
+		(async function () {
+			const res = await makeRequest(
+				getEngineUrl() + '/api/stats/homepage',
+				undefined,
+				undefined
+			);
+
+			if (res && res.status === 200 && res.data) setHomepageStats(res.data);
+		})();
 	}, []);
 
 	const applyUrl = React.useCallback(u => {
@@ -160,6 +173,7 @@ export default function App() {
 		<AppShell
 			view={view}
 			carCount={collectionCars.length}
+			since={homepageStats?.since ?? null}
 			preMain={
 				!isLogin && showHero ? (
 					<HomeHero
@@ -167,6 +181,9 @@ export default function App() {
 						onViewStats={navToStats}
 						onOpenCarId={openCarFromHomePreview}
 						metaSourceCars={collectionCars}
+						uptime={homepageStats?.uptime ?? null}
+						since={homepageStats?.since ?? null}
+						firstCarDate={homepageStats?.first_car_date ?? null}
 					/>
 				) : null
 			}

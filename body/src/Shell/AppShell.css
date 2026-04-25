@@ -315,4 +315,38 @@
 	.app-shell__link {
 		--_ds-btn-pad-x: var(--ds-space-1);
 	}
+
+	/* Small phones: drop verbose status label to free space */
+	.app-shell__status-txt {
+		display: none;
+	}
+}
+
+/* Ultra-narrow phones (<= 360px): prevent nav overlap/truncation */
+@media (max-width: 360px) {
+	.app-shell__bar {
+		gap: 0;
+	}
+
+	/* Give the center nav the most room */
+	.app-shell__status {
+		gap: var(--ds-space-1);
+	}
+
+	/* Shrink logo + nav buttons slightly */
+	.app-shell__logo {
+		font-size: 14px;
+		letter-spacing: 0.08em;
+		gap: 6px;
+	}
+
+	.app-shell__link {
+		--_ds-btn-pad-x: 6px;
+		--_ds-btn-fs: 9px;
+		letter-spacing: 0.16em;
+	}
+
+	.app-shell__nav-center {
+		gap: 0;
+	}
 }

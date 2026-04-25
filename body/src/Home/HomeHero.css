@@ -209,6 +209,19 @@
 	align-items: center;
 	gap: clamp(0.08em, 1.2vw, 0.16em);
 }
+
+/* Ultra-narrow phones (<= 360px): avoid title clipping */
+@media (max-width: 360px) {
+	.home-hero__title {
+		font-size: clamp(46px, 15.5vw, 160px);
+		line-height: 0.9;
+	}
+	.home-hero__tagline {
+		font-size: 13px;
+		letter-spacing: 0.32em;
+		padding: 0 var(--ds-space-2);
+	}
+}
 .home-hero__line1 {
 	display: block;
 	color: var(--ds-color-text-primary);

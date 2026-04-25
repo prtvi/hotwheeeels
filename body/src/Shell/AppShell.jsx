@@ -12,6 +12,7 @@ export default function AppShell(props) {
 		children,
 		preMain = null,
 		mainHidden = false,
+		since,
 		onNavHome,
 		onNavGarage,
 		onNavStats,
@@ -26,6 +27,22 @@ export default function AppShell(props) {
 		typeof onNavHome === 'function' &&
 		typeof onNavGarage === 'function' &&
 		typeof onNavStats === 'function';
+
+	// Small phones: remove the right-side status cluster entirely to prevent crowding.
+	const [hideStatus, setHideStatus] = React.useState(false);
+	React.useEffect(() => {
+		if (typeof window === 'undefined' || !window.matchMedia) return;
+		const mq = window.matchMedia('(max-width: 400px)');
+		const apply = () => setHideStatus(Boolean(mq.matches));
+		apply();
+		if (typeof mq.addEventListener === 'function') {
+			mq.addEventListener('change', apply);
+			return () => mq.removeEventListener('change', apply);
+		}
+		// Safari < 14
+		mq.addListener(apply);
+		return () => mq.removeListener(apply);
+	}, []);
 
 	const { homeLinkHref, garageLinkHref, statsLinkHref } = useMemo(() => {
 		if (typeof window === 'undefined') {
@@ -173,18 +190,20 @@ export default function AppShell(props) {
 							</>
 						)}
 					</div>
-					<div
-						className="app-shell__status"
-						aria-label="Cars logged in collection"
-					>
-						<span
-							className="app-shell__status-dot"
-							aria-hidden="true"
-						/>
-						<span className="app-shell__status-txt app-shell__mono">
-							{rightLabel}
-						</span>
-					</div>
+					{hideStatus ? null : (
+						<div
+							className="app-shell__status"
+							aria-label="Cars logged in collection"
+						>
+							<span
+								className="app-shell__status-dot"
+								aria-hidden="true"
+							/>
+							<span className="app-shell__status-txt app-shell__mono">
+								{rightLabel}
+							</span>
+						</div>
+					)}
 				</div>
 			</header>
 
@@ -224,7 +243,9 @@ export default function AppShell(props) {
 					<span className="app-shell__footer-sep" aria-hidden="true">
 						{'//'}
 					</span>
-					<span className="app-shell__footer-meta">Est. 2013</span>
+					<span className="app-shell__footer-meta">
+						Garage established in {since ?? '2024'}
+					</span>
 				</div>
 			</footer>
 		</div>

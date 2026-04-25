@@ -8,7 +8,15 @@ import './HomeHero.css';
  * Receives live collection for speedo + preview; does not own data fetching.
  */
 export default function HomeHero(props) {
-	const { onEnterGarage, onViewStats, onOpenCarId, metaSourceCars } = props;
+	const {
+		onEnterGarage,
+		onViewStats,
+		onOpenCarId,
+		metaSourceCars,
+		uptime,
+		since,
+		firstCarDate,
+	} = props;
 	const m = React.useMemo(
 		() => computeHeroMeta(metaSourceCars),
 		[metaSourceCars],
@@ -36,7 +44,7 @@ export default function HomeHero(props) {
 					<br />
 					STATUS: ONLINE
 					<br />
-					UPTIME: 12Y 4M
+					UPTIME: {uptime ? uptime.toUpperCase() : '—'}
 				</div>
 				<div className="home-hero__corner home-hero__corner--r">
 					LAT: 48.8566° N
@@ -60,7 +68,8 @@ export default function HomeHero(props) {
 				</div>
 
 				<p className="home-hero__tagline">
-					by prithvi &nbsp;·&nbsp; est. 2013 &nbsp;·&nbsp; 1:64 scale
+					by prithvi &nbsp;·&nbsp; garage established in{' '}
+					{since ?? '2024'} &nbsp;·&nbsp; 1:64 scale
 				</p>
 
 				<div
@@ -100,9 +109,9 @@ export default function HomeHero(props) {
 							className="home-hero__spd-n home-hero__spd-n--orange"
 							aria-live="polite"
 						>
-							{m.since}
+							{firstCarDate ?? since ?? m.since}
 						</span>
-						<span className="home-hero__spd-l">Since</span>
+						<span className="home-hero__spd-l">Collecting since</span>
 					</div>
 				</div>
 

@@ -7,7 +7,7 @@
 	"resultsPerPage": 15,
 	"resultsPerPageVertical": 10,
 	"heroPreviewCarCount": 8,
-	"logRequests": true,
+	"logRequests": false,
 	"fuseSearchParams": ["carName", "series"],
 	"segmentClasses": {
 		"mainline": {
