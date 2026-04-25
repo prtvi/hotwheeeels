@@ -1,5 +1,5 @@
 import './Forms.css';
-import { getConfigValue, getEnv } from '../functions.js';
+import { getEnv } from '../functions.js';
 
 export default function FormItem(props) {
 	const { spec, viewSize } = props;
@@ -56,7 +56,7 @@ export default function FormItem(props) {
 			);
 
 		case 'multioption':
-			const list = Object.entries(getConfigValue('segments', {})).map(i => i[0]);
+			const list = spec.list;
 			return (
 				<div className={className}>
 					<label className="pf-300" htmlFor={spec.key}>

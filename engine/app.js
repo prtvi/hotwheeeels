@@ -27,6 +27,7 @@ app.use(r.logger);
 	app.get('/api/get_website_visit_stats', r.getWebsiteVisitStats);
 
 	app.get('/api/stats/homepage', r.getHomepageStats);
+	app.get('/api/stats', r.getStats);
 	app.get('/api/config/runtime', r.getRuntimeConfig);
 	app.post('/api/netlify/deployment_webhook', r.netlifyDeploymentWebhook);
 

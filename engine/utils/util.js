@@ -84,6 +84,13 @@ function newCarObj(reqBody, carId) {
 				valueToAttach = value;
 				break;
 
+			case 'select':
+			case 'multioption':
+				if (value == null || value === '') valueToAttach = [];
+				else if (Array.isArray(value)) valueToAttach = value;
+				else valueToAttach = [String(value)];
+				break;
+
 			case 'number':
 				valueToAttach = +value;
 				break;

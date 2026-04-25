@@ -51,6 +51,8 @@ function getSchemaForFormItem(formItems) {
 
 			case 'file':
 			case 'array':
+			case 'select':
+			case 'multioption':
 				fieldType = Array;
 				break;
 

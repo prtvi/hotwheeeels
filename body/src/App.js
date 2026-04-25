@@ -32,6 +32,7 @@ export default function App() {
 	const [appView, setAppView] = React.useState(getAppViewFromUrl);
 	const [collectionCars, setCollectionCars] = React.useState([]);
 	const [homepageStats, setHomepageStats] = React.useState(null);
+	const [statsPageData, setStatsPageData] = React.useState(null);
 	const [runtimeCfg, setRuntimeCfg] = React.useState(null);
 
 	const showHero = appView === 'hero';
@@ -85,6 +86,28 @@ export default function App() {
 				setHomepageStats(res.data);
 		})();
 	}, []);
+
+	React.useEffect(() => {
+		if (appView !== 'stats') return;
+		let cancelled = false;
+		setStatsPageData(null);
+		(async function () {
+			const res = await makeRequest(
+				getEngineUrl() + '/api/stats',
+				undefined,
+				undefined,
+			);
+			if (cancelled) return;
+			if (res && res.status === 200 && res.data) {
+				setStatsPageData(res.data);
+			} else {
+				setStatsPageData({ _error: true });
+			}
+		})();
+		return () => {
+			cancelled = true;
+		};
+	}, [appView]);
 
 	const applyUrl = React.useCallback(u => {
 		window.history.pushState({}, '', u);
@@ -160,7 +183,12 @@ export default function App() {
 	const renderMain = function () {
 		if (authenticated) {
 			if (appView === 'stats') {
-				return <StatsPage />;
+				return (
+					<StatsPage
+						statsData={statsPageData}
+						onOpenCarId={openCarFromHomePreview}
+					/>
+				);
 			}
 			return (
 				<Main
@@ -170,7 +198,12 @@ export default function App() {
 			);
 		} else if (!authenticated && visitorMode) {
 			if (appView === 'stats') {
-				return <StatsPage />;
+				return (
+					<StatsPage
+						statsData={statsPageData}
+						onOpenCarId={openCarFromHomePreview}
+					/>
+				);
 			}
 			return (
 				<Main visitorMode={true} onCollectionMeta={setCollectionCars} />
@@ -188,12 +221,20 @@ export default function App() {
 	const view = !authenticated && !visitorMode ? 'login' : 'main';
 	const isLogin = view === 'login';
 
+	// Navbar count: Main only mounts on garage, so hero/stats would otherwise show 0.
+	const navCarCount = React.useMemo(() => {
+		if (collectionCars.length > 0) return collectionCars.length;
+		const t = homepageStats?.total_cars;
+		if (typeof t === 'number' && !Number.isNaN(t)) return t;
+		return 0;
+	}, [collectionCars, homepageStats]);
+
 	return (
 		<>
 			<CustomCursor />
 			<AppShell
 				view={view}
-				carCount={collectionCars.length}
+				carCount={navCarCount}
 				since={homepageStats?.since ?? null}
 				preMain={
 					!isLogin && showHero ? (
