@@ -30,3 +30,5 @@ assets/
 *.txt
 .env
 out/
+build/
+*.html

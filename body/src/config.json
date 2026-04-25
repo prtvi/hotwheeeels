@@ -4,8 +4,9 @@
 	"engineURL": "https://hotwheeeelsengine.onrender.com",
 	"engineURLDev": "http://localhost:3001",
 	"maxFileUploadLimit": 5,
-	"resultsPerPage": 12,
-	"resultsPerPageVertical": 9,
+	"resultsPerPage": 15,
+	"resultsPerPageVertical": 10,
+	"heroPreviewCarCount": 8,
 	"logRequests": true,
 	"fuseSearchParams": ["carName", "series"],
 	"segmentClasses": {

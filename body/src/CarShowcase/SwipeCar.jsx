@@ -1,9 +1,7 @@
-import './CarShowcase.css';
-
 import { getSessionItem } from '../functions.js';
 
-export default function SwipeCar(props) {
-	const { carName, nItems, showCar } = props;
+function SwipeCar(props) {
+	const { nItems, showCar } = props;
 
 	const left = function () {
 		const currCarIdx = getSessionItem('carIdx', Number);
@@ -26,26 +24,29 @@ export default function SwipeCar(props) {
 	};
 
 	const currCarIdx = getSessionItem('carIdx', Number);
+	const atStart = currCarIdx <= 0;
+	const atEnd = currCarIdx >= nItems - 1;
 
 	return (
-		<div className="swipe-car">
-			<span
-				className={`arrow-left ${currCarIdx <= 0 ? 'disabled' : ''}`}
+		<div className="swipe-car" role="group" aria-label="Previous or next car">
+			<button
+				type="button"
+				className={'mnav-btn' + (atStart ? ' mnav-btn--disabled' : '')}
 				onClick={left}
+				disabled={atStart}
 			>
-				&#10094;
-			</span>
-
-			<span className="pif-300">{carName}</span>
-
-			<span
-				className={`arrow-right ${
-					currCarIdx >= nItems - 1 ? 'disabled' : ''
-				}`}
+				◀ PREV
+			</button>
+			<button
+				type="button"
+				className={'mnav-btn' + (atEnd ? ' mnav-btn--disabled' : '')}
 				onClick={right}
+				disabled={atEnd}
 			>
-				&#10095;
-			</span>
+				NEXT ▶
+			</button>
 		</div>
 	);
 }
+SwipeCar.displayName = 'SwipeCar';
+export default SwipeCar;

@@ -2,10 +2,9 @@ import React from 'react';
 import './Utils.css';
 
 export default function Modal(props) {
-	const { modalTitle, isOpen, setModalOpen, children } = props;
+	const { modalTitle, isOpen, setModalOpen, children, isCarShowcase } = props;
 
 	const closeModal = React.useCallback(() => {
-		// check if url search params has car_id and remove it if it exists
 		const urlParams = new URLSearchParams(window.location.search);
 		if (urlParams.has('car_id')) window.history.pushState(null, '', '/');
 
@@ -25,13 +24,38 @@ export default function Modal(props) {
 
 	React.useEffect(() => {
 		window.addEventListener('keydown', handleEscForClosingModal);
-
 		return () => {
-			window.addEventListener('keydown', handleEscForClosingModal);
+			window.removeEventListener('keydown', handleEscForClosingModal);
 		};
 	}, [handleEscForClosingModal]);
 
 	if (!isOpen) return null;
+
+	if (isCarShowcase) {
+		const child = React.isValidElement(children)
+			? React.cloneElement(children, {
+					onClose: closeModal,
+					headSlot: modalTitle,
+				})
+			: children;
+
+		return (
+			<div
+				className="ds-car-modal__scrim"
+				onClick={handleClickOutsideModalBody}
+			>
+				<div
+					className="ds-car-modal__wrap"
+					role="dialog"
+					aria-modal="true"
+					aria-label="Car details"
+					onClick={e => e.stopPropagation()}
+				>
+					{child}
+				</div>
+			</div>
+		);
+	}
 
 	return (
 		<div className="modal-out" onClick={handleClickOutsideModalBody}>

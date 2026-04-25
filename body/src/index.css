@@ -1,3 +1,7 @@
+/*
+ * App shell: reset, legacy :root, and Poppins utility classes.
+ * New work: use `theme.css` — CSS variables --ds-* and .ds-* classes.
+ */
 * {
 	margin: 0;
 	padding: 0;
@@ -7,9 +11,29 @@
 	display: none;
 }
 
+/* One vertical scroll on the document (avoids html+body “double” scroll jank) */
+html {
+	height: 100%;
+	overflow-x: hidden;
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
+}
 body {
-	background-color: var(--bg);
-	color: var(--color);
+	min-height: 100%;
+	overflow-x: hidden;
+	background-color: var(--ds-color-bg, var(--bg));
+	color: var(--ds-color-text-primary, var(--color));
+}
+#root {
+	min-height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+:disabled,
+[disabled],
+[aria-disabled='true'] {
+	cursor: not-allowed;
 }
 
 input {

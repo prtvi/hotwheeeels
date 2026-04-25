@@ -2,6 +2,7 @@ import React from 'react';
 import Fuse from 'fuse.js';
 
 import './Main.css';
+import './GaragePage.css';
 import CarShowcase from '../CarShowcase/CarShowcase.jsx';
 import Skeleton from '../Utils/Skeleton.jsx';
 import NoResults from '../Utils/NoResults.jsx';
@@ -21,12 +22,28 @@ import {
 	getResultsFromFilterStrict,
 	getAuthHeaders,
 	setSessionStorage,
-	sortHandler,
 	getResultsPerPage,
 } from '../functions.js';
 
 export default function Main(props) {
-	const { visitorMode } = props;
+	const { visitorMode, onCollectionMeta } = props;
+	const [isMobile, setIsMobile] = React.useState(() => {
+		if (typeof window === 'undefined') return false;
+		return window.matchMedia?.('(max-width: 768px)')?.matches ?? false;
+	});
+
+	React.useEffect(() => {
+		if (typeof window === 'undefined' || !window.matchMedia) return;
+		const mq = window.matchMedia('(max-width: 768px)');
+		const onChange = e => setIsMobile(Boolean(e.matches));
+		// Some browsers use addEventListener; older Safari uses addListener
+		if (mq.addEventListener) mq.addEventListener('change', onChange);
+		else mq.addListener(onChange);
+		return () => {
+			if (mq.removeEventListener) mq.removeEventListener('change', onChange);
+			else mq.removeListener(onChange);
+		};
+	}, []);
 
 	// modal
 	const [isModalOpen, setModalOpen] = React.useState(false);
@@ -41,14 +58,11 @@ export default function Main(props) {
 	// search input
 	const [searchInput, setSearchInput] = React.useState('');
 
-	// sorting
-	const [sortParams, setSortParams] = React.useState({
-		sortBy: 'acquiredDate',
-		sortOrder: 'asc',
-	});
+	// sorting UI removed; keep stable default ordering
 
 	// pagination
 	const [currPage, setCurrPage] = React.useState(1);
+	const [segmentFilter, setSegmentFilter] = React.useState('');
 
 	React.useEffect(() => {
 		async function fetchData() {
@@ -69,6 +83,7 @@ export default function Main(props) {
 			if (res.status === 200) {
 				setAllResults(() => res.data);
 				setResultsForView(() => res.data);
+				setSegmentFilter('');
 
 				showRequestedCar(res.data);
 			}
@@ -78,6 +93,22 @@ export default function Main(props) {
 		setSessionStorage('carIdx', 0);
 		// eslint-disable-next-line
 	}, [visitorMode]);
+
+	// Open car modal when URL changes (e.g. HomeHero preview click sets ?car_id=...)
+	React.useEffect(() => {
+		const onLocation = () => {
+			if (allResults.length) showRequestedCar(allResults);
+		};
+		window.addEventListener('popstate', onLocation);
+		return () => window.removeEventListener('popstate', onLocation);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [allResults]);
+
+	React.useEffect(() => {
+		if (typeof onCollectionMeta === 'function') {
+			onCollectionMeta(allResults);
+		}
+	}, [allResults, onCollectionMeta]);
 
 	const fuse = new Fuse(allResults, {
 		keys: config.fuseSearchParams,
@@ -122,7 +153,6 @@ export default function Main(props) {
 				setModalContent={setModalContent}
 				setModalTitle={setModalTitle}
 				visitorMode={visitorMode}
-				setSortParams={setSortParams}
 			/>
 		);
 	}
@@ -156,7 +186,6 @@ export default function Main(props) {
 
 		setModalTitle(
 			<SwipeCar
-				carName={car.carName}
 				nItems={paginationList.length}
 				showCar={showCar}
 			/>
@@ -202,39 +231,76 @@ export default function Main(props) {
 			);
 
 		setResultsForView(() => res);
+		setSegmentFilter(segmentClass);
 		setCurrPage(1);
 	}
 
-	// sort entire list and then truncate results for view array and render only a portion of it based on curr page
-	const sortedList = sortHandler(sortParams, resultsForView);
+	// paginate results (sorting UI removed)
+	const sortedList = resultsForView;
 	const resultsPerPage = getResultsPerPage();
 	const paginationList = sortedList.slice(
 		resultsPerPage * (currPage - 1),
 		resultsPerPage * currPage
 	);
 
-	if (allResults.length === 0) return getTempComponents(<Skeleton />);
-	if (resultsForView.length === 0)
-		return getTempComponents(<NoResults clearInput={clearInput} />);
+	const wrap = node => (
+		<div
+			className="main-root garage-page"
+			id="collection"
+			data-visitor={visitorMode ? '1' : '0'}
+		>
+			{node}
+		</div>
+	);
 
-	return (
+	if (allResults.length === 0) return wrap(getTempComponents(<Skeleton />));
+	if (resultsForView.length === 0)
+		return wrap(getTempComponents(<NoResults clearInput={clearInput} />));
+
+	return wrap(
 		<>
 			{getToolbar()}
 
-			<Legend filter={filterBasedOnSegmentClass} />
+			<div className="garage-filters-row">
+				<div className="garage-filters-row__tabs">
+					<Legend
+						filter={filterBasedOnSegmentClass}
+						activeSegment={segmentFilter}
+					/>
+				</div>
+				{!isMobile ? (
+					<div className="garage-filters-row__paging">
+						<Pagination
+							length={resultsForView.length}
+							currPage={currPage}
+							setCurrPage={setCurrPage}
+						/>
+					</div>
+				) : null}
+			</div>
 
-			<Cars list={paginationList} showCar={showCar} />
+			<div className="garage-grid-wrap">
+				<Cars list={paginationList} showCar={showCar} />
+			</div>
 
-			<Pagination
-				length={resultsForView.length}
-				currPage={currPage}
-				setCurrPage={setCurrPage}
-			/>
+			{isMobile ? (
+				<div className="garage-pagination-bottom" aria-label="Pagination">
+					<Pagination
+						length={resultsForView.length}
+						currPage={currPage}
+						setCurrPage={setCurrPage}
+					/>
+				</div>
+			) : null}
 
 			<Modal
 				modalTitle={modalTitle}
 				isOpen={isModalOpen}
 				setModalOpen={setModalOpen}
+				isCarShowcase={
+					React.isValidElement(modalContent) &&
+					modalContent.type?.displayName === 'CarShowcase'
+				}
 			>
 				{modalContent}
 			</Modal>
