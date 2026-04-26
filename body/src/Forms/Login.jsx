@@ -25,7 +25,7 @@ export default function Login(props) {
 		const response = await makeRequest(
 			engineUrl + '/api/login',
 			{},
-			{ input: inputValue }
+			{ input: inputValue },
 		);
 
 		setResponses(() => [response]);
@@ -48,13 +48,20 @@ export default function Login(props) {
 
 	return (
 		<div className="login">
-			<form onSubmit={postLogin} className="login-form" aria-label="Authentication">
+			<form
+				onSubmit={postLogin}
+				className="login-form"
+				aria-label="Authentication"
+			>
 				<div className="login-card">
 					<div className="login-form-component">
 						<label htmlFor="login" className="login-label">
 							Authenticate:
 						</label>
-						<span className="login-message hidden" aria-live="polite">
+						<span
+							className="login-message hidden"
+							aria-live="polite"
+						>
 							incorrect pass
 						</span>
 					</div>
@@ -70,7 +77,10 @@ export default function Login(props) {
 							placeholder="password"
 						/>
 
-						<button className="ds-btn ds-btn--primary login-btn" type="submit">
+						<button
+							className="ds-btn ds-btn--primary login-btn"
+							type="submit"
+						>
 							{formSubmitted && responses.length === 0 ? (
 								<Loader width={'6px'} height={'6px'} />
 							) : (

@@ -49,24 +49,24 @@ export default function AddCarForm(props) {
 		const textFormRes = await postFormTextData(
 			e.currentTarget,
 			urlText,
-			headers
+			headers,
 		);
 		const imageFormRes = await postImageData(
 			fileInput,
 			urlImage,
 			carId,
-			headers
+			headers,
 		);
 
 		setResponses(() => [textFormRes, imageFormRes]);
 
 		if (textFormRes.status === 200 && imageFormRes.status === 200)
 			setModalContentForMessage(
-				`A new car has been added to your collection!`
+				`A new car has been added to your collection!`,
 			);
 		else
 			setModalContentForMessage(
-				'Some error occurred! Try again in some time'
+				'Some error occurred! Try again in some time',
 			);
 	}
 

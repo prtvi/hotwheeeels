@@ -15,7 +15,7 @@ export default function Modal(props) {
 		e => {
 			if (e.key === 'Escape') closeModal();
 		},
-		[closeModal]
+		[closeModal],
 	);
 
 	const handleClickOutsideModalBody = e => {

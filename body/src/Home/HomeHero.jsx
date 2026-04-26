@@ -110,7 +110,9 @@ export default function HomeHero(props) {
 						>
 							{firstCarDate ?? since ?? '—'}
 						</span>
-						<span className="home-hero__spd-l">Collecting since</span>
+						<span className="home-hero__spd-l">
+							Collecting since
+						</span>
 					</div>
 				</div>
 

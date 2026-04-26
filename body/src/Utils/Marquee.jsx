@@ -10,7 +10,7 @@ export default function Marquee(props) {
 			if (text === '🚗💨') setText('🚗');
 			else setText('🚗💨');
 		},
-		[text]
+		[text],
 	);
 
 	React.useEffect(() => {

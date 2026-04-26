@@ -15,18 +15,18 @@ import {
 function segmentTypeLabel(segment) {
 	if (!Array.isArray(segment) || !segment.length) return 'COLLECTION';
 	const segs = getConfigValue('segments', {});
-	const labels = segment
-		.map(s => segs[s]?.label)
-		.filter(Boolean);
-	return labels.length
-		? labels.join(' · ').toUpperCase()
-		: 'COLLECTION';
+	const labels = segment.map(s => segs[s]?.label).filter(Boolean);
+	return labels.length ? labels.join(' · ').toUpperCase() : 'COLLECTION';
 }
 
 function firstTagLabel(segment) {
 	if (!Array.isArray(segment) || !segment.length) return '1:64';
 	const k = segment[0];
-	return (getConfigValue('segments', {})[k]?.label || k || '1:64').toUpperCase();
+	return (
+		getConfigValue('segments', {})[k]?.label ||
+		k ||
+		'1:64'
+	).toUpperCase();
 }
 
 function isHeadSwipe(el) {
@@ -45,7 +45,10 @@ function CarShowcase(props) {
 		onClose,
 		headSlot,
 	} = props;
-	const rowsForView = getRowItemsForShowcase(getConfigValue('formItems', []), car);
+	const rowsForView = getRowItemsForShowcase(
+		getConfigValue('formItems', []),
+		car,
+	);
 
 	const [mode, setMode] = React.useState('');
 	const [shareCopied, setShareCopied] = React.useState(false);
@@ -61,7 +64,8 @@ function CarShowcase(props) {
 		if (mq.addEventListener) mq.addEventListener('change', onChange);
 		else mq.addListener(onChange);
 		return () => {
-			if (mq.removeEventListener) mq.removeEventListener('change', onChange);
+			if (mq.removeEventListener)
+				mq.removeEventListener('change', onChange);
 			else mq.removeListener(onChange);
 		};
 	}, []);
@@ -94,7 +98,9 @@ function CarShowcase(props) {
 						<button
 							type="button"
 							className="cs-share"
-							aria-label={shareCopied ? 'Link copied' : 'Copy share link'}
+							aria-label={
+								shareCopied ? 'Link copied' : 'Copy share link'
+							}
 							title={shareCopied ? 'Copied' : 'Copy share link'}
 							onClick={copyCarShareLink}
 						>
@@ -137,7 +143,9 @@ function CarShowcase(props) {
 						/>
 					) : null}
 
-					<p className="cs-type-label">{segmentTypeLabel(car.segment)}</p>
+					<p className="cs-type-label">
+						{segmentTypeLabel(car.segment)}
+					</p>
 					<h2 className="cs-title">{car.carName}</h2>
 					{car.brand ? (
 						<p className="cs-brand">
@@ -172,5 +180,6 @@ function CarShowcase(props) {
 		</div>
 	);
 }
+
 CarShowcase.displayName = 'CarShowcase';
 export default CarShowcase;

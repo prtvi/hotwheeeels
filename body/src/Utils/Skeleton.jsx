@@ -3,10 +3,7 @@ import { getResultsPerPage } from '../functions.js';
 
 function FilterPillsSkeleton() {
 	return (
-		<div
-			className="garage-skeleton-filters"
-			aria-hidden
-		>
+		<div className="garage-skeleton-filters" aria-hidden>
 			{[1, 2, 3, 4, 5, 6].map(i => (
 				<div key={i} className="pill" />
 			))}

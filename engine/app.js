@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const multer = require('multer');
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
-const { r } = require('./utils/controller.js');
+const { r } = require('./controllers/controller.js');
 const { u } = require('./utils/util.js');
 require('dotenv').config();
 

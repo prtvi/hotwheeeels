@@ -37,7 +37,9 @@ export default function StatsPage({ statsData, onOpenCarId }) {
 	const h = statsData && !statsData._error ? statsData : {};
 	const byType = Array.isArray(h.by_type) ? h.by_type : null;
 	const byRarity = Array.isArray(h.by_rarity) ? h.by_rarity : null;
-	const recent = Array.isArray(h.recent_additions) ? h.recent_additions : null;
+	const recent = Array.isArray(h.recent_additions)
+		? h.recent_additions
+		: null;
 	const loadError = Boolean(statsData?._error);
 	const ready = Boolean(statsData) && !loadError;
 
@@ -133,7 +135,9 @@ export default function StatsPage({ statsData, onOpenCarId }) {
 						>
 							{dash(h.first_car_date ?? h.since)}
 						</span>
-						<span className="stats-page__spd-l">Collecting since</span>
+						<span className="stats-page__spd-l">
+							Collecting since
+						</span>
 					</div>
 				</div>
 			</section>
@@ -151,9 +155,7 @@ export default function StatsPage({ statsData, onOpenCarId }) {
 							<span className="stats-page__panel-line" />
 							By type
 						</h2>
-						<p className="stats-page__panel-sub">
-							Cars by segment
-						</p>
+						<p className="stats-page__panel-sub">Cars by segment</p>
 					</div>
 					{!ready ? (
 						<p className="stats-page__empty">Loading…</p>
@@ -162,7 +164,10 @@ export default function StatsPage({ statsData, onOpenCarId }) {
 					) : (
 						<ul className="stats-page__bars">
 							{byType.map((row, i) => (
-								<li key={row.key || i} className="stats-page__barli">
+								<li
+									key={row.key || i}
+									className="stats-page__barli"
+								>
 									<div className="stats-page__barhead">
 										<span
 											className="stats-page__barname"
@@ -235,7 +240,8 @@ export default function StatsPage({ statsData, onOpenCarId }) {
 										>
 											<span
 												className={
-													'stats-page__rarity-n stats-page__rarity-n--' + tone
+													'stats-page__rarity-n stats-page__rarity-n--' +
+													tone
 												}
 												aria-label={`${segmentLabel(row.key)}: ${row.count} cars`}
 											>
@@ -284,16 +290,24 @@ export default function StatsPage({ statsData, onOpenCarId }) {
 						aria-label="Recently added cars"
 					>
 						{recent.map((car, i) => {
-							const img = car.imgs && car.imgs[0] ? car.imgs[0] : '';
+							const img =
+								car.imgs && car.imgs[0] ? car.imgs[0] : '';
 							const when = car.date_added || null;
 							return (
-								<li key={car.carId || i} className="stats-page__recent-li">
+								<li
+									key={car.carId || i}
+									className="stats-page__recent-li"
+								>
 									<button
 										type="button"
 										className="stats-page__recent-row"
 										aria-label={`Open ${car.carName || 'car'} in garage, added ${formatDateAdded(when)}`}
 										onClick={() => {
-											if (car.carId && typeof onOpenCarId === 'function') {
+											if (
+												car.carId &&
+												typeof onOpenCarId ===
+													'function'
+											) {
 												onOpenCarId(car.carId);
 											}
 										}}

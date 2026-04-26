@@ -1,0 +1,163 @@
+const cloudinary = require('cloudinary').v2;
+const { u } = require('../utils/util.js');
+const { getCarModel } = require('../utils/db.js');
+
+async function getAllMasked(req, res) {
+	const Car = getCarModel();
+	const projection = u.getMaskedCarFields();
+	const results = await Car.find({}, projection);
+
+	if (results.length > 0) return res.send(results);
+	else return res.status(400).send([]);
+}
+
+async function getAll(req, res) {
+	const Car = getCarModel();
+	const results = await Car.find();
+	if (results.length > 0) return res.send(results);
+	else return res.status(400).send([]);
+}
+
+function addCar(req, res) {
+	const Car = getCarModel();
+	const rBody = req.body;
+	const carId = req.query.car_id;
+
+	const car = new Car(u.newCarObj(rBody, carId));
+	car.save()
+		.then(() => {
+			console.log('car saved in db');
+			return res.send('car saved in db');
+		})
+		.catch(err => {
+			console.log('error saving car', err);
+			return res.status(400).send('error saving car');
+		});
+}
+
+async function uploadImage(req, res) {
+	const Car = getCarModel();
+	const fileInput = req.files;
+	const carId = req.query.car_id;
+
+	const nFiles = fileInput.length;
+	if (!fileInput || nFiles === 0)
+		return res.status(400).send('no files were uploaded.');
+
+	const deleteImgSuccess = await u.deletePicturesForCarId(carId);
+	console.log('image delete msg:', deleteImgSuccess);
+
+	const images = [];
+	for (let i = 0; i < nFiles; i++) {
+		const file = fileInput[i];
+
+		const fd = new FormData();
+		fd.append('img', new Blob([file.buffer]), file.originalname);
+
+		const baseUrl = u.getEngineURL();
+		const url = baseUrl + '/api/auth/get_img_url';
+
+		const response = await u.makeRequest(url, fd, {
+			headers: { token: req.headers.token },
+		});
+		if (response.status === 200) images.push(response.data);
+	}
+
+	if (images.length > 0) {
+		const updateRes = await Car.findOneAndUpdate(
+			{ carId: carId },
+			{ imgs: images },
+			{ new: true },
+		);
+
+		if (updateRes.imgs.length > 0) {
+			console.log('image upload success');
+			return res.send('images uploaded successfully');
+		} else {
+			console.log('images upload failed', err);
+			return res.status(400).send('images upload failed');
+		}
+	} else {
+		const deleteRes = await Car.deleteOne({ carId: carId });
+
+		if (deleteRes.deletedCount > 0 && deleteRes.acknowledged) {
+			console.log('error uploading images, []images.length === 0');
+			return res.status(400).send('error uploading images');
+		} else {
+			console.log('images upload failed', err);
+			return res.status(400).send('images upload failed');
+		}
+	}
+}
+
+async function getImageUrl(req, res) {
+	const file = req.file;
+	const fnparts = file.originalname.split('.');
+	const fileNameWoExt = fnparts.slice(0, fnparts.length - 1).join('');
+
+	const buffer = await u.convertCompressAndReturnImageBuffer(file.buffer);
+	const stream = cloudinary.uploader.upload_stream(
+		{
+			folder: u.getCloudinaryFolder(),
+			public_id: fileNameWoExt,
+			use_filename: true,
+			overwrite: true,
+		},
+		(error, result) => {
+			if (error) return res.status(500).send(error);
+
+			console.log(result.secure_url);
+			return res.send(result.secure_url);
+		},
+	);
+
+	u.bufferToStream(buffer).pipe(stream);
+}
+
+async function deleteCar(req, res) {
+	const Car = getCarModel();
+	const carId = req.body.car_id;
+
+	const deleteImgSuccess = await u.deletePicturesForCarId(carId);
+	console.log('image delete msg:', deleteImgSuccess);
+
+	const deleteRes = await Car.deleteOne({ carId: carId });
+
+	if (deleteRes.deletedCount > 0 && deleteRes.acknowledged) {
+		console.log('car deleted from db');
+		return res.send('car deleted from db!');
+	} else {
+		console.log('car not deleted from db');
+		return res.status(400).send('car not deleted from db');
+	}
+}
+
+async function updateCar(req, res) {
+	const Car = getCarModel();
+	const rBody = req.body;
+	const carId = req.query.car_id;
+
+	const updateRes = await Car.findOneAndUpdate(
+		{ carId: carId },
+		u.newCarObj(rBody, carId),
+		{ new: true },
+	);
+
+	if (updateRes.carId) {
+		console.log('car update success');
+		return res.send('car updated successfully');
+	} else {
+		console.log('car update failed', err);
+		return res.status(400).send('car update failed');
+	}
+}
+
+module.exports = {
+	getAllMasked,
+	getAll,
+	addCar,
+	uploadImage,
+	getImageUrl,
+	deleteCar,
+	updateCar,
+};

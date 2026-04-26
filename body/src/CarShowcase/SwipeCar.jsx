@@ -28,7 +28,11 @@ function SwipeCar(props) {
 	const atEnd = currCarIdx >= nItems - 1;
 
 	return (
-		<div className="swipe-car" role="group" aria-label="Previous or next car">
+		<div
+			className="swipe-car"
+			role="group"
+			aria-label="Previous or next car"
+		>
 			<button
 				type="button"
 				className={'mnav-btn' + (atStart ? ' mnav-btn--disabled' : '')}
@@ -48,5 +52,6 @@ function SwipeCar(props) {
 		</div>
 	);
 }
+
 SwipeCar.displayName = 'SwipeCar';
 export default SwipeCar;

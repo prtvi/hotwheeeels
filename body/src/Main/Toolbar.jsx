@@ -70,7 +70,8 @@ export default function Toolbar(props) {
 							aria-label="Clear search"
 							tabIndex={0}
 							onKeyDown={e => {
-								if (e.key === 'Enter' || e.key === ' ') clearInput();
+								if (e.key === 'Enter' || e.key === ' ')
+									clearInput();
 							}}
 						>
 							&#10006;

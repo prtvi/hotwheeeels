@@ -40,7 +40,8 @@ export default function Main(props) {
 		if (mq.addEventListener) mq.addEventListener('change', onChange);
 		else mq.addListener(onChange);
 		return () => {
-			if (mq.removeEventListener) mq.removeEventListener('change', onChange);
+			if (mq.removeEventListener)
+				mq.removeEventListener('change', onChange);
 			else mq.removeListener(onChange);
 		};
 	}, []);
@@ -123,7 +124,7 @@ export default function Main(props) {
 			let res = getResultsFromFilter(
 				allResults,
 				'carName',
-				e.target.value
+				e.target.value,
 			);
 
 			if (res.length === 0)
@@ -185,10 +186,7 @@ export default function Main(props) {
 		));
 
 		setModalTitle(
-			<SwipeCar
-				nItems={paginationList.length}
-				showCar={showCar}
-			/>
+			<SwipeCar nItems={paginationList.length} showCar={showCar} />,
 		);
 		setModalOpen(true);
 	}
@@ -223,12 +221,7 @@ export default function Main(props) {
 	function filterBasedOnSegment(segment) {
 		let res = [];
 		if (segment === '') res = allResults;
-		else
-			res = getResultsFromFilterStrict(
-				allResults,
-				'segment',
-				segment
-			);
+		else res = getResultsFromFilterStrict(allResults, 'segment', segment);
 
 		setResultsForView(() => res);
 		setSegmentFilter(segment);
@@ -240,7 +233,7 @@ export default function Main(props) {
 	const resultsPerPage = getResultsPerPage();
 	const paginationList = sortedList.slice(
 		resultsPerPage * (currPage - 1),
-		resultsPerPage * currPage
+		resultsPerPage * currPage,
 	);
 
 	const wrap = node => (
@@ -284,7 +277,10 @@ export default function Main(props) {
 			</div>
 
 			{isMobile ? (
-				<div className="garage-pagination-bottom" aria-label="Pagination">
+				<div
+					className="garage-pagination-bottom"
+					aria-label="Pagination"
+				>
 					<Pagination
 						length={resultsForView.length}
 						currPage={currPage}
@@ -304,6 +300,6 @@ export default function Main(props) {
 			>
 				{modalContent}
 			</Modal>
-		</>
+		</>,
 	);
 }

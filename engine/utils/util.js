@@ -180,7 +180,7 @@ function bufferToStream(buffer) {
 }
 
 function getEngineURL() {
-	return getConfigValue('engineURL', 'https://hotwheeeelsengine.onrender.com');
+	return getConfigValue('engineURL', 'http://localhost:3003');
 }
 
 function getCloudinaryFolder() {
@@ -201,11 +201,15 @@ function formatUptime(fromDate, toDate) {
 	if (to.getDate() < from.getDate()) totalMonths -= 1;
 	if (totalMonths < 0) totalMonths = 0;
 
-	// < 1 month: show days only.
+	// < 1 month: show days, or hours when under 1 full day, or minutes if under 1h.
 	if (totalMonths < 1) {
 		const ms = to.getTime() - from.getTime();
 		const days = Math.max(0, Math.floor(ms / (1000 * 60 * 60 * 24)));
-		return `${days}d`;
+		if (days > 0) return `${days}d`;
+		const hours = Math.floor(ms / (1000 * 60 * 60));
+		if (hours > 0) return `${hours}h`;
+		const minutes = Math.max(0, Math.floor(ms / (1000 * 60)));
+		return `${minutes}m`;
 	}
 
 	// < 1 year: show months + days.

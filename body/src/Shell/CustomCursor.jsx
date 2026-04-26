@@ -15,7 +15,8 @@ export default function CustomCursor() {
 		if (typeof window === 'undefined') return;
 		if (window.matchMedia('(pointer: coarse)').matches) return;
 		if (window.matchMedia('(hover: none)').matches) return;
-		if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+		if (window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+			return;
 		setActive(true);
 	}, []);
 
@@ -46,6 +47,6 @@ export default function CustomCursor() {
 			<div ref={bar} className="ds-cursor" aria-hidden="true" />
 			<div ref={ring} className="ds-cursor-ring" aria-hidden="true" />
 		</>,
-		document.body
+		document.body,
 	);
 }

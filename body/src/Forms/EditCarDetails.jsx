@@ -44,7 +44,7 @@ export default function EditCarDetails(props) {
 		const res = await makeRequest(
 			`${getEngineUrl()}/api/auth/delete_car`,
 			headers,
-			{ car_id: carId }
+			{ car_id: carId },
 		);
 
 		setResponses(() => [res]);
@@ -77,7 +77,7 @@ export default function EditCarDetails(props) {
 				fileInput,
 				urlImage,
 				carId,
-				headers
+				headers,
 			);
 
 			setResponses(() => [textFormRes, imageFormRes]);
@@ -86,7 +86,7 @@ export default function EditCarDetails(props) {
 				setModalContentForMessage(`The car has been updated!`);
 			else
 				setModalContentForMessage(
-					'Some error occurred! Try again in some time'
+					'Some error occurred! Try again in some time',
 				);
 			return;
 		}
@@ -97,7 +97,7 @@ export default function EditCarDetails(props) {
 			setModalContentForMessage(`Car has been updated!`);
 		else
 			setModalContentForMessage(
-				'Some error occurred! Try again in some time'
+				'Some error occurred! Try again in some time',
 			);
 	}
 
