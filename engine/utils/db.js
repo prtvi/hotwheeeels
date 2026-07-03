@@ -92,26 +92,6 @@ function getCarModel() {
 	return CarModel;
 }
 
-const logSchema = {
-	url: {
-		type: String,
-		required: true,
-	},
-	ts: {
-		type: Number,
-		required: true,
-	},
-	src: {
-		type: String,
-		required: false,
-	},
-	createdAt: {
-		type: Date,
-	},
-};
-
-exports.Log = new mongoose.model('Log', mongoose.Schema(logSchema));
-
 const settingsSchema = {
 	key: {
 		type: String,

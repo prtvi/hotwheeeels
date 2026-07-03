@@ -3,7 +3,6 @@ const cars = require('./cars');
 const stats = require('./stats');
 const {
 	captureWebsiteVisit,
-	getWebsiteVisitStats,
 	netlifyDeploymentWebhook,
 	getRuntimeConfig,
 } = require('./config');
@@ -16,7 +15,6 @@ exports.r = {
 	...cars,
 	...stats,
 	captureWebsiteVisit,
-	getWebsiteVisitStats,
 	netlifyDeploymentWebhook,
 	getRuntimeConfig,
 };

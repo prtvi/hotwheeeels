@@ -24,7 +24,6 @@ app.use(r.logger);
 	app.get('/api/get_all', r.getAllMasked);
 
 	app.post('/api/capture_website_visit', r.captureWebsiteVisit);
-	app.get('/api/get_website_visit_stats', r.getWebsiteVisitStats);
 
 	app.get('/api/stats/homepage', r.getHomepageStats);
 	app.get('/api/stats', r.getStats);
