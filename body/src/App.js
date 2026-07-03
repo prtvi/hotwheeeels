@@ -24,7 +24,7 @@ function getAppViewFromUrl() {
 }
 
 export default function App() {
-	logUrl();
+	const hasLoggedUrl = React.useRef(false);
 	const authMode = window.location.href.includes('auth');
 
 	const [authenticated, setAuthentication] = React.useState(false);
@@ -36,6 +36,12 @@ export default function App() {
 	const [runtimeCfg, setRuntimeCfg] = React.useState(null);
 
 	const showHero = appView === 'hero';
+
+	React.useEffect(() => {
+		if (hasLoggedUrl.current) return;
+		hasLoggedUrl.current = true;
+		logUrl();
+	}, []);
 
 	if (authMode) {
 		(async function () {
