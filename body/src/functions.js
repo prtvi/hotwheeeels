@@ -5,6 +5,7 @@ import FormItem from './Forms/FormItem.jsx';
 
 let runtimeConfig = null;
 let runtimeEnv = null;
+let hasLoggedUrlCaptured = false;
 
 function setRuntimeConfig(env, cfg) {
 	runtimeEnv = env;
@@ -31,7 +32,10 @@ function getConfigValue(key, fallback) {
  * @returns {String} engine url
  */
 function getEngineUrl() {
-	return getConfigValue('engineURL', 'https://hotwheeeelsengine.onrender.com');
+	return getConfigValue(
+		'engineURL',
+		'https://hotwheeeelsengine.onrender.com',
+	);
 }
 
 /**
@@ -403,7 +407,13 @@ function getResultsPerPage() {
 }
 
 async function logUrl() {
-	if (!getConfigValue('logRequests', false) || getEnv() === 'dev') return;
+	if (typeof window === 'undefined') return;
+	if (hasLoggedUrlCaptured) return;
+	hasLoggedUrlCaptured = true;
+
+	if (!getConfigValue('logRequests', false) || getEnv() === 'dev') {
+		return;
+	}
 
 	const sp = new URLSearchParams(window.location.search);
 	if (sp.has('auth')) return;

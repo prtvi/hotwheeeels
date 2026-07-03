@@ -15,8 +15,6 @@ import {
 	setRuntimeConfig,
 } from './functions.js';
 
-let hasLoggedUrl = false;
-
 function getAppViewFromUrl() {
 	if (typeof window === 'undefined') return 'hero';
 	const s = new URLSearchParams(window.location.search);
@@ -35,14 +33,9 @@ export default function App() {
 	const [homepageStats, setHomepageStats] = React.useState(null);
 	const [statsPageData, setStatsPageData] = React.useState(null);
 	const [runtimeCfg, setRuntimeCfg] = React.useState(null);
+	const hasLoggedUrlRef = React.useRef(false);
 
 	const showHero = appView === 'hero';
-
-	React.useEffect(() => {
-		if (hasLoggedUrl) return;
-		hasLoggedUrl = true;
-		logUrl();
-	}, []);
 
 	if (authMode) {
 		(async function () {
@@ -93,6 +86,12 @@ export default function App() {
 				setHomepageStats(res.data);
 		})();
 	}, []);
+
+	React.useEffect(() => {
+		if (!runtimeCfg || hasLoggedUrlRef.current) return;
+		hasLoggedUrlRef.current = true;
+		logUrl();
+	}, [runtimeCfg]);
 
 	React.useEffect(() => {
 		if (appView !== 'stats') return;
