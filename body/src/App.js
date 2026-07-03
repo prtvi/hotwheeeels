@@ -15,6 +15,8 @@ import {
 	setRuntimeConfig,
 } from './functions.js';
 
+let hasLoggedUrl = false;
+
 function getAppViewFromUrl() {
 	if (typeof window === 'undefined') return 'hero';
 	const s = new URLSearchParams(window.location.search);
@@ -24,7 +26,6 @@ function getAppViewFromUrl() {
 }
 
 export default function App() {
-	const hasLoggedUrl = React.useRef(false);
 	const authMode = window.location.href.includes('auth');
 
 	const [authenticated, setAuthentication] = React.useState(false);
@@ -38,8 +39,8 @@ export default function App() {
 	const showHero = appView === 'hero';
 
 	React.useEffect(() => {
-		if (hasLoggedUrl.current) return;
-		hasLoggedUrl.current = true;
+		if (hasLoggedUrl) return;
+		hasLoggedUrl = true;
 		logUrl();
 	}, []);
 
